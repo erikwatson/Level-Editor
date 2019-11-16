@@ -156,6 +156,22 @@ function update(delta) {
         }
       })
     }
+
+    if (mouse.wheel.moved) {
+      switch (mouse.wheel.direction) {
+        case 'up':
+          brush.size++
+          break
+        case 'down':
+          if (brush.size > 1) {
+            brush.size--
+          }
+          break
+
+        default:
+          console.log('neither up nor down somehow')
+      }
+    }
   }
 
   if (tool === 'fill') {
