@@ -327,15 +327,14 @@ function render() {
 
 function start() {
   const container = document.getElementById('app-container')
-  game.attachTo(container)
 
+  game.attachTo(container)
   game.disableContextMenu()
   game.setSize(width, height)
   game.setSmoothing(false)
   game.setUpdate(update)
   game.setRender(render)
   game.setBackgroundColor('#232323')
-
   game.start()
 
   const brushElement = document.querySelector('#brush')
@@ -445,9 +444,17 @@ function start() {
 }
 
 function loadTiles() {
-  assets.loadTerrain('terrain/default.json')
+  Promise.all([
+    assets.loadTerrain('terrain/default.json'),
+    assets.loadTerrain('terrain/green-hills.json')
+  ])
     .then(terrain => {
-      console.log(terrain)
+      spriteSheets = {
+        0: terrain[0],
+        1: terrain[1]
+      }
+
+      start()
     })
     .catch(err => {
       console.error(err)
