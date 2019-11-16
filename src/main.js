@@ -167,6 +167,11 @@ function update(delta) {
         currentTileSet
       )
     }
+
+    if (mouse.right.pressed) {
+      // begin filling from current tile
+      floodFill(mousePosTile, grid.tiles[mousePosTile.y][mousePosTile.x], 0)
+    }
   }
 }
 
