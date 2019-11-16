@@ -21,6 +21,7 @@ export default {
       verbose: true,
       targets: [
         { src: 'assets/images', dest: 'dest/' },
+        { src: 'assets/index.html', dest: 'dest/' },
         { src: 'assets/music', dest: 'dest/' },
         { src: 'assets/sfx', dest: 'dest/' },
         { src: 'assets/terrain', dest: 'dest/' }

@@ -352,6 +352,15 @@ function start() {
 
   const terrainElement = document.querySelector('#terrain')
 
+  // Adding the list of imported terrains to the user interface
+  spriteSheets.forEach(sheet => {
+    const option = document.createElement('option')
+    option.text = sheet.name
+    option.value = sheet.type // must be unique! Not currenly enforced
+
+    terrainElement.appendChild(option)
+  })
+
   terrainElement.addEventListener('change', e => {
     currentTileSet = e.target.value
   })
@@ -451,14 +460,13 @@ function start() {
 function loadTiles() {
   Promise.all([
     assets.loadTerrain('terrain/default.json'),
-    assets.loadTerrain('terrain/green-hills.json')
+    assets.loadTerrain('terrain/green-hills.json'),
+    assets.loadTerrain('terrain/variants.json')
   ])
     .then(terrain => {
-      spriteSheets = {
-        0: terrain[0],
-        1: terrain[1]
-      }
+      console.log(terrain)
 
+      spriteSheets = terrain
       start()
     })
     .catch(err => {

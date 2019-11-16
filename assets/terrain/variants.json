@@ -1,12 +1,17 @@
 {
-  "name": "Green Hills",
-  "type": 1,
-  "path": "/images/green-hills.png",
+  "name": "Variants",
+  "type": 2,
+  "path": "/images/tileset-variant.png",
 
   "tiles": [
     {
       "type": 0,
       "position": { "x": 0, "y": 0 },
+      "size": { "width": 8, "height": 8 }
+    },
+    {
+      "type": 0,
+      "position": { "x": 4, "y": 9 },
       "size": { "width": 8, "height": 8 }
     },
     {
