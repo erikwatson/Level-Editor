@@ -23,6 +23,7 @@
     "watch": "yarn build -w"
   },
   "dependencies": {
-    "node-fetch": "^2.0.0"
+    "node-fetch": "^2.0.0",
+    "rollup-plugin-serve": "^1.0.1"
   }
 }
