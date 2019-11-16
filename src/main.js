@@ -208,7 +208,9 @@ function floodFill(node, from = 0, to = 0) {
 let spriteSheets = {}
 
 function render() {
-  graphics.tiles(grid.tiles, spriteSheets, scale, tileWidth, tileHeight)
+  graphics.dropShadow(() => {
+    graphics.tiles(grid.tiles, spriteSheets, scale, tileWidth, tileHeight)
+  })
 
   if (tool === 'brush') {
     // Highlighted Tiles, the ones the brush will paint to if you click now
@@ -263,71 +265,76 @@ function render() {
 
   // Drawing a visualisation of the Grid
   if (grid.visible) {
-    grid.tiles[0].forEach((x, i) => {
-      if (i === 0) {
-        return
-      }
-
-      const from = { x: grid.pos.x + i * grid.tileWidth * scale, y: grid.pos.y }
-      const to = {
-        x: grid.pos.x + i * grid.tileWidth * scale,
-        y: grid.pos.y + grid.tiles.length * grid.tileHeight * scale
-      }
-
-      if (i % grid.divisions === 0) {
-        graphics.line(from, to, {
-          width: 1,
-          color: '#666666'
-        })
-      } else {
-        graphics.line(from, to, {
-          width: 1,
-          color: '#333333'
-        })
-      }
-    })
-
-    grid.tiles.forEach((y, i) => {
-      if (i === 0) {
-        return
-      }
-
-      const from = {
-        x: grid.pos.x,
-        y: grid.pos.y + i * grid.tileHeight * scale
-      }
-      const to = {
-        x: grid.pos.x + grid.tiles[0].length * grid.tileHeight * scale,
-        y: grid.pos.y + i * grid.tileHeight * scale
-      }
-
-      if (i % grid.divisions === 0) {
-        graphics.line(from, to, {
-          width: 1,
-          color: '#666666'
-        })
-      } else {
-        graphics.line(from, to, {
-          width: 1,
-          color: '#333333'
-        })
-      }
-    })
-
-    // Edges of the Grid
-    graphics.rect(
-      grid.pos.x,
-      grid.pos.y,
-      grid.tiles[0].length * grid.tileWidth * scale,
-      grid.tiles.length * grid.tileHeight * scale,
-      {
-        line: {
-          width: 2,
-          color: '#ffffff'
+    graphics.multiply(() => {
+      grid.tiles[0].forEach((x, i) => {
+        if (i === 0) {
+          return
         }
-      }
-    )
+
+        const from = {
+          x: grid.pos.x + i * grid.tileWidth * scale,
+          y: grid.pos.y
+        }
+        const to = {
+          x: grid.pos.x + i * grid.tileWidth * scale,
+          y: grid.pos.y + grid.tiles.length * grid.tileHeight * scale
+        }
+
+        if (i % grid.divisions === 0) {
+          graphics.line(from, to, {
+            width: 1,
+            color: '#666666'
+          })
+        } else {
+          graphics.line(from, to, {
+            width: 1,
+            color: '#333333'
+          })
+        }
+      })
+
+      grid.tiles.forEach((y, i) => {
+        if (i === 0) {
+          return
+        }
+
+        const from = {
+          x: grid.pos.x,
+          y: grid.pos.y + i * grid.tileHeight * scale
+        }
+        const to = {
+          x: grid.pos.x + grid.tiles[0].length * grid.tileHeight * scale,
+          y: grid.pos.y + i * grid.tileHeight * scale
+        }
+
+        if (i % grid.divisions === 0) {
+          graphics.line(from, to, {
+            width: 1,
+            color: '#666666'
+          })
+        } else {
+          graphics.line(from, to, {
+            width: 1,
+            color: '#333333'
+          })
+        }
+      })
+    })
   }
+
+  // Edges of the Grid
+  graphics.rect(
+    grid.pos.x,
+    grid.pos.y,
+    grid.tiles[0].length * grid.tileWidth * scale,
+    grid.tiles.length * grid.tileHeight * scale,
+    {
+      line: {
+        width: 2,
+        color: '#ffffff'
+      }
+    }
+  )
 }
 
 function start() {
