@@ -33,7 +33,9 @@ let frameDelay = 2
 
 let currentTileSet = 1
 
-let grid = TileGrid.create(10, 10)
+// Layers - We will generalise this to "many" layers later.
+let currentLayer = 0
+let layers = []
 
 const tileWidth = 8
 const tileHeight = 8
@@ -55,7 +57,7 @@ let b = 0
 
 let mousePosTile = null
 
-function tilePos(x, y) {
+function tilePos(grid, x, y) {
   const tx = Math.floor((x + grid.pos.x) / (tileWidth * scale))
   const ty = Math.floor((y + grid.pos.y) / (tileHeight * scale))
 
@@ -85,7 +87,11 @@ function distanceBetween(x1, y1, x2, y2) {
 let highlightedTiles = []
 
 function update(delta) {
-  mousePosTile = tilePos(mouse.x, mouse.y)
+  const thisLayer = layers[currentLayer]
+
+  mousePosTile = tilePos(thisLayer, mouse.x, mouse.y)
+  // console.log(thisLayer, mousePosTile)
+
   highlightedTiles = []
 
   if (brush.shape === 'square') {
@@ -134,27 +140,25 @@ function update(delta) {
     }
   }
 
+  // Fills up the section currently highlight with a tileset of your choice
+  const fillHighlighted = function(grid, selected, tileset) {
+    selected.forEach(tile => {
+      if (
+        grid.tiles[tile.y] !== undefined &&
+        grid.tiles[tile.y][tile.x] !== undefined
+      ) {
+        grid.tiles[tile.y][tile.x] = tileset
+      }
+    })
+  }
+
   if (tool === 'brush') {
     if (mouse.left.pressed) {
-      highlightedTiles.forEach(tile => {
-        if (
-          grid.tiles[tile.y] !== undefined &&
-          grid.tiles[tile.y][tile.x] !== undefined
-        ) {
-          grid.tiles[tile.y][tile.x] = currentTileSet
-        }
-      })
+      fillHighlighted(thisLayer, highlightedTiles, currentTileSet)
     }
 
     if (mouse.right.pressed) {
-      highlightedTiles.forEach(tile => {
-        if (
-          grid.tiles[tile.y] !== undefined &&
-          grid.tiles[tile.y][tile.x] !== undefined
-        ) {
-          grid.tiles[tile.y][tile.x] = 0
-        }
-      })
+      fillHighlighted(thisLayer, highlightedTiles, 0)
     }
 
     if (mouse.wheel.moved) {
@@ -178,20 +182,26 @@ function update(delta) {
     if (mouse.left.pressed) {
       // begin filling from current tile
       floodFill(
+        thisLayer,
         mousePosTile,
-        grid.tiles[mousePosTile.y][mousePosTile.x],
+        thisLayer.tiles[mousePosTile.y][mousePosTile.x],
         currentTileSet
       )
     }
 
     if (mouse.right.pressed) {
       // begin filling from current tile
-      floodFill(mousePosTile, grid.tiles[mousePosTile.y][mousePosTile.x], 0)
+      floodFill(
+        thisLayer,
+        mousePosTile,
+        thisLayer.tiles[mousePosTile.y][mousePosTile.x],
+        0
+      )
     }
   }
 }
 
-function floodFill(node, from = 0, to = 0) {
+function floodFill(grid, node, from = 0, to = 0) {
   if (from === to) {
     return
   }
@@ -204,19 +214,19 @@ function floodFill(node, from = 0, to = 0) {
     grid.tiles[node.y][node.x] = to
 
     if (grid.tiles[node.y][node.x - 1] !== undefined) {
-      floodFill({ x: node.x - 1, y: node.y }, from, to)
+      floodFill(grid, { x: node.x - 1, y: node.y }, from, to)
     }
 
     if (grid.tiles[node.y][node.x] !== undefined) {
-      floodFill({ x: node.x, y: node.y - 1 }, from, to)
+      floodFill(grid, { x: node.x, y: node.y - 1 }, from, to)
     }
 
     if (grid.tiles[node.y][node.x + 1] !== undefined) {
-      floodFill({ x: node.x + 1, y: node.y }, from, to)
+      floodFill(grid, { x: node.x + 1, y: node.y }, from, to)
     }
 
     if (grid.tiles[node.y][node.x] !== undefined) {
-      floodFill({ x: node.x, y: node.y + 1 }, from, to)
+      floodFill(grid, { x: node.x, y: node.y + 1 }, from, to)
     }
   }
 }
@@ -224,8 +234,34 @@ function floodFill(node, from = 0, to = 0) {
 let spriteSheets = {}
 
 function render() {
-  graphics.dropShadow(() => {
-    graphics.tiles(grid.tiles, spriteSheets, scale, tileWidth, tileHeight)
+  const thisLayer = layers[currentLayer]
+
+  layers.forEach((layer, i) => {
+    if (i === currentLayer) {
+      graphics.shadow(() => {
+        graphics.tiles(
+          0,
+          0,
+          layer.tiles,
+          spriteSheets,
+          scale,
+          tileWidth,
+          tileHeight
+        )
+      })
+    } else {
+      graphics.transparency(() => {
+        graphics.tiles(
+          0,
+          0,
+          layer.tiles,
+          spriteSheets,
+          scale,
+          tileWidth,
+          tileHeight
+        )
+      }, 0.25)
+    }
   })
 
   if (tool === 'brush') {
@@ -280,23 +316,25 @@ function render() {
   }
 
   // Drawing a visualisation of the Grid
-  if (grid.visible) {
-    graphics.multiply(() => {
-      grid.tiles[0].forEach((x, i) => {
+  if (thisLayer.visible) {
+    graphics.dodge(() => {
+      thisLayer.tiles[0].forEach((x, i) => {
         if (i === 0) {
           return
         }
 
         const from = {
-          x: grid.pos.x + i * grid.tileWidth * scale,
-          y: grid.pos.y
+          x: thisLayer.pos.x + i * thisLayer.tileWidth * scale,
+          y: thisLayer.pos.y
         }
         const to = {
-          x: grid.pos.x + i * grid.tileWidth * scale,
-          y: grid.pos.y + grid.tiles.length * grid.tileHeight * scale
+          x: thisLayer.pos.x + i * thisLayer.tileWidth * scale,
+          y:
+            thisLayer.pos.y +
+            thisLayer.tiles.length * thisLayer.tileHeight * scale
         }
 
-        if (i % grid.divisions === 0) {
+        if (i % thisLayer.divisions === 0) {
           graphics.line(from, to, {
             width: 1,
             color: '#666666'
@@ -309,21 +347,23 @@ function render() {
         }
       })
 
-      grid.tiles.forEach((y, i) => {
+      thisLayer.tiles.forEach((y, i) => {
         if (i === 0) {
           return
         }
 
         const from = {
-          x: grid.pos.x,
-          y: grid.pos.y + i * grid.tileHeight * scale
+          x: thisLayer.pos.x,
+          y: thisLayer.pos.y + i * thisLayer.tileHeight * scale
         }
         const to = {
-          x: grid.pos.x + grid.tiles[0].length * grid.tileHeight * scale,
-          y: grid.pos.y + i * grid.tileHeight * scale
+          x:
+            thisLayer.pos.x +
+            thisLayer.tiles[0].length * thisLayer.tileHeight * scale,
+          y: thisLayer.pos.y + i * thisLayer.tileHeight * scale
         }
 
-        if (i % grid.divisions === 0) {
+        if (i % thisLayer.divisions === 0) {
           graphics.line(from, to, {
             width: 1,
             color: '#666666'
@@ -340,10 +380,10 @@ function render() {
 
   // Edges of the Grid
   graphics.rect(
-    grid.pos.x,
-    grid.pos.y,
-    grid.tiles[0].length * grid.tileWidth * scale,
-    grid.tiles.length * grid.tileHeight * scale,
+    thisLayer.pos.x,
+    thisLayer.pos.y,
+    thisLayer.tiles[0].length * thisLayer.tileWidth * scale,
+    thisLayer.tiles.length * thisLayer.tileHeight * scale,
     {
       line: {
         width: 2,
@@ -365,6 +405,12 @@ function start() {
   game.setBackgroundColor('#232323')
   game.start()
 
+  layers = [
+    TileGrid.create(10, 10),
+    TileGrid.create(10, 10),
+    TileGrid.create(10, 10)
+  ]
+
   const brushElement = document.querySelector('#brush')
 
   brushElement.addEventListener('input', e => {
@@ -385,10 +431,10 @@ function start() {
   })
 
   terrainElement.addEventListener('change', e => {
-    currentTileSet = e.target.value
+    currentTileSet = parseInt(e.target.value)
   })
 
-  currentTileSet = terrainElement.value
+  currentTileSet = parseInt(terrainElement.value)
 
   const brushShapeElement = document.querySelector('#brush-shape')
 
@@ -401,26 +447,42 @@ function start() {
   const gridDivsElement = document.querySelector('#grid-divs')
 
   gridDivsElement.addEventListener('input', e => {
-    grid.divisions = parseInt(e.target.value)
+    layers.forEach(layer => {
+      layer.divisions = parseInt(e.target.value)
+    })
   })
 
-  grid.divisions = gridDivsElement.value
+  layers.forEach(layer => {
+    layer.divisions = gridDivsElement.value
+  })
 
   const gridXElement = document.querySelector('#grid-x')
   const gridYElement = document.querySelector('#grid-y')
 
-  gridXElement.addEventListener('change', e => {})
+  gridXElement.addEventListener('change', e => {
+    layers.forEach(layer => {
+      layer.pos.x = parseInt(gridXElement.value)
+      layer.pos.y = parseInt(gridYElement.value)
+    })
+  })
 
-  gridYElement.addEventListener('change', e => {})
+  gridYElement.addEventListener('change', e => {
+    layers.forEach(layer => {
+      layer.pos.x = parseInt(gridXElement.value)
+      layer.pos.y = parseInt(gridYElement.value)
+    })
+  })
 
-  grid.pos.x = parseInt(gridXElement.value)
-  grid.pos.y = parseInt(gridYElement.value)
+  layers.forEach(layer => {
+    layer.pos.x = parseInt(gridXElement.value)
+    layer.pos.y = parseInt(gridYElement.value)
+  })
 
   const gridWidthElement = document.querySelector('#grid-width')
   const gridHeightElement = document.querySelector('#grid-height')
 
-  const replaceGrid = function(toCopy, width, height) {
-    const copy = toCopy.tiles.slice()
+  const copyGrid = function(grid, width, height) {
+    const copy = grid.tiles.slice()
 
     grid = TileGrid.create(width, height, {
       pos: { x: 0, y: 0 },
@@ -437,39 +499,67 @@ function start() {
         }
       })
     })
+
+    return grid
   }
 
   const gridToggleElement = document.querySelector('#grid-toggle')
 
   gridWidthElement.addEventListener('input', e => {
-    replaceGrid(grid, e.target.value, gridHeightElement.value)
+    for (let i = 0; i < layers.length; i++) {
+      layers[i] = copyGrid(
+        layers[i],
+        parseInt(e.target.value),
+        parseInt(gridHeightElement.value)
+      )
+    }
   })
 
   gridHeightElement.addEventListener('input', e => {
-    replaceGrid(grid, gridWidthElement.value, e.target.value)
+    for (let i = 0; i < layers.length; i++) {
+      layers[i] = copyGrid(
+        layers[i],
+        parseInt(gridWidthElement.value),
+        parseInt(e.target.value)
+      )
+    }
   })
 
   gridWidthElement.addEventListener('change', e => {
-    grid.visible = gridToggleElement.checked
+    layers.forEach(layer => {
+      layer.visible = gridToggleElement.checked
+    })
   })
 
   gridHeightElement.addEventListener('change', e => {
-    grid.visible = gridToggleElement.checked
+    layers.forEach(layer => {
+      layer.visible = gridToggleElement.checked
+    })
   })
 
-  grid = TileGrid.create(gridWidthElement.value, gridHeightElement.value, {
-    pos: { x: 0, y: 0 },
-    visible: true,
-    divisions: parseInt(gridDivsElement.value),
-    tileWidth,
-    tileHeight
-  })
+  for (let i = 0; i < layers.length; i++) {
+    layers[i] = TileGrid.create(
+      gridWidthElement.value,
+      gridHeightElement.value,
+      {
+        pos: { x: 0, y: 0 },
+        visible: true,
+        divisions: parseInt(gridDivsElement.value),
+        tileWidth,
+        tileHeight
+      }
+    )
+  }
 
   gridToggleElement.addEventListener('change', e => {
-    grid.visible = e.target.checked
+    layers.forEach(layer => {
+      layer.visible = e.target.checked
+    })
   })
 
-  grid.visible = gridToggleElement.checked
+  layers.forEach(layer => {
+    layer.visible = gridToggleElement.checked
+  })
 
   const toolElement = document.querySelector('#tool')
 
@@ -478,6 +568,12 @@ function start() {
   })
 
   tool = toolElement.value
+
+  const layersElement = document.querySelector('#current-layer')
+
+  layersElement.addEventListener('change', e => {
+    currentLayer = parseInt(e.target.value)
+  })
 }
 
 function loadTiles() {
@@ -487,8 +583,6 @@ function loadTiles() {
     assets.loadTerrain('terrain/variants.json')
   ])
     .then(terrain => {
-      console.log(terrain)
-
       spriteSheets = terrain
       start()
     })
