@@ -38,7 +38,6 @@ let currentLayer = 0
 let layers = [
   TileGrid.create(10, 10),
   TileGrid.create(10, 10),
-  TileGrid.create(10, 10),
   TileGrid.create(10, 10)
 ]
 
