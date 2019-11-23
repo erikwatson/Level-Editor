@@ -6,6 +6,7 @@
       * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
 
       canvas {
@@ -38,6 +39,7 @@
         background-color: #ffffff;
         padding: 20px;
         overflow-y: scroll;
+        height: 100vh;
       }
 
       .row {
@@ -161,11 +163,11 @@
           </div>
 
           <div class="row">
-            <label>X</label> <input type="text" id="grid-x" />
+            <label>X</label> <input type="text" id="grid-x" value="0" />
           </div>
 
           <div class="row">
-            <label>Y</label> <input type="text" id="grid-y" />
+            <label>Y</label> <input type="text" id="grid-y" value="0" />
           </div>
 
           <div class="row bottom">
@@ -179,6 +181,20 @@
               step="1"
               value="3"
             />
+          </div>
+        </div>
+        <hr />
+
+        <div class="config-section">
+          <div class="row">
+            <h2>Layers</h2>
+
+            <label>Layer</label>
+            <select id="current-layer">
+              <option value="0">Layer 1</option>
+              <option value="1">Layer 2</option>
+              <option value="2">Layer 3</option>
+            </select>
           </div>
         </div>
       </div>
