@@ -1,7 +1,7 @@
 {
   "name": "Green Hills",
   "type": 2,
-  "path": "/images/green-hills.png",
+  "path": "images/green-hills.png",
 
   "tiles": [
     {
