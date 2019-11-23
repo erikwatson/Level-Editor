@@ -1,6 +1,6 @@
 {
   "name": "Default",
-  "type": 0,
+  "type": 1,
   "path": "/images/tileset.png",
 
   "tiles": [
