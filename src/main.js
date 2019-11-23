@@ -35,7 +35,12 @@ let currentTileSet = 1
 
 // Layers - We will generalise this to "many" layers later.
 let currentLayer = 0
-let layers = []
+let layers = [
+  TileGrid.create(10, 10),
+  TileGrid.create(10, 10),
+  TileGrid.create(10, 10),
+  TileGrid.create(10, 10)
+]
 
 const tileWidth = 8
 const tileHeight = 8
@@ -250,17 +255,17 @@ function render() {
         )
       })
     } else {
-      graphics.transparency(() => {
-        graphics.tiles(
-          0,
-          0,
-          layer.tiles,
-          spriteSheets,
-          scale,
-          tileWidth,
-          tileHeight
-        )
-      }, 0.25)
+      // graphics.transparency(() => {
+      graphics.tiles(
+        0,
+        0,
+        layer.tiles,
+        spriteSheets,
+        scale,
+        tileWidth,
+        tileHeight
+      )
+      // }, 0.25)
     }
   })
 
@@ -405,11 +410,12 @@ function start() {
   game.setBackgroundColor('#232323')
   game.start()
 
-  layers = [
-    TileGrid.create(10, 10),
-    TileGrid.create(10, 10),
-    TileGrid.create(10, 10)
-  ]
+  // layers = [
+  //   TileGrid.create(10, 10),
+  //   TileGrid.create(10, 10),
+  //   TileGrid.create(10, 10),
+  //   TileGrid.create(10, 10)
+  // ]
 
   const brushElement = document.querySelector('#brush')
 
@@ -570,6 +576,15 @@ function start() {
   tool = toolElement.value
 
   const layersElement = document.querySelector('#current-layer')
+
+  layers.forEach((layer, i) => {
+    const option = document.createElement('option')
+
+    option.value = i
+    option.text = `Layer ${i}`
+
+    layersElement.appendChild(option)
+  })
 
   layersElement.addEventListener('change', e => {
     currentLayer = parseInt(e.target.value)
