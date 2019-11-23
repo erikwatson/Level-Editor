@@ -8,7 +8,7 @@ import {
   music,
   sfx,
   sprite
-} from './bramble/bramble'
+} from './bramble/src/bramble/bramble'
 
 import { onLoaded } from './events'
 
