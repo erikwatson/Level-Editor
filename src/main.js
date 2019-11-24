@@ -33,7 +33,6 @@ let frameDelay = 2
 
 let currentTileSet = 1
 
-// Layers - We will generalise this to "many" layers later.
 let currentLayer = 0
 let layers = [
   TileGrid.create(10, 10),
@@ -254,7 +253,6 @@ function render() {
         )
       })
     } else {
-      // graphics.transparency(() => {
       graphics.tiles(
         0,
         0,
@@ -264,7 +262,6 @@ function render() {
         tileWidth,
         tileHeight
       )
-      // }, 0.25)
     }
   })
 
@@ -408,13 +405,6 @@ function start() {
   game.setRender(render)
   game.setBackgroundColor('#232323')
   game.start()
-
-  // layers = [
-  //   TileGrid.create(10, 10),
-  //   TileGrid.create(10, 10),
-  //   TileGrid.create(10, 10),
-  //   TileGrid.create(10, 10)
-  // ]
 
   const brushElement = document.querySelector('#brush')
 
@@ -574,27 +564,21 @@ function start() {
 
   tool = toolElement.value
 
-  const layersElement = document.querySelector('#current-layer')
+  const layersElement = document.querySelector('#layers')
 
-  layers.forEach((layer, i) => {
-    const option = document.createElement('option')
+  const renderedLayers = layers
+    .map((layer, i) => drawLayer(`Layer ${i + 1}`))
+    .join('')
 
-    option.value = i
-    option.text = `Layer ${i}`
-
-    layersElement.appendChild(option)
-  })
-
-  layersElement.addEventListener('change', e => {
-    currentLayer = parseInt(e.target.value)
-  })
+  layersElement.innerHTML = renderedLayers
 }
 
 function loadTiles() {
   Promise.all([
     assets.loadTerrain('terrain/default.json'),
     assets.loadTerrain('terrain/green-hills.json'),
-    assets.loadTerrain('terrain/variants.json')
+    assets.loadTerrain('terrain/variants.json'),
+    assets.loadTerrain('terrain/big.json')
   ])
     .then(terrain => {
       spriteSheets = terrain

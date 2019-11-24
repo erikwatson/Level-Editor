@@ -87,6 +87,27 @@
 
         <div class="config-section">
           <div class="row">
+            <h2>Layers</h2>
+
+            <button id="add-layer">+</button>
+            <button id="remove-layer">-</button>
+
+            <label>Layers</label>
+
+            <div id="layers">
+              <!-- Populated on boot -->
+            </div>
+
+            <!-- <select id="current-layer"> -->
+            <!-- Populated with the correct number of layers on boot -->
+            <!-- </select> -->
+          </div>
+        </div>
+
+        <hr />
+
+        <div class="config-section">
+          <div class="row">
             <h2>Tool</h2>
             <select id="tool">
               <option value="brush">Brush</option>
@@ -181,18 +202,6 @@
               step="1"
               value="3"
             />
-          </div>
-        </div>
-        <hr />
-
-        <div class="config-section">
-          <div class="row">
-            <h2>Layers</h2>
-
-            <label>Layer</label>
-            <select id="current-layer">
-              <!-- Populated with the correct number of layers on boot -->
-            </select>
           </div>
         </div>
       </div>
