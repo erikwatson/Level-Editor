@@ -1,4 +1,5 @@
 const React = require('react')
+const PanelList = require('./panel-list/panel-list.js')
 const Panel = require('./panel/panel.js')
 const style = require('./sidebar.sass')
 
@@ -8,20 +9,17 @@ module.exports = () => {
       <div>
         <h1>Title</h1>
       </div>
-
-      <hr />
-
-      <div>
-        <Panel title='Tools' open={true}>
+      <PanelList open={true}>
+        <Panel title='Tools' open={false}>
           <p>Inside the Panel</p>
         </Panel>
-        <Panel title='Grid' open={false}>
+        <Panel title='Grid' open={true}>
           <p>Grid Tools in here</p>
         </Panel>
-        <Panel title='Layers'>
+        <Panel title='Layers' open={false}>
           <p>Layer Tools inside here</p>
         </Panel>
-      </div>
+      </PanelList>
     </div>
   )
 }
