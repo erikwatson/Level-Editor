@@ -5,5 +5,18 @@ module.exports = {
   output: {
     filename: 'editor.js',
     path: path.resolve(__dirname, 'dest')
+  },
+  module: {
+    rules: [
+      {
+        test: /(\.js|\.jsx)$/,
+        exclude: /(node_modules|dist)/,
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ]
+      }
+    ]
   }
 }
