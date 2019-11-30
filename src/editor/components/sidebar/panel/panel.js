@@ -1,0 +1,41 @@
+const React = require('react')
+const useState = React.useState
+const style = require('./panel.sass')
+
+class Panel extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      open: props.open ? true : false
+    }
+
+    this.toggle = this.toggle.bind(this)
+  }
+
+  toggle() {
+    this.setState({ open: !this.state.open })
+  }
+
+  render() {
+    const contentProps = {
+      className: this.state.open ? 'content' : 'content closed'
+    }
+
+    const symbol = this.state.open ? '-' : '+'
+
+    return (
+      <div className='panel'>
+        <div onClick={this.toggle}>
+          <h2>
+            {this.props.title} {symbol}
+          </h2>
+        </div>
+
+        <div {...contentProps}>{this.props.children}</div>
+      </div>
+    )
+  }
+}
+
+module.exports = Panel
