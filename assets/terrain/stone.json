@@ -1,7 +1,7 @@
 {
-  "name": "Variants",
-  "type": 3,
-  "path": "images/tileset-variant.png",
+  "name": "Stone",
+  "type": 5,
+  "path": "images/stone.png",
 
   "tiles": [
     {
@@ -237,32 +237,6 @@
     {
       "type": 255,
       "position": { "x": 1, "y": 9 },
-      "size": { "width": 8, "height": 8 }
-    },
-
-    {
-      "type": 0,
-      "position": { "x": 5, "y": 0 },
-      "size": { "width": 8, "height": 8 }
-    },
-    {
-      "type": 2,
-      "position": { "x": 6, "y": 0 },
-      "size": { "width": 8, "height": 8 }
-    },
-    {
-      "type": 8,
-      "position": { "x": 7, "y": 0 },
-      "size": { "width": 8, "height": 8 }
-    },
-    {
-      "type": 32,
-      "position": { "x": 8, "y": 0 },
-      "size": { "width": 8, "height": 8 }
-    },
-    {
-      "type": 128,
-      "position": { "x": 9, "y": 0 },
       "size": { "width": 8, "height": 8 }
     }
   ]
