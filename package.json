@@ -17,12 +17,15 @@
     "rollup-plugin-copy": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.0.3",
     "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "webpack": "yarn run webpack",
-    "build": "yarn webpack",
-    "watch": "yarn webpack --watch"
+    "build": "yarn webpack --config webpack.dev.js",
+    "build:production": "yarn webpack --config webpack.prod.js",
+    "watch": "yarn build --watch",
+    "start": "yarn webpack-dev-server --open --config webpack.dev.js"
   },
   "dependencies": {
     "node-fetch": "^2.0.0",
