@@ -578,7 +578,8 @@ function loadTiles() {
     assets.loadTerrain('terrain/default.json'),
     assets.loadTerrain('terrain/green-hills.json'),
     assets.loadTerrain('terrain/variants.json'),
-    assets.loadTerrain('terrain/big.json')
+    assets.loadTerrain('terrain/big.json'),
+    assets.loadTerrain('terrain/stone.json')
   ])
     .then(terrain => {
       spriteSheets = terrain
