@@ -8,7 +8,7 @@ module.exports = () => {
   return (
     <div id='app'>
       <Sidebar title='Level Editor' />
-      <BrambleView />
+      <BrambleView width={500} height={500} />
     </div>
   )
 }
