@@ -4,17 +4,26 @@ const Panel = require('../panel/panel.js')
 
 const style = require('./panel-list.sass')
 
-module.exports = ({ children, open = false }) => {
-  const renderThese = children.map(child => {
-    return React.cloneElement(child, {
-      open: child.props.open !== undefined ? child.props.open : open
-    })
-  })
+class PanelList extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { open: this.props.open }
+  }
 
-  return (
-    <div id='panel-list'>
-      <h1>Panel List</h1>
-      {renderThese}
-    </div>
-  )
+  render() {
+    const renderThese = this.props.children.map(child => {
+      return React.cloneElement(child, {
+        open:
+          child.props.open !== undefined ? child.props.open : this.state.open
+      })
+    })
+
+    return (
+      <div id='panel-list'>
+        <div>{renderThese}</div>
+      </div>
+    )
+  }
 }
+
+module.exports = PanelList
