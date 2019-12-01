@@ -26,7 +26,8 @@ class BrambleView extends React.Component {
       const midLine = { width: 2, color: '#ff000066' }
       const thinLine = { width: 1, color: '#ff000066' }
 
-      // Draw the Grid lines
+      // Draw the Grid lines - these should really represent the grid, not the
+      //                       viewport
       for (let i = 0; i < this.props.width / 32; i++) {
         const top = {
           x: 32 * i,

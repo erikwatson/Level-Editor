@@ -2,7 +2,7 @@ const React = require('react')
 const { connect } = require('react-redux')
 const Panel = require('../panel/panel.js')
 
-class GridPanel extends React.Component {
+class ViewPanel extends React.Component {
   constructor(props) {
     super(props)
     this.state = {}
@@ -55,9 +55,8 @@ class GridPanel extends React.Component {
 const mapStateToProps = state => {
   return {
     width: state.width,
-    height: state.height,
-    visible: state.visible
+    height: state.height
   }
 }
 
-module.exports = connect(mapStateToProps)(GridPanel)
+module.exports = connect(mapStateToProps)(ViewPanel)

@@ -3,7 +3,7 @@ const PanelList = require('./panel-list/panel-list.js')
 const Panel = require('./panel/panel.js')
 const Layer = require('./layer/layer.js')
 const ButtonGroup = require('./button-group/button-group.js')
-const GridPanel = require('./grid-panel/grid-panel.js')
+const ViewPanel = require('./view-panel/view-panel.js')
 
 const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome')
 const { faPlusSquare } = require('@fortawesome/free-solid-svg-icons')
@@ -25,7 +25,7 @@ module.exports = ({ title = 'Sidebar' }) => {
             <p>Tool specific options here</p>
           </div>
         </Panel>
-        <GridPanel />
+        <ViewPanel />
         <Panel title='Layers'>
           <div className='input'>
             <FontAwesomeIcon icon={faPlusSquare} />
