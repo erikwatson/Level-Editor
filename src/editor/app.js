@@ -7,7 +7,7 @@ const style = require('./app.sass')
 module.exports = () => {
   return (
     <div id='app'>
-      <Sidebar />
+      <Sidebar title='Level Editor' />
       <BrambleView />
     </div>
   )
