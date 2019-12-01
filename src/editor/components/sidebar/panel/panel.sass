@@ -1,6 +1,4 @@
 .panel
-
-
   .header
     padding: 16px
     border-bottom: solid 2px #e3e3e3
@@ -8,26 +6,32 @@
   .header:hover
     background-color: #e3e3e3
 
+  .buttons
+    padding: 10px
+
   .content
     padding: 16px 
     background-color: #232323
     color: #e3e3e3
 
-    .range
-      display: grid
-      grid-template-columns: 100px auto
+    .section
       padding: 8px
 
+    .input
+      padding: 8px
+      display: grid
+      grid-template-columns: 100px auto
+      
       label
         font-weight: bold
 
+    .range
       input[type='range']
         width: 100%
         text-align: center
 
     h3
       padding-bottom: 8px
-
 
   .closed
     display: none
