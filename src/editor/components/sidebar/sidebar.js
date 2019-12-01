@@ -1,6 +1,7 @@
 const React = require('react')
 const PanelList = require('./panel-list/panel-list.js')
 const Panel = require('./panel/panel.js')
+const Layer = require('./layer/layer.js')
 const style = require('./sidebar.sass')
 
 module.exports = ({ title = 'Sidebar' }) => {
@@ -29,7 +30,9 @@ module.exports = ({ title = 'Sidebar' }) => {
         </Panel>
         <Panel title='Layers'>
           <h3>Layers</h3>
-          <p>Layer Tools inside here</p>
+          <Layer />
+          <Layer />
+          <Layer />
         </Panel>
       </PanelList>
     </div>
