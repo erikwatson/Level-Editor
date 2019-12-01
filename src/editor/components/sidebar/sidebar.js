@@ -2,8 +2,10 @@ const React = require('react')
 const PanelList = require('./panel-list/panel-list.js')
 const Panel = require('./panel/panel.js')
 const Layer = require('./layer/layer.js')
-const ButtonGroup = require('./button-group/button-group.js')
 const ViewPanel = require('./view-panel/view-panel.js')
+
+const ToolButtons = require('./tool-buttons/tool-buttons.js')
+const LayerButtons = require('./layer-buttons/layer-buttons.js')
 
 const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome')
 const { faPlusSquare } = require('@fortawesome/free-solid-svg-icons')
@@ -19,7 +21,7 @@ module.exports = ({ title = 'Sidebar' }) => {
       <PanelList open={true}>
         <Panel title='Tools'>
           <div className='section'>
-            <ButtonGroup />
+            <ToolButtons />
           </div>
           <div className='section'>
             <p>Tool specific options here</p>
@@ -27,13 +29,13 @@ module.exports = ({ title = 'Sidebar' }) => {
         </Panel>
         <ViewPanel />
         <Panel title='Layers'>
-          <div className='input'>
-            <FontAwesomeIcon icon={faPlusSquare} />
+          <div className='section'>
+            <LayerButtons />
           </div>
           <div>
-            <Layer />
-            <Layer />
-            <Layer />
+            <Layer title='Layer 1' />
+            <Layer title='Layer 2' selected />
+            <Layer title='Layer 3' />
           </div>
         </Panel>
       </PanelList>

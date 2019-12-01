@@ -26,7 +26,7 @@ class ViewPanel extends React.Component {
 
   render() {
     return (
-      <Panel title='View'>
+      <Panel title='View' open={this.props.open}>
         <div className='input range'>
           <label>Width:</label>
           <input
@@ -54,8 +54,8 @@ class ViewPanel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    width: state.width,
-    height: state.height
+    width: state.view.width,
+    height: state.view.height
   }
 }
 

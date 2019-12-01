@@ -10,15 +10,20 @@ const {
 
 const style = require('./layer.sass')
 
-module.exports = ({ title = 'Layer', visible = false }) => {
+module.exports = ({ title = 'Layer', visible = false, selected = false }) => {
   const visibilityIcon = visible ? (
     <FontAwesomeIcon icon={faEye} />
   ) : (
     <FontAwesomeIcon icon={faEyeSlash} />
   )
 
+  const className = selected ? `layer selected` : 'layer'
+
   return (
-    <div className='layer'>
+    <div className={className}>
+      <div>
+        <input type='checkbox' />
+      </div>
       <div>{title}</div>
       <div className='icon'>
         <FontAwesomeIcon icon={faLockOpen} />
