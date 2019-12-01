@@ -2,7 +2,7 @@
 
 A tile based level editor for a game I'm working on.
 
-# Screenshot
+## Screenshot
 
 ![Screenshot](docs/images/screenshot.png)
 
