@@ -11,11 +11,17 @@ class GridPanel extends React.Component {
   }
 
   onWidthChange(event) {
-    this.props.dispatch({ type: 'VIEW_SET_WIDTH', value: event.target.value })
+    this.props.dispatch({
+      type: 'VIEW_SET_WIDTH',
+      value: event.target.value
+    })
   }
 
   onHeightChange(event) {
-    this.props.dispatch({ type: 'VIEW_SET_HEIGHT', value: event.target.value })
+    this.props.dispatch({
+      type: 'VIEW_SET_HEIGHT',
+      value: event.target.value
+    })
   }
 
   render() {
@@ -26,7 +32,7 @@ class GridPanel extends React.Component {
           <input
             type='range'
             value={this.props.width}
-            onChange={this.onHeightChange}
+            onChange={this.onWidthChange}
             max={1000}
             min={500}
           />

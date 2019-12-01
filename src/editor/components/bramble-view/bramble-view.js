@@ -22,13 +22,9 @@ class BrambleView extends React.Component {
       const bl = { x: 0, y: this.props.height }
       const br = { x: this.props.width, y: this.props.height }
 
-      const line = { width: 2, color: '#ffffff' }
-
-      // Draw the Bounding Box
-      graphics.line(tl, tr, line)
-      graphics.line(tr, br, line)
-      graphics.line(br, bl, line)
-      graphics.line(bl, tl, line)
+      const thickLine = { width: 4, color: '#ffffff' }
+      const midLine = { width: 2, color: '#ff000066' }
+      const thinLine = { width: 1, color: '#ff000066' }
 
       // Draw the Grid lines
       for (let i = 0; i < this.props.width / 32; i++) {
@@ -42,7 +38,11 @@ class BrambleView extends React.Component {
           y: this.props.height
         }
 
-        graphics.line(top, bottom, line)
+        if (i % 2 === 0) {
+          graphics.line(top, bottom, thinLine)
+        } else {
+          graphics.line(top, bottom, midLine)
+        }
       }
 
       for (let i = 0; i < this.props.height / 32; i++) {
@@ -56,8 +56,18 @@ class BrambleView extends React.Component {
           y: i * 32
         }
 
-        graphics.line(left, right, line)
+        if (i % 2 === 0) {
+          graphics.line(left, right, thinLine)
+        } else {
+          graphics.line(left, right, midLine)
+        }
       }
+
+      // Draw the Bounding Box
+      graphics.line(tl, tr, thickLine)
+      graphics.line(tr, br, thickLine)
+      graphics.line(br, bl, thickLine)
+      graphics.line(bl, tl, thickLine)
     })
 
     game.start()
@@ -65,6 +75,7 @@ class BrambleView extends React.Component {
 
   componentDidUpdate() {
     console.log('bramble update')
+    game.setSize(this.props.width, this.props.height)
   }
 
   render() {
