@@ -28,10 +28,11 @@ module.exports = ({ title = 'Sidebar' }) => {
           </div>
         </Panel>
         <ViewPanel />
-        <Panel title='Layers'>
+        <Panel title='Grid'>
           <div className='section'>
             <LayerButtons />
           </div>
+          <h3>Layers</h3>
           <div>
             <Layer title='Layer 1' />
             <Layer title='Layer 2' selected />
