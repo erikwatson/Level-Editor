@@ -12,13 +12,28 @@ const { faPlusSquare } = require('@fortawesome/free-solid-svg-icons')
 
 const style = require('./sidebar.sass')
 
-module.exports = ({ title = 'Sidebar' }) => {
+module.exports = ({ title = 'Sidebar', cameraX = 0, cameraY = 0 }) => {
   return (
     <div id='sidebar'>
       <div>
         <h1>{title}</h1>
       </div>
       <PanelList open={true}>
+        <ViewPanel />
+        <Panel title='Camera'>
+          <div className='section'>
+            <div className='property'>
+              <label>X:</label>
+              <p>{cameraX}</p>
+            </div>
+          </div>
+          <div className='section'>
+            <div className='property'>
+              <label>Y:</label>
+              <p>{cameraY}</p>
+            </div>
+          </div>
+        </Panel>
         <Panel title='Tools'>
           <div className='section'>
             <ToolButtons />
@@ -27,12 +42,21 @@ module.exports = ({ title = 'Sidebar' }) => {
             <p>Tool specific options here</p>
           </div>
         </Panel>
-        <ViewPanel />
         <Panel title='Grid'>
           <div className='section'>
-            <LayerButtons />
+            <div className='input range'>
+              <label>Height:</label>
+              <input type='range' value={500} max={832} min={64} />
+              <label className='value'>10 Tiles</label>
+            </div>
+            <div className='input range'>
+              <label>Width:</label>
+              <input type='range' value={500} max={832} min={64} />
+              <label className='value'>10 Tiles</label>
+            </div>
           </div>
-          <h3>Layers</h3>
+        </Panel>
+        <Panel title='Layers'>
           <div>
             <Layer title='Layer 1' />
             <Layer title='Layer 2' selected />
