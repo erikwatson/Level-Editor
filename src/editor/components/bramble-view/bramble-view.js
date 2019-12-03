@@ -1,4 +1,5 @@
 const React = require('react')
+const { connect } = require('react-redux')
 const style = require('./bramble-view.sass')
 
 const {
@@ -27,12 +28,62 @@ class BrambleView extends React.Component {
     }
 
     const drawGrid = () => {
+      const tileWidth = 32
+      const tileHeight = 32
+
+      const widthInTiles = this.props.grid.width
+      const heightInTiles = this.props.grid.height
+
       const tl = { x: 0 + this.props.cameraX, y: 0 + this.props.cameraY }
-      const tr = { x: 32 * 10 + this.props.cameraX, y: 0 + this.props.cameraY }
-      const bl = { x: 0 + this.props.cameraX, y: 32 * 10 + this.props.cameraY }
+      const tr = {
+        x: tileWidth * widthInTiles + this.props.cameraX,
+        y: 0 + this.props.cameraY
+      }
+      const bl = {
+        x: 0 + this.props.cameraX,
+        y: tileHeight * heightInTiles + this.props.cameraY
+      }
       const br = {
-        x: 32 * 10 + this.props.cameraX,
-        y: 32 * 10 + this.props.cameraY
+        x: tileWidth * widthInTiles + this.props.cameraX,
+        y: tileHeight * heightInTiles + this.props.cameraY
+      }
+
+      const columns = (tr.x - tl.x) / tileWidth
+
+      for (let i = 0; i < columns; i++) {
+        graphics.line(
+          {
+            x: tl.x + i * tileWidth,
+            y: tl.y
+          },
+          {
+            x: tl.x + i * tileWidth,
+            y: bl.y
+          },
+          {
+            width: i % 2 == 0 ? 2 : 1,
+            color: '#663399'
+          }
+        )
+      }
+
+      const rows = (br.y - tr.y) / tileHeight
+
+      for (let i = 0; i < rows; i++) {
+        graphics.line(
+          {
+            x: tl.x,
+            y: tl.y + i * tileHeight
+          },
+          {
+            x: tr.x,
+            y: tl.y + i * tileHeight
+          },
+          {
+            width: i % 2 == 0 ? 2 : 1,
+            color: '#663399'
+          }
+        )
       }
 
       const line = { width: 4, color: '#ffffff' }
@@ -110,7 +161,6 @@ class BrambleView extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('bramble update')
     game.setSize(this.props.width, this.props.height)
   }
 
@@ -123,4 +173,10 @@ class BrambleView extends React.Component {
   }
 }
 
-module.exports = BrambleView
+function mapStateToProps(state) {
+  return {
+    grid: state.grid
+  }
+}
+
+module.exports = connect(mapStateToProps)(BrambleView)

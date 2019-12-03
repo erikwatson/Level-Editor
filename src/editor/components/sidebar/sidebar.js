@@ -3,6 +3,7 @@ const PanelList = require('./panel-list/panel-list.js')
 const Panel = require('./panel/panel.js')
 const Layer = require('./layer/layer.js')
 const ViewPanel = require('./view-panel/view-panel.js')
+const GridPanel = require('./grid-panel/grid-panel.js')
 
 const ToolButtons = require('./tool-buttons/tool-buttons.js')
 const LayerButtons = require('./layer-buttons/layer-buttons.js')
@@ -42,20 +43,7 @@ module.exports = ({ title = 'Sidebar', cameraX = 0, cameraY = 0 }) => {
             <p>Tool specific options here</p>
           </div>
         </Panel>
-        <Panel title='Grid'>
-          <div className='section'>
-            <div className='input range'>
-              <label>Height:</label>
-              <input type='range' value={500} max={832} min={64} />
-              <label className='value'>10 Tiles</label>
-            </div>
-            <div className='input range'>
-              <label>Width:</label>
-              <input type='range' value={500} max={832} min={64} />
-              <label className='value'>10 Tiles</label>
-            </div>
-          </div>
-        </Panel>
+        <GridPanel />
         <Panel title='Layers'>
           <div>
             <Layer title='Layer 1' />
