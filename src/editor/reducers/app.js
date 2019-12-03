@@ -29,9 +29,23 @@ const camera = (state = { x: 0, y: 0 }, action) => {
   }
 }
 
+const grid = (state = { width: 10, height: 10 }, action) => {
+  switch (action.type) {
+    case 'GRID_SET_WIDTH':
+      return { ...state, width: action.value }
+
+    case 'GRID_SET_HEIGHT':
+      return { ...state, height: action.value }
+
+    default:
+      return state
+  }
+}
+
 const appReducer = combineReducers({
   view,
-  camera
+  camera,
+  grid
 })
 
 module.exports = appReducer
