@@ -5,12 +5,28 @@ const style = require('./bramble-view.sass')
 const {
   game,
   graphics,
-  mouse
+  mouse,
+  keyboard,
+  assets
 } = require('../../../bramble/src/bramble/bramble')
 
 class BrambleView extends React.Component {
   componentDidMount() {
     const container = document.querySelector('#bramble-view')
+
+    let spritesheets = []
+
+    Promise.all([
+      assets.loadTerrain('./terrain/default.json'),
+      assets.loadTerrain('./terrain/green-hills.json')
+    ])
+      .then(terrain => {
+        spritesheets = terrain
+        game.start()
+      })
+      .catch(err => {
+        console.error(err)
+      })
 
     const drawBoundingBox = () => {
       const tl = { x: 0, y: 0 }
@@ -142,26 +158,41 @@ class BrambleView extends React.Component {
     game.setSize(this.props.width, this.props.height)
     game.setSmoothing(false)
     game.setUpdate(delta => {
-      // console.log(mouse)
-      if (mouse.left.pressed) {
-        this.props.dispatch({
-          type: 'CAMERA_SET_POS',
-          value: { x: mouse.x, y: mouse.y }
-        })
+      if (keyboard.ctrl.pressed) {
+        // TODO: set the cursor to a hand somehow?
+
+        if (mouse.left.pressed) {
+          this.props.dispatch({
+            type: 'CAMERA_SET_POS',
+            value: { x: parseInt(mouse.x), y: parseInt(mouse.y) }
+          })
+        }
       }
     })
     game.setRender(() => {
       graphics.clear('#000000')
       drawGrid()
+      graphics.tiles(
+        this.props.camera.x,
+        this.props.camera.y,
+        [
+          [2, 2, 2],
+          [2, 0, 2],
+          [2, 2, 2]
+        ],
+        spritesheets,
+        4,
+        8,
+        8
+      )
       drawOrigin()
       drawBoundingBox()
     })
-
-    game.start()
   }
 
   componentDidUpdate() {
     game.setSize(this.props.width, this.props.height)
+    game.setSmoothing(false)
   }
 
   render() {
@@ -175,7 +206,8 @@ class BrambleView extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    grid: state.grid
+    grid: state.grid,
+    camera: state.camera
   }
 }
 
