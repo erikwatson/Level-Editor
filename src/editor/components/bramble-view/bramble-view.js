@@ -157,6 +157,9 @@ class BrambleView extends React.Component {
     game.disableContextMenu()
     game.setSize(this.props.width, this.props.height)
     game.setSmoothing(false)
+
+    const tileSize = 32
+
     game.setUpdate(delta => {
       if (keyboard.ctrl.pressed) {
         // TODO: set the cursor to a hand somehow?
@@ -166,6 +169,17 @@ class BrambleView extends React.Component {
             type: 'CAMERA_SET_POS',
             value: { x: parseInt(mouse.x), y: parseInt(mouse.y) }
           })
+        }
+      } else {
+        if (mouse.left.pressed) {
+          const mouseOverGridX = Math.floor(
+            (mouse.x - this.props.camera.x) / tileSize
+          )
+          const mouseOverGridY = Math.floor(
+            (mouse.y - this.props.camera.y) / tileSize
+          )
+
+          // insert a tile at this position
         }
       }
     })
