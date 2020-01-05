@@ -29,13 +29,42 @@ const camera = (state = { x: 0, y: 0 }, action) => {
   }
 }
 
-const grid = (state = { width: 10, height: 10 }, action) => {
+const defaultGridState = {
+  width: 10,
+  height: 10,
+  tileSize: 32,
+  tiles: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]
+}
+
+const copyTiles = tiles => tiles.map(arr => arr.slice())
+
+const grid = (state = defaultGridState, action) => {
   switch (action.type) {
     case 'GRID_SET_WIDTH':
       return { ...state, width: action.value }
 
     case 'GRID_SET_HEIGHT':
       return { ...state, height: action.value }
+
+    case 'GRID_SET_TILE_SIZE':
+      return { ...state, tileSize: action.value }
+
+    case 'GRID_SET_TILE':
+      let copy = copyTiles(state.tiles)
+      copy[action.value.y][action.value.x] = action.value.type
+
+      return { ...state, tiles: copy }
 
     default:
       return state
