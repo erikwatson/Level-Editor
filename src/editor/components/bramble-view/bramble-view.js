@@ -44,8 +44,8 @@ class BrambleView extends React.Component {
     }
 
     const drawGrid = () => {
-      const tileWidth = 32
-      const tileHeight = 32
+      const tileWidth = this.props.grid.tileSize
+      const tileHeight = this.props.grid.tileSize
 
       const widthInTiles = this.props.grid.width
       const heightInTiles = this.props.grid.height
@@ -158,7 +158,8 @@ class BrambleView extends React.Component {
     game.setSize(this.props.width, this.props.height)
     game.setSmoothing(false)
 
-    const tileSize = 32
+    const tileWidth = this.props.grid.tileSize
+    const tileHeight = this.props.grid.tileSize
 
     game.setUpdate(delta => {
       if (keyboard.ctrl.pressed) {
@@ -173,13 +174,23 @@ class BrambleView extends React.Component {
       } else {
         if (mouse.left.pressed) {
           const mouseOverGridX = Math.floor(
-            (mouse.x - this.props.camera.x) / tileSize
+            (mouse.x - this.props.camera.x) / tileWidth
           )
           const mouseOverGridY = Math.floor(
-            (mouse.y - this.props.camera.y) / tileSize
+            (mouse.y - this.props.camera.y) / tileHeight
           )
 
+          console.log(mouseOverGridY, mouseOverGridX)
+
           // insert a tile at this position
+          this.props.dispatch({
+            type: 'GRID_SET_TILE',
+            value: {
+              x: mouseOverGridX,
+              y: mouseOverGridY,
+              type: 2
+            }
+          })
         }
       }
     })
@@ -189,11 +200,7 @@ class BrambleView extends React.Component {
       graphics.tiles(
         this.props.camera.x,
         this.props.camera.y,
-        [
-          [2, 2, 2],
-          [2, 0, 2],
-          [2, 2, 2]
-        ],
+        this.props.grid.tiles,
         spritesheets,
         4,
         8,
