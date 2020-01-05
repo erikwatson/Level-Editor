@@ -28,7 +28,7 @@ class Panel extends React.Component {
       <div className='panel'>
         <div className='header' onClick={this.toggle}>
           <h2>
-            {this.props.title} {symbol}
+            {symbol} {this.props.title}
           </h2>
         </div>
         <div {...contentProps}>{this.props.children}</div>
