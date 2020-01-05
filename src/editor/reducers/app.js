@@ -49,6 +49,8 @@ const defaultGridState = {
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
 
+// TODO: When we change the grid width we also need to modify the tile array
+
 const grid = (state = defaultGridState, action) => {
   switch (action.type) {
     case 'GRID_SET_WIDTH':
