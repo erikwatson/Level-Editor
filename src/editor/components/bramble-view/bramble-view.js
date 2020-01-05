@@ -172,23 +172,32 @@ class BrambleView extends React.Component {
           })
         }
       } else {
+        const mouseOverGridX = Math.floor(
+          (mouse.x - this.props.camera.x) / tileWidth
+        )
+        const mouseOverGridY = Math.floor(
+          (mouse.y - this.props.camera.y) / tileHeight
+        )
+
         if (mouse.left.pressed) {
-          const mouseOverGridX = Math.floor(
-            (mouse.x - this.props.camera.x) / tileWidth
-          )
-          const mouseOverGridY = Math.floor(
-            (mouse.y - this.props.camera.y) / tileHeight
-          )
-
-          console.log(mouseOverGridY, mouseOverGridX)
-
           // insert a tile at this position
           this.props.dispatch({
             type: 'GRID_SET_TILE',
             value: {
               x: mouseOverGridX,
               y: mouseOverGridY,
-              type: 2
+              type: 1
+            }
+          })
+        }
+
+        if (mouse.right.pressed) {
+          this.props.dispatch({
+            type: 'GRID_SET_TILE',
+            value: {
+              x: mouseOverGridX,
+              y: mouseOverGridY,
+              type: 0
             }
           })
         }
