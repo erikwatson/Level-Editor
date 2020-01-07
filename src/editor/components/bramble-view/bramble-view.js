@@ -44,8 +44,8 @@ class BrambleView extends React.Component {
     }
 
     const drawGrid = () => {
-      const tileWidth = this.props.grid.tileSize
-      const tileHeight = this.props.grid.tileSize
+      const tileWidth = this.props.grid.tileSize * this.props.grid.scale
+      const tileHeight = this.props.grid.tileSize * this.props.grid.scale
 
       const widthInTiles = this.props.grid.width
       const heightInTiles = this.props.grid.height
@@ -173,10 +173,10 @@ class BrambleView extends React.Component {
         }
       } else {
         const mouseOverGridX = Math.floor(
-          (mouse.x - this.props.camera.x) / tileWidth
+          (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
         )
         const mouseOverGridY = Math.floor(
-          (mouse.y - this.props.camera.y) / tileHeight
+          (mouse.y - this.props.camera.y) / (tileHeight * this.props.grid.scale)
         )
 
         if (mouse.left.pressed) {
@@ -211,9 +211,9 @@ class BrambleView extends React.Component {
         this.props.camera.y,
         this.props.grid.tiles,
         spritesheets,
-        4,
-        8,
-        8
+        this.props.grid.scale,
+        this.props.grid.tileSize,
+        this.props.grid.tileSize
       )
       drawOrigin()
       drawBoundingBox()
