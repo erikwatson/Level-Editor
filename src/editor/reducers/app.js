@@ -65,6 +65,16 @@ const grid = (state = defaultGridState, action) => {
         })
 
         return { ...state, width: action.value, tiles: widthExpanded }
+      } else if (action.value < state.width) {
+        let widthShrunk = copyTiles(state.tiles)
+
+        widthShrunk.forEach(row => {
+          while (row.length >= state.width) {
+            row.pop()
+          }
+        })
+
+        return { ...state, width: action.value, tiles: widthShrunk }
       }
 
       return { ...state, width: action.value }
