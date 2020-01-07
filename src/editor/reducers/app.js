@@ -32,7 +32,8 @@ const camera = (state = { x: 0, y: 0 }, action) => {
 const defaultGridState = {
   width: 10,
   height: 10,
-  tileSize: 32,
+  tileSize: 8,
+  scale: 4,
   tiles: [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
