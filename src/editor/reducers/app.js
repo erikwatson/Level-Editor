@@ -63,10 +63,20 @@ const grid = (state = defaultGridState, action) => {
       return { ...state, tileSize: action.value }
 
     case 'GRID_SET_TILE':
-      let copy = copyTiles(state.tiles)
-      copy[action.value.y][action.value.x] = action.value.type
+      const isWithinBounds =
+        action.value.y >= 0 &&
+        action.value.x >= 0 &&
+        action.value.x < state.width &&
+        action.value.y < state.height
 
-      return { ...state, tiles: copy }
+      if (isWithinBounds) {
+        let copy = copyTiles(state.tiles)
+        copy[action.value.y][action.value.x] = action.value.type
+
+        return { ...state, tiles: copy }
+      }
+
+      return state
 
     default:
       return state
