@@ -50,8 +50,6 @@ const defaultGridState = {
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
 
-// TODO: When we change the grid width we also need to modify the tile array
-
 const grid = (state = defaultGridState, action) => {
   switch (action.type) {
     case 'GRID_SET_WIDTH':
@@ -80,6 +78,17 @@ const grid = (state = defaultGridState, action) => {
       return { ...state, width: action.value }
 
     case 'GRID_SET_HEIGHT':
+      if (action.value > state.height) {
+        let heightExpanded = copyTiles(state.tiles)
+
+        heightExpanded.push(Array(state.width).fill(0))
+
+        return { ...state, height: action.value, tiles: heightExpanded }
+      } else if (action.value < state.height) {
+        let heightShrunk = copyTiles(state.tiles).slice(0, action.value)
+        return { ...state, height: action.value, tiles: heightShrunk }
+      }
+
       return { ...state, height: action.value }
 
     case 'GRID_SET_TILE_SIZE':
