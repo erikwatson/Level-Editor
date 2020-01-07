@@ -55,6 +55,18 @@ const copyTiles = tiles => tiles.map(arr => arr.slice())
 const grid = (state = defaultGridState, action) => {
   switch (action.type) {
     case 'GRID_SET_WIDTH':
+      if (action.value > state.width) {
+        let widthExpanded = copyTiles(state.tiles)
+
+        widthExpanded.forEach(row => {
+          while (row.length < state.width) {
+            row.push(0)
+          }
+        })
+
+        return { ...state, width: action.value, tiles: widthExpanded }
+      }
+
       return { ...state, width: action.value }
 
     case 'GRID_SET_HEIGHT':
