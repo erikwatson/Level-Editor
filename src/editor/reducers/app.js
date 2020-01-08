@@ -1,4 +1,5 @@
 const { combineReducers } = require('redux')
+const Grid = require('../../bramble/src/bramble/grid')
 
 const view = (state = { width: 960, height: 832 }, action) => {
   switch (action.type) {
@@ -29,24 +30,26 @@ const camera = (state = { x: 0, y: 0 }, action) => {
   }
 }
 
-const defaultGridState = {
-  width: 10,
-  height: 10,
-  tileSize: 8,
-  scale: 4,
-  tiles: [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  ]
-}
+// const defaultGridState = {
+//   width: 10,
+//   height: 10,
+//   tileSize: 8,
+//   scale: 4,
+//   tiles: [
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+//   ]
+// }
+
+const defaultGridState = Grid.create(10, 10, { scale: 4 })
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
 
