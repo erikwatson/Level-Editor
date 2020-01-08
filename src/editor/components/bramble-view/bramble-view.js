@@ -28,7 +28,7 @@ class BrambleView extends React.Component {
         console.error(err)
       })
 
-    const drawBoundingBox = () => {
+    const drawViewportBox = () => {
       const tl = { x: 0, y: 0 }
       const tr = { x: this.props.width, y: 0 }
       const bl = { x: 0, y: this.props.height }
@@ -66,7 +66,7 @@ class BrambleView extends React.Component {
 
       const columns = (tr.x - tl.x) / tileWidth
 
-      for (let i = 0; i < columns; i++) {
+      for (let i = 0; i <= columns; i++) {
         graphics.line(
           {
             x: tl.x + i * tileWidth,
@@ -85,7 +85,7 @@ class BrambleView extends React.Component {
 
       const rows = (br.y - tr.y) / tileHeight
 
-      for (let i = 0; i < rows; i++) {
+      for (let i = 0; i <= rows; i++) {
         graphics.line(
           {
             x: tl.x,
@@ -101,10 +101,31 @@ class BrambleView extends React.Component {
           }
         )
       }
+    }
 
+    const drawBoundingBox = () => {
       const line = { width: 4, color: '#ffffff' }
 
-      // Draw the Bounding Box
+      const tileWidth = this.props.grid.tileSize * this.props.grid.scale
+      const tileHeight = this.props.grid.tileSize * this.props.grid.scale
+
+      const widthInTiles = this.props.grid.width
+      const heightInTiles = this.props.grid.height
+
+      const tl = { x: 0 + this.props.cameraX, y: 0 + this.props.cameraY }
+      const tr = {
+        x: tileWidth * widthInTiles + this.props.cameraX,
+        y: 0 + this.props.cameraY
+      }
+      const bl = {
+        x: 0 + this.props.cameraX,
+        y: tileHeight * heightInTiles + this.props.cameraY
+      }
+      const br = {
+        x: tileWidth * widthInTiles + this.props.cameraX,
+        y: tileHeight * heightInTiles + this.props.cameraY
+      }
+
       graphics.line(tl, tr, line)
       graphics.line(tr, br, line)
       graphics.line(br, bl, line)
@@ -205,7 +226,10 @@ class BrambleView extends React.Component {
     })
     game.setRender(() => {
       graphics.clear('#000000')
-      drawGrid()
+      if (this.props.showGrid) {
+        drawGrid()
+      }
+
       graphics.tiles(
         this.props.camera.x,
         this.props.camera.y,
@@ -215,8 +239,9 @@ class BrambleView extends React.Component {
         this.props.grid.tileSize,
         this.props.grid.tileSize
       )
-      drawOrigin()
       drawBoundingBox()
+      drawOrigin()
+      drawViewportBox()
     })
   }
 
@@ -236,6 +261,7 @@ class BrambleView extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    showGrid: true,
     grid: state.grid,
     camera: state.camera
   }
