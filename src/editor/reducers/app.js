@@ -30,25 +30,6 @@ const camera = (state = { x: 0, y: 0 }, action) => {
   }
 }
 
-// const defaultGridState = {
-//   width: 10,
-//   height: 10,
-//   tileSize: 8,
-//   scale: 4,
-//   tiles: [
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-//     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-//   ]
-// }
-
 const defaultGridState = Grid.create(10, 10, { scale: 4 })
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
@@ -118,10 +99,22 @@ const grid = (state = defaultGridState, action) => {
   }
 }
 
+const tool = (state = { active: 'fill' }, action) => {
+  switch (action.type) {
+    case 'TOOL_SET_ACTIVE':
+      return { ...state, active: action.value }
+    default:
+      return state
+  }
+
+  return state
+}
+
 const appReducer = combineReducers({
   view,
   camera,
-  grid
+  grid,
+  tool
 })
 
 module.exports = appReducer
