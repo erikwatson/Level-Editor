@@ -207,7 +207,7 @@ class BrambleView extends React.Component {
             value: {
               x: mouseOverGridX,
               y: mouseOverGridY,
-              type: 1
+              type: 2
             }
           })
         }
