@@ -8,7 +8,7 @@ const {
   mouse,
   keyboard,
   assets
-} = require('../../../bramble/src/bramble/bramble')
+} = require('@erikwatson/bramble')
 
 class BrambleView extends React.Component {
   componentDidMount() {

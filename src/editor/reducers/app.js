@@ -1,5 +1,5 @@
 const { combineReducers } = require('redux')
-const Grid = require('../../bramble/src/bramble/grid')
+const Grid = require('@erikwatson/bramble').grid
 
 const view = (state = { width: 960, height: 832 }, action) => {
   switch (action.type) {
