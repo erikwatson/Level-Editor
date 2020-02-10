@@ -37,7 +37,7 @@
     "start": "yarn webpack-dev-server --open --config webpack.dev.js"
   },
   "dependencies": {
-    "@erikwatson/bramble": "https://github.com/championchap/Bramble.git#master",
+    "@erikwatson/bramble": "file:../Bramble",
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",

@@ -6,6 +6,7 @@ const {
   game,
   graphics,
   mouse,
+  prevMouse,
   keyboard,
   assets
 } = require('@erikwatson/bramble')
@@ -50,13 +51,16 @@ class BrambleView extends React.Component {
       const widthInTiles = this.props.grid.width
       const heightInTiles = this.props.grid.height
 
-      const tl = { x: 0 + this.props.cameraX, y: 0 + this.props.cameraY }
+      const tl = {
+        x: this.props.cameraX,
+        y: this.props.cameraY
+      }
       const tr = {
         x: tileWidth * widthInTiles + this.props.cameraX,
-        y: 0 + this.props.cameraY
+        y: this.props.cameraY
       }
       const bl = {
-        x: 0 + this.props.cameraX,
+        x: this.props.cameraX,
         y: tileHeight * heightInTiles + this.props.cameraY
       }
       const br = {
@@ -184,15 +188,29 @@ class BrambleView extends React.Component {
 
     game.setUpdate(delta => {
       if (keyboard.ctrl.pressed) {
-        // TODO: set the cursor to a hand somehow?
+        // Set the cursor - we should make this functionality available through
+        // the mouse object
+        document.getElementById('app-container').style.cursor = 'move'
+
+        // figure out the diff here
+
+        const diff = { x: mouse.x - prevMouse.x, y: mouse.y - prevMouse.y }
+        const pos = {
+          x: this.props.camera.x + diff.x,
+          y: this.props.camera.y + diff.y
+        }
 
         if (mouse.left.pressed) {
           this.props.dispatch({
             type: 'CAMERA_SET_POS',
-            value: { x: parseInt(mouse.x), y: parseInt(mouse.y) }
+            value: pos
           })
         }
       } else {
+        // Set the cursor - we should make this functionality available through
+        // the mouse object
+        document.getElementById('app-container').style.cursor = 'auto'
+
         const mouseOverGridX = Math.floor(
           (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
         )
