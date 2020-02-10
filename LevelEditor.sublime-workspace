@@ -1,0 +1,409 @@
+{
+  "auto_complete": {
+    "selected_items": [
+      ["height", "heightShrunk"],
+      ["wid", "widthExpanded"],
+      ["copy", "copyTiles"],
+      ["mouse", "mouseOverGridX"],
+      ["mouseOver", "mouseOverGridY"],
+      ["on", "onWidthChange"],
+      ["width", "widthInTiles"],
+      ["flex", "flex-direction\tproperty"],
+      ["butt", "ButtonGroup"],
+      ["Font", "FontAwesomeIcon"],
+      ["visi", "visibilityIcon"],
+      ["grid-col", "grid-template-columns\tproperty"],
+      ["grid-templ", "grid-template-columns\tproperty"],
+      ["render", "renderedLayers"],
+      ["rend", "renderedLayers"],
+      ["creat", "createElement"],
+      ["layers", "layersElement"],
+      ["high", "highlighted"],
+      ["tileShee", "tileSheetY"],
+      ["pos", "positionX"],
+      ["position", "positionX"],
+      ["curr", "currentLayer"],
+      ["mou", "mousePosTile"],
+      ["thisL", "thisLayer"],
+      ["op", "option\tTag"],
+      ["fill", "fillHighlighted"],
+      ["posi", "positionX"],
+      ["sh", "shadowColor"],
+      ["draw", "drawingOperations"],
+      ["terr", "terrain"],
+      ["spri", "spriteSheets"],
+      ["spriteShee", "spriteSheets"],
+      ["spritesh", "spritesheet1"],
+      ["loadAllT", "loadAllTerrain"],
+      ["load", "loadTiles"],
+      ["grid-row", "grid-row-end"],
+      ["grid-tem", "grid-template-columns"],
+      ["template", "grid-template-columns"],
+      ["box", "box-sizing: "],
+      ["templ", "grid-template-columns"],
+      ["back", "background-color: "],
+      ["background-", "background-color: "],
+      ["font", "font-size: "],
+      ["align", "align-items: "],
+      ["bac", "background-color: "],
+      ["border-r", "border-right: "],
+      ["get", "getConnection"],
+      ["cardPReview", "cardPreviews"],
+      ["token", "tokenIds"],
+      ["cons", "console"],
+      ["backgr", "background-color\tproperty"],
+      ["windSt", "windStrengthInput"],
+      ["gravityStren", "gravityStrengthInput"],
+      ["freq", "freqInput"],
+      ["densi", "densityInput"],
+      ["res", "restart"],
+      ["str", "strength"],
+      ["secon", "secondaryColour"],
+      ["fre", "frequency"],
+      ["CanRe", "CanResetPassword"]
+    ]
+  },
+  "buffers": [
+    {
+      "file": "src/editor/components/bramble-view/bramble-view.js",
+      "settings": {
+        "buffer_size": 7084,
+        "encoding": "UTF-8",
+        "line_ending": "Unix"
+      }
+    },
+    {
+      "file": "package.json",
+      "settings": {
+        "buffer_size": 1680,
+        "line_ending": "Unix"
+      }
+    },
+    {
+      "file": "dest/index.html",
+      "settings": {
+        "buffer_size": 330,
+        "line_ending": "Unix"
+      }
+    }
+  ],
+  "build_system": "",
+  "build_system_choices": [],
+  "build_varint": "",
+  "command_palette": {
+    "height": 0.0,
+    "last_filter": "",
+    "selected_items": [
+      ["sideb", "View: Toggle Open Files in Side Bar"],
+      ["install", "Package Control: Install Package"],
+      ["js", "Set Syntax: JavaScript"],
+      ["wrap", "Word Wrap: Toggle"],
+      ["menu", "View: Toggle Menu"],
+      ["settings", "Preferences: Settings"],
+      ["side", "View: Toggle Side Bar"],
+      ["toggle si", "View: Toggle Side Bar"],
+      ["word", "Word Wrap: Toggle"],
+      ["toggle sid", "View: Toggle Side Bar"],
+      ["toggle", "Toggle Comment"],
+      ["word ", "Word Wrap: Toggle"],
+      ["col", "UI: Select Color Scheme"],
+      ["insta", "Package Control: Install Package"],
+      ["color", "UI: Select Color Scheme"],
+      ["theme", "UI: Select Theme"]
+    ],
+    "width": 0.0
+  },
+  "console": {
+    "height": 0.0,
+    "history": []
+  },
+  "distraction_free": {
+    "menu_visible": true,
+    "show_minimap": false,
+    "show_open_files": false,
+    "show_tabs": false,
+    "side_bar_visible": false,
+    "status_bar_visible": false
+  },
+  "expanded_folders": [
+    "/home/erik/Projects/editor",
+    "/home/erik/Projects/editor/dest",
+    "/home/erik/Projects/editor/src",
+    "/home/erik/Projects/editor/src/editor",
+    "/home/erik/Projects/editor/src/editor/components",
+    "/home/erik/Projects/editor/src/editor/components/bramble-view"
+  ],
+  "file_history": [
+    "/home/erik/Projects/editor/assets/index.html",
+    "/home/erik/Projects/editor/src/editor/app.js",
+    "/home/erik/Projects/editor/.gitignore",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/assets.js",
+    "/home/erik/Projects/editor/src/main.js",
+    "/home/erik/Projects/editor/src/editor/components/bramble-view/bramble-view.js",
+    "/home/erik/Projects/editor/package.json",
+    "/home/erik/Projects/editor/src/editor/reducers/app.js",
+    "/home/erik/Projects/editor/node_modules/@erikwatson/bramble/dist/bramble.js",
+    "/home/erik/Projects/editor/node_modules/@erikwatson/bramble/src/bramble.js",
+    "/home/erik/New Unity Project/Assets/ErikTest.cs",
+    "/home/erik/New Unity Project/Assets/NewBehaviourScript.cs",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/view-panel/view-panel.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/panel-list/panel-list.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/button-group/button-group.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/panel/panel.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/tool-buttons/tool-buttons.js",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/game.js",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/canvas.js",
+    "/home/erik/Projects/editor/dest/terrain/green-hills.json",
+    "/home/erik/Projects/editor/dest/terrain/default.json",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/graphics.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/sidebar.sass",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/panel-list/panel-list.sass",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/panel/panel.sass",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/sidebar.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/grid-panel/grid-panel.js",
+    "/home/erik/Projects/editor/src/editor/app.sass",
+    "/home/erik/Projects/editor/src/editor/variables.sass",
+    "/home/erik/Projects/editor/src/editor/components/bramble-view/bramble-view.sass",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/tool-buttons/tool-buttons.sass",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/button-group/button-group.sass",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/layer/layer.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/layer-buttons/layer-buttons.js",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/layer-buttons/layer-buttons.sass",
+    "/home/erik/Projects/editor/src/editor/components/sidebar/layer/layer.sass",
+    "/home/erik/Projects/editor/src/bramble/src/main.js",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/input/mouse.js",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/bramble.js",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/sfx.js",
+    "/home/erik/Projects/editor/src/bramble/src/bramble/number.js",
+    "/home/erik/Projects/editor/README.md",
+    "/home/erik/Projects/editor/src/store.js",
+    "/home/erik/Projects/editor/node_modules/babel-core/lib/api/browser.js",
+    "/home/erik/Projects/editor/webpack.dev.js",
+    "/home/erik/Projects/editor/node_modules/@fortawesome/react-fontawesome/package.json",
+    "/home/erik/Projects/editor/node_modules/@fortawesome/react-fontawesome/index.js",
+    "/home/erik/Projects/editor/webpack.common.js",
+    "/home/erik/Projects/editor/dest/index.html",
+    "/home/erik/Projects/editor/webpack.prod.js",
+    "/home/erik/Projects/editor/src/events.js",
+    "/home/erik/Projects/editor/src/allLayouts.js",
+    "/home/erik/Projects/editor/assets/terrain/default.json",
+    "/home/erik/Projects/editor/yarn-error.log",
+    "/home/erik/Projects/editor/src/editor/dom.js",
+    "/home/erik/Projects/editor/src/editor/components/layers.js",
+    "/home/erik/Projects/editor/src/editor/components/layer.js",
+    "/home/erik/Projects/editor/dest/old.index.html",
+    "/home/erik/Projects/editor/.babelrc.js",
+    "/home/erik/Projects/editor/assets/terrain/variants.json",
+    "/home/erik/Projects/editor/assets/terrain/stone.json",
+    "/home/erik/Projects/editor/assets/terrain/big.json",
+    "/home/erik/Projects/editor/src/bramble/src/editor/components/layer.js",
+    "/home/erik/Projects/editor/assets/terrain/green-hills.json",
+    "/home/erik/Projects/game/.gitignore",
+    "/home/erik/Projects/game/assets/index.html",
+    "/home/erik/.ssh/id_rsa.pub",
+    "/home/erik/Projects/game/src/bramble/assets.js",
+    "/home/erik/Projects/game/src/bramble/graphics.js",
+    "/home/erik/Projects/game/src/bramble/grid.js",
+    "/home/erik/Projects/game/rollup.config.js",
+    "/home/erik/Projects/game/src/bramble/bramble.js",
+    "/home/erik/Projects/game/src/bramble/input.js",
+    "/home/erik/Projects/game/src/bramble/input/mouse.js",
+    "/home/erik/Projects/game/README.md",
+    "/home/erik/Projects/game/src/bramble/game.js",
+    "/home/erik/Projects/game/assets/terrain/variants.json",
+    "/home/erik/Projects/game/dest/terrain/variants.json",
+    "/home/erik/Projects/game/assets/terrain/green-hills.json",
+    "/home/erik/Projects/game/src/bramble/terrain.js",
+    "/home/erik/Projects/game/src/main.js",
+    "/home/erik/Projects/game/dest/terrain/default.json",
+    "/home/erik/Projects/game/assets/terrain/default.json",
+    "/home/erik/Projects/game/assets/test.txt",
+    "/home/erik/Projects/game/assets/images/tileset.png",
+    "/home/erik/Projects/game/dest/terrain/green-hill.json",
+    "/home/erik/Projects/game/dest/main.min.js",
+    "/home/erik/Projects/game/package.json",
+    "/home/erik/Projects/game/assets/terrain/green-hill.json",
+    "/home/erik/Projects/game/src/allLayouts.js",
+    "/home/erik/Projects/game/src/terrains/default.json",
+    "/home/erik/Projects/game/src/terrain-format.json",
+    "/home/erik/Gloversure/planti/code/public/js/app.js",
+    "/home/erik/Gloversure/planti/code/.gitignore",
+    "/home/erik/Gloversure/planti/code/build/lib/templates.js",
+    "/home/erik/Gloversure/planti/code/build/templates.js",
+    "/home/erik/Gloversure/planti/code/build/lib/app.js",
+    "/home/erik/Gloversure/planti/code/build/js-common.js",
+    "/home/erik/Gloversure/planti/code/build/images.js",
+    "/home/erik/Gloversure/planti/code/build/js-app.js",
+    "/home/erik/Gloversure/planti/code/build/libs.json",
+    "/home/erik/Gloversure/planti/code/build/js.js",
+    "/home/erik/Gloversure/planti/code/resources/assets/client/helpers.js",
+    "/home/erik/Gloversure/planti/code/yarn.lock",
+    "/home/erik/Gloversure/planti/code/permissions.php",
+    "/home/erik/Gloversure/planti/code/build/styles.js",
+    "/home/erik/Gloversure/planti/code/build/watch.js",
+    "/home/erik/Gloversure/planti/code/resources/assets/styles/plugins/index.less",
+    "/home/erik/Gloversure/planti/code/resources/assets/styles/base.less",
+    "/home/erik/Gloversure/planti/code/package.json",
+    "/home/erik/Gloversure/planti/code/node_modules/events/events.js",
+    "/home/erik/Gloversure/planti/code/bower_components/datatables/media/js/jquery.dataTables.js",
+    "/home/erik/Gloversure/planti/code/build/style.js",
+    "/home/erik/Gloversure/planti/package.json",
+    "/home/erik/Gloversure/planti/docker/node/Dockerfile",
+    "/home/erik/Gloversure/planti/code/deploy/deploy.rb",
+    "/home/erik/Gloversure/planti/code/deploy/stages/staging.rb",
+    "/home/erik/Gloversure/planti/code/deploy/stages/production.rb",
+    "/home/erik/Gloversure/planti/code/.bowerrc",
+    "/home/erik/Gloversure/planti/code/bower.json",
+    "/home/erik/Gloversure/planti/code/gulpfile.js",
+    "/home/erik/Gloversure/planti/code/build/lib/skin.js",
+    "/home/erik/Gloversure/planti/code/resources/assets/styles/vars.less",
+    "/home/erik/Gloversure/planti/code/build/compiled/compiled.txt",
+    "/home/erik/Gloversure/planti/code/build/compiled/ember.js",
+    "/home/erik/Gloversure/planti/pt.sublime-project",
+    "/home/erik/Gloversure/planti/code/webpack.mix.js",
+    "/home/erik/Gloversure/planti/docker-compose.yml"
+  ],
+  "find": {
+    "height": 38.0
+  },
+  "find_in_files": {
+    "height": 0.0,
+    "where_history": []
+  },
+  "find_state": {
+    "case_sensitive": false,
+    "find_history": [],
+    "highlight": true,
+    "in_selection": false,
+    "preserve_case": false,
+    "regex": true,
+    "replace_history": [],
+    "reverse": false,
+    "show_context": true,
+    "use_buffer2": true,
+    "whole_word": false,
+    "wrap": true
+  },
+  "groups": [
+    {
+      "selected": 0,
+      "sheets": [
+        {
+          "buffer": 0,
+          "file": "src/editor/components/bramble-view/bramble-view.js",
+          "semi_transient": false,
+          "settings": {
+            "buffer_size": 7084,
+            "regions": {},
+            "selection": [[4442, 4442]],
+            "settings": {
+              "syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+              "tab_size": 2,
+              "translate_tabs_to_spaces": true
+            },
+            "translation.x": 0.0,
+            "translation.y": 3648.0,
+            "zoom_level": 1.0
+          },
+          "stack_index": 0,
+          "type": "text"
+        },
+        {
+          "buffer": 1,
+          "file": "package.json",
+          "semi_transient": false,
+          "settings": {
+            "buffer_size": 1680,
+            "regions": {},
+            "selection": [[1238, 1238]],
+            "settings": {
+              "syntax": "Packages/Theme - SoDaReloaded/settings/langs/npm JSON.tmLanguage",
+              "tab_size": 2,
+              "translate_tabs_to_spaces": true
+            },
+            "translation.x": 0.0,
+            "translation.y": 0.0,
+            "zoom_level": 1.0
+          },
+          "stack_index": 1,
+          "type": "text"
+        },
+        {
+          "buffer": 2,
+          "file": "dest/index.html",
+          "semi_transient": false,
+          "settings": {
+            "buffer_size": 330,
+            "regions": {},
+            "selection": [[330, 330]],
+            "settings": {
+              "syntax": "Packages/HTML/HTML.sublime-syntax",
+              "tab_size": 2,
+              "translate_tabs_to_spaces": true
+            },
+            "translation.x": 0.0,
+            "translation.y": 0.0,
+            "zoom_level": 1.0
+          },
+          "stack_index": 2,
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "incremental_find": {
+    "height": 28.0
+  },
+  "input": {
+    "height": 52.0
+  },
+  "layout": {
+    "cells": [[0, 0, 1, 1]],
+    "cols": [0.0, 1.0],
+    "rows": [0.0, 1.0]
+  },
+  "menu_visible": true,
+  "output.find_results": {
+    "height": 0.0
+  },
+  "pinned_build_system": "",
+  "project": "LevelEditor",
+  "replace": {
+    "height": 52.0
+  },
+  "save_all_on_build": true,
+  "select_file": {
+    "height": 0.0,
+    "last_filter": "",
+    "selected_items": [
+      ["graphics", "src/bramble/graphics.js"],
+      [
+        "/atp/code/",
+        "code/resources/assets/js/node_modules/upath/build/code/upath.js"
+      ],
+      ["events.js", "code/node_modules/events/events.js"]
+    ],
+    "width": 0.0
+  },
+  "select_project": {
+    "height": 0.0,
+    "last_filter": "",
+    "selected_items": [],
+    "width": 0.0
+  },
+  "select_symbol": {
+    "height": 0.0,
+    "last_filter": "",
+    "selected_items": [],
+    "width": 0.0
+  },
+  "selected_group": 0,
+  "settings": {},
+  "show_minimap": true,
+  "show_open_files": false,
+  "show_tabs": true,
+  "side_bar_visible": true,
+  "side_bar_width": 265.0,
+  "status_bar_visible": true,
+  "template_settings": {}
+}
