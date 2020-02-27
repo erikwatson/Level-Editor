@@ -30,7 +30,7 @@ const camera = (state = { x: 0, y: 0 }, action) => {
   }
 }
 
-const defaultGridState = Grid.create(10, 10, { scale: 4 })
+const defaultGridState = Grid.create(100, 100, { scale: 4 })
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
 
