@@ -37,7 +37,6 @@ class BrambleView extends React.Component {
 
       const line = { width: 4, color: '#ffffff' }
 
-      // Draw the Bounding Box
       graphics.line(tl, tr, line)
       graphics.line(tr, br, line)
       graphics.line(br, bl, line)
@@ -108,27 +107,37 @@ class BrambleView extends React.Component {
     }
 
     const drawBoundingBox = () => {
-      const line = { width: 4, color: '#ffffff' }
-
+      // size of a single tile
       const tileWidth = this.props.grid.tileSize * this.props.grid.scale
       const tileHeight = this.props.grid.tileSize * this.props.grid.scale
 
+      // size of the bounding box as a number of those tiles
       const widthInTiles = this.props.grid.width
       const heightInTiles = this.props.grid.height
 
-      const tl = { x: 0 + this.props.cameraX, y: 0 + this.props.cameraY }
+      // position of the corners of the bounding box
+      const tl = {
+        x: 0 + this.props.cameraX,
+        y: 0 + this.props.cameraY
+      }
+
       const tr = {
         x: tileWidth * widthInTiles + this.props.cameraX,
         y: 0 + this.props.cameraY
       }
+
       const bl = {
         x: 0 + this.props.cameraX,
         y: tileHeight * heightInTiles + this.props.cameraY
       }
+
       const br = {
         x: tileWidth * widthInTiles + this.props.cameraX,
         y: tileHeight * heightInTiles + this.props.cameraY
       }
+
+      // draw the box
+      const line = { width: 4, color: '#ffffff' }
 
       graphics.line(tl, tr, line)
       graphics.line(tr, br, line)
@@ -190,7 +199,7 @@ class BrambleView extends React.Component {
       if (keyboard.ctrl.pressed) {
         // Set the cursor - we should make this functionality available through
         // the mouse object
-        document.getElementById('app-container').style.cursor = 'move'
+        mouse.cursor = 'move'
 
         // figure out the diff here
 
@@ -209,7 +218,7 @@ class BrambleView extends React.Component {
       } else {
         // Set the cursor - we should make this functionality available through
         // the mouse object
-        document.getElementById('app-container').style.cursor = 'auto'
+        mouse.cursor = 'auto'
 
         const mouseOverGridX = Math.floor(
           (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
