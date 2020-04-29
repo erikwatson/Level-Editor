@@ -11,8 +11,9 @@ class PanelList extends React.Component {
   }
 
   render() {
-    const renderThese = this.props.children.map(child => {
+    const renderThese = this.props.children.map((child, i) => {
       return React.cloneElement(child, {
+        key: i,
         open:
           child.props.open !== undefined ? child.props.open : this.state.open
       })

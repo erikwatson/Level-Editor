@@ -18,7 +18,6 @@ const withLabels = {
 
 const ToolButtons = ({ tools }) => {
   const icons = Object.keys(withLabels).map((icon, key) => withLabels[icon])
-
   const selected = Object.keys(withLabels).findIndex(x => x === tools.active)
 
   return <ButtonGroup icons={icons} selected={selected} />
