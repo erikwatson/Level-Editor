@@ -1,7 +1,7 @@
 const { combineReducers } = require('redux')
 const Grid = require('@erikwatson/bramble').grid
 
-const view = (state = { width: 960, height: 832 }, action) => {
+const view = (state = { width: 1280, height: 720 }, action) => {
   switch (action.type) {
     case 'VIEW_SET_WIDTH':
       return { ...state, width: parseInt(action.value) }
