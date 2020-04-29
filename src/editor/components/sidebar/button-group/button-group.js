@@ -7,8 +7,9 @@ class ButtonGroup extends React.Component {
   render() {
     const buttons = this.props.icons.map((icon, i) => {
       const className = i === this.props.selected ? 'selected' : null
+
       return (
-        <li className={className}>
+        <li className={className} key={i}>
           <FontAwesomeIcon icon={icon} />
         </li>
       )
