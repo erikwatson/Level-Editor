@@ -12,7 +12,7 @@ const {
 const withLabels = {
   select: faMousePointer,
   erase: faEraser,
-  paintBrush: faPaintBrush,
+  brush: faPaintBrush,
   fill: faFill
 }
 
@@ -20,6 +20,11 @@ const ToolButtons = ({ tools }) => {
   const icons = Object.keys(withLabels).map((icon, key) => withLabels[icon])
   const selected = Object.keys(withLabels).findIndex(x => x === tools.active)
 
+  // TODO: Change this so it's more like
+  //       <ButtonGroup>
+  //         <Button icon={...} onClick={...} />
+  //         <Button icon={...} onClick={...} />
+  //       </ButtonGroup>
   return <ButtonGroup icons={icons} selected={selected} />
 }
 
