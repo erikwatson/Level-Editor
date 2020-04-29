@@ -8,14 +8,22 @@ const {
   mouse,
   prevMouse,
   keyboard,
-  assets
+  assets,
+  sound
 } = require('@erikwatson/bramble')
 
 class BrambleView extends React.Component {
   componentDidMount() {
-    const container = document.querySelector('#bramble-view')
-
     let spritesheets = []
+    let music = []
+
+    Promise.all([assets.loadSound('./music/bensound-betterdays.mp3')])
+      .then(loadedMusic => {
+        // sound.play(loadedMusic[0])
+      })
+      .catch(err => {
+        console.error(err)
+      })
 
     Promise.all([
       assets.loadTerrain('./terrain/default.json'),
@@ -186,6 +194,8 @@ class BrambleView extends React.Component {
       ctx.fill()
     }
 
+    const container = document.querySelector('#bramble-view')
+
     game.attachTo(container)
 
     game.disableContextMenu()
@@ -197,11 +207,7 @@ class BrambleView extends React.Component {
 
     game.setUpdate(delta => {
       if (keyboard.ctrl.pressed) {
-        // Set the cursor - we should make this functionality available through
-        // the mouse object
         mouse.cursor = 'move'
-
-        // figure out the diff here
 
         const diff = { x: mouse.x - prevMouse.x, y: mouse.y - prevMouse.y }
         const pos = {
@@ -216,43 +222,46 @@ class BrambleView extends React.Component {
           })
         }
       } else {
-        // Set the cursor - we should make this functionality available through
-        // the mouse object
-        mouse.cursor = 'auto'
+        if (this.props.activeTool === 'brush') {
+          mouse.cursor = 'auto'
 
-        const mouseOverGridX = Math.floor(
-          (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
-        )
-        const mouseOverGridY = Math.floor(
-          (mouse.y - this.props.camera.y) / (tileHeight * this.props.grid.scale)
-        )
+          const mouseOverGridX = Math.floor(
+            (mouse.x - this.props.camera.x) /
+              (tileWidth * this.props.grid.scale)
+          )
+          const mouseOverGridY = Math.floor(
+            (mouse.y - this.props.camera.y) /
+              (tileHeight * this.props.grid.scale)
+          )
 
-        if (mouse.left.pressed) {
-          // insert a tile at this position
-          this.props.dispatch({
-            type: 'GRID_SET_TILE',
-            value: {
-              x: mouseOverGridX,
-              y: mouseOverGridY,
-              type: 2
-            }
-          })
-        }
+          if (mouse.left.pressed) {
+            // insert a tile at this position
+            this.props.dispatch({
+              type: 'GRID_SET_TILE',
+              value: {
+                x: mouseOverGridX,
+                y: mouseOverGridY,
+                type: 2
+              }
+            })
+          }
 
-        if (mouse.right.pressed) {
-          this.props.dispatch({
-            type: 'GRID_SET_TILE',
-            value: {
-              x: mouseOverGridX,
-              y: mouseOverGridY,
-              type: 0
-            }
-          })
+          if (mouse.right.pressed) {
+            this.props.dispatch({
+              type: 'GRID_SET_TILE',
+              value: {
+                x: mouseOverGridX,
+                y: mouseOverGridY,
+                type: 0
+              }
+            })
+          }
         }
       }
     })
     game.setRender(() => {
       graphics.clear('#000000')
+
       if (this.props.showGrid) {
         drawGrid()
       }
@@ -266,6 +275,7 @@ class BrambleView extends React.Component {
         this.props.grid.tileSize,
         this.props.grid.tileSize
       )
+
       drawBoundingBox()
       drawOrigin()
       drawViewportBox()
@@ -290,7 +300,8 @@ function mapStateToProps(state) {
   return {
     showGrid: true,
     grid: state.grid,
-    camera: state.camera
+    camera: state.camera,
+    activeTool: state.tool.active
   }
 }
 
