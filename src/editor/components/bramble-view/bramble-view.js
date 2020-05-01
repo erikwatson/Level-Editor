@@ -206,57 +206,43 @@ class BrambleView extends React.Component {
     const tileHeight = this.props.grid.tileSize
 
     game.setUpdate(delta => {
-      if (keyboard.ctrl.pressed) {
-        mouse.cursor = 'move'
+      const mouseOverGridX = Math.floor(
+        (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
+      )
+      const mouseOverGridY = Math.floor(
+        (mouse.y - this.props.camera.y) / (tileHeight * this.props.grid.scale)
+      )
 
-        const diff = { x: mouse.x - prevMouse.x, y: mouse.y - prevMouse.y }
-        const pos = {
-          x: this.props.camera.x + diff.x,
-          y: this.props.camera.y + diff.y
-        }
+      if (this.props.activeTool === 'pointer') {
+      }
 
+      if (this.props.activeTool === 'brush') {
         if (mouse.left.pressed) {
           this.props.dispatch({
-            type: 'CAMERA_SET_POS',
-            value: pos
+            type: 'GRID_SET_TILE',
+            value: {
+              x: mouseOverGridX,
+              y: mouseOverGridY,
+              type: 2
+            }
           })
         }
-      } else {
-        if (this.props.activeTool === 'brush') {
-          mouse.cursor = 'auto'
+      }
 
-          const mouseOverGridX = Math.floor(
-            (mouse.x - this.props.camera.x) /
-              (tileWidth * this.props.grid.scale)
-          )
-          const mouseOverGridY = Math.floor(
-            (mouse.y - this.props.camera.y) /
-              (tileHeight * this.props.grid.scale)
-          )
-
-          if (mouse.left.pressed) {
-            // insert a tile at this position
-            this.props.dispatch({
-              type: 'GRID_SET_TILE',
-              value: {
-                x: mouseOverGridX,
-                y: mouseOverGridY,
-                type: 2
-              }
-            })
-          }
-
-          if (mouse.right.pressed) {
-            this.props.dispatch({
-              type: 'GRID_SET_TILE',
-              value: {
-                x: mouseOverGridX,
-                y: mouseOverGridY,
-                type: 0
-              }
-            })
-          }
+      if (this.props.activeTool === 'erase') {
+        if (mouse.left.pressed) {
+          this.props.dispatch({
+            type: 'GRID_SET_TILE',
+            value: {
+              x: mouseOverGridX,
+              y: mouseOverGridY,
+              type: 0
+            }
+          })
         }
+      }
+
+      if (this.props.activeTool === 'fill') {
       }
     })
     game.setRender(() => {
