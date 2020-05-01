@@ -1,6 +1,7 @@
 const React = require('react')
 const { connect } = require('react-redux')
 const ButtonGroup = require('../button-group/button-group.js')
+const Button = require('../button/button')
 
 const {
   faFill,
@@ -9,23 +10,35 @@ const {
   faMousePointer
 } = require('@fortawesome/free-solid-svg-icons')
 
-const withLabels = {
-  select: faMousePointer,
+const labeledIcons = {
+  pointer: faMousePointer,
   erase: faEraser,
   brush: faPaintBrush,
   fill: faFill
 }
 
-const ToolButtons = ({ tools }) => {
-  const icons = Object.keys(withLabels).map((icon, key) => withLabels[icon])
-  const selected = Object.keys(withLabels).findIndex(x => x === tools.active)
+const ToolButtons = ({ tools, setSelected }) => {
+  const icons = Object.keys(labeledIcons).map(icon => ({
+    label: icon,
+    icon: labeledIcons[icon]
+  }))
 
-  // TODO: Change this so it's more like
-  //       <ButtonGroup>
-  //         <Button icon={...} onClick={...} />
-  //         <Button icon={...} onClick={...} />
-  //       </ButtonGroup>
-  return <ButtonGroup icons={icons} selected={selected} />
+  const iconList = icons.map(icon => {
+    const isSelected = icon.label === tools.active
+    const onClick = e => {
+      setSelected(icon.label)
+    }
+
+    const buttonProps = {
+      icon: icon.icon,
+      selected: isSelected,
+      onClick
+    }
+
+    return <Button {...buttonProps} />
+  })
+
+  return <ButtonGroup>{iconList}</ButtonGroup>
 }
 
 const mapStateToProps = state => {
@@ -34,4 +47,15 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = connect(mapStateToProps)(ToolButtons)
+const mapDispatchToProps = dispatch => {
+  return {
+    setSelected: label => {
+      dispatch({
+        type: 'TOOL_SET_ACTIVE',
+        value: label
+      })
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(ToolButtons)

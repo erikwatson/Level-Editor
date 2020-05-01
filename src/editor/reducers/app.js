@@ -99,7 +99,7 @@ const grid = (state = defaultGridState, action) => {
   }
 }
 
-const tool = (state = { active: 'fill' }, action) => {
+const tool = (state = { active: 'pointer' }, action) => {
   switch (action.type) {
     case 'TOOL_SET_ACTIVE':
       return { ...state, active: action.value }
