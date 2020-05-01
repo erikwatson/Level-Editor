@@ -30,6 +30,7 @@ const ToolButtons = ({ tools, setSelected }) => {
     }
 
     const buttonProps = {
+      tip: `${icon.label}`,
       icon: icon.icon,
       selected: isSelected,
       onClick
