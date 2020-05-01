@@ -159,6 +159,7 @@ class BrambleView extends React.Component {
         { width: 4, color: 'red' }
       )
 
+      // TODO: We shouldn't have to use the graphics context directly like this
       const ctx = graphics.getContext()
 
       ctx.fillStyle = 'red'
@@ -237,6 +238,7 @@ class BrambleView extends React.Component {
       if (this.props.activeTool === 'fill') {
       }
     })
+
     game.setRender(() => {
       graphics.clear('#000000')
 
@@ -279,7 +281,9 @@ function mapStateToProps(state) {
     showGrid: true,
     grid: state.grid,
     camera: state.camera,
-    activeTool: state.tool.active
+    activeTool: state.tool.active,
+    brush: state.brush,
+    erase: state.erase
   }
 }
 

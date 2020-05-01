@@ -1,6 +1,7 @@
 const { combineReducers } = require('redux')
 const Grid = require('@erikwatson/bramble').grid
 
+// Change the size of the View
 const view = (state = { width: 1280, height: 720 }, action) => {
   switch (action.type) {
     case 'VIEW_SET_WIDTH':
@@ -14,6 +15,7 @@ const view = (state = { width: 1280, height: 720 }, action) => {
   }
 }
 
+// Control the Camera
 const camera = (state = { x: 0, y: 0 }, action) => {
   switch (action.type) {
     case 'CAMERA_SET_X':
@@ -30,6 +32,7 @@ const camera = (state = { x: 0, y: 0 }, action) => {
   }
 }
 
+// Manipulate the Grid
 const defaultGridState = Grid.create(100, 100, { scale: 4 })
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
@@ -99,22 +102,64 @@ const grid = (state = defaultGridState, action) => {
   }
 }
 
+// Set the active Tool
 const tool = (state = { active: 'pointer' }, action) => {
   switch (action.type) {
     case 'TOOL_SET_ACTIVE':
       return { ...state, active: action.value }
+
     default:
       return state
   }
+}
 
-  return state
+// Pointer Tool Properties
+const pointer = (state = {}, action) => {
+  switch (action.type) {
+    default:
+      return state
+  }
+}
+
+// Brush Tool Properties
+const brush = (state = { size: 1 }, action) => {
+  switch (action.type) {
+    case 'BRUSH_SET_SIZE':
+      return { ...state, size: action.value }
+
+    default:
+      return state
+  }
+}
+
+// Eraser Tool Properties
+const erase = (state = { size: 1 }, action) => {
+  switch (action.type) {
+    case 'ERASE_SET_SIZE':
+      return { ...state, size: action.value }
+
+    default:
+      return state
+  }
+}
+
+// Fill Tool Properties
+const fill = (state = {}, action) => {
+  switch (action.type) {
+    default:
+      return state
+  }
 }
 
 const appReducer = combineReducers({
   view,
   camera,
   grid,
-  tool
+  tool,
+  pointer,
+  brush,
+  erase,
+  fill
 })
 
 module.exports = appReducer

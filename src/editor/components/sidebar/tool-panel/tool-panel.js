@@ -8,14 +8,28 @@ class ToolPanel extends React.Component {
     const emptyControls = <div className='section'></div>
     const pointerControls = emptyControls
 
+    const brushSizeChanged = e => {
+      this.props.dispatch({
+        type: 'BRUSH_SET_SIZE',
+        value: e.target.value
+      })
+    }
+
     const brushControls = (
       <div className='section'>
-        <div className='property'>
+        <div className='input range'>
           <label>Size</label>
-          <input type='range' />
+          <input
+            type='range'
+            value={this.props.brush.size}
+            onChange={brushSizeChanged}
+            max={10}
+            min={1}
+          />
+          <label>{this.props.brush.size} Tiles</label>
         </div>
 
-        <div className='property'>
+        <div className='input'>
           <label>Terrain</label>
           <select>
             <option>One</option>
@@ -25,18 +39,32 @@ class ToolPanel extends React.Component {
       </div>
     )
 
+    const eraseSizeChanged = e => {
+      this.props.dispatch({
+        type: 'ERASE_SET_SIZE',
+        value: e.target.value
+      })
+    }
+
     const eraseControls = (
       <div className='section'>
-        <div className='property'>
+        <div className='input range'>
           <label>Size</label>
-          <input type='range' />
+          <input
+            type='range'
+            value={this.props.erase.size}
+            onChange={eraseSizeChanged}
+            max={10}
+            min={1}
+          />
+          <label>{this.props.erase.size} Tiles</label>
         </div>
       </div>
     )
 
     const fillControls = (
       <div className='section'>
-        <div className='property'>
+        <div className='input'>
           <label>Terrain</label>
           <select>
             <option>One</option>
@@ -78,7 +106,9 @@ class ToolPanel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    tool: state.tool.active
+    tool: state.tool.active,
+    brush: state.brush,
+    erase: state.erase
   }
 }
 
