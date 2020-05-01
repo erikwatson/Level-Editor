@@ -17,14 +17,6 @@ class BrambleView extends React.Component {
     let spritesheets = []
     let music = []
 
-    Promise.all([assets.loadSound('./music/bensound-betterdays.mp3')])
-      .then(loadedMusic => {
-        // sound.play(loadedMusic[0])
-      })
-      .catch(err => {
-        console.error(err)
-      })
-
     Promise.all([
       assets.loadTerrain('./terrain/default.json'),
       assets.loadTerrain('./terrain/green-hills.json')
