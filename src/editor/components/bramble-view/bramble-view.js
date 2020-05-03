@@ -19,7 +19,8 @@ class BrambleView extends React.Component {
 
     Promise.all([
       assets.loadTerrain('./terrain/default.json'),
-      assets.loadTerrain('./terrain/green-hills.json')
+      assets.loadTerrain('./terrain/green-hills.json'),
+      assets.loadTerrain('./terrain/highlights.json')
     ])
       .then(terrain => {
         spritesheets = terrain
@@ -190,7 +191,6 @@ class BrambleView extends React.Component {
     const container = document.querySelector('#bramble-view')
 
     game.attachTo(container)
-
     game.disableContextMenu()
     game.setSize(this.props.width, this.props.height)
     game.setSmoothing(false)
@@ -199,30 +199,64 @@ class BrambleView extends React.Component {
     const tileHeight = this.props.grid.tileSize
 
     game.setUpdate(delta => {
-      const mouseOverGridX = Math.floor(
+      // Clearing out the Highlight Layer so we can choose what to show inside
+      // it on every frame
+      this.props.dispatch({ type: 'HIGHLIGHT_CLEAR' })
+
+      const relativeX =
         (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
-      )
-      const mouseOverGridY = Math.floor(
+      const relativeY =
         (mouse.y - this.props.camera.y) / (tileHeight * this.props.grid.scale)
-      )
+
+      const mouseOverGridX = Math.floor(relativeX)
+      const mouseOverGridY = Math.floor(relativeY)
+
+      const xSide = relativeX % 2 >= 0.5 ? -1 : 1
+      const ySide = relativeY % 2 >= 0.5 ? -1 : 1
 
       if (this.props.activeTool === 'pointer') {
       }
 
       if (this.props.activeTool === 'brush') {
-        if (mouse.left.pressed) {
+        if (this.props.brush.size === 1) {
           this.props.dispatch({
-            type: 'GRID_SET_TILE',
+            type: 'HIGHLIGHT_SET_TILE',
             value: {
               x: mouseOverGridX,
               y: mouseOverGridY,
-              type: 2
+              type: 100
             }
           })
+        } else {
+          // TODO
+        }
+
+        if (mouse.left.pressed) {
+          for (var x = 0; x < this.props.brush.size; x++) {
+            for (var y = 0; y < this.props.brush.size; y++) {
+              this.props.dispatch({
+                type: 'GRID_SET_TILE',
+                value: {
+                  x: mouseOverGridX + x,
+                  y: mouseOverGridY + y,
+                  type: 2
+                }
+              })
+            }
+          }
         }
       }
 
       if (this.props.activeTool === 'erase') {
+        this.props.dispatch({
+          type: 'HIGHLIGHT_SET_TILE',
+          value: {
+            x: mouseOverGridX,
+            y: mouseOverGridY,
+            type: 100
+          }
+        })
+
         if (mouse.left.pressed) {
           this.props.dispatch({
             type: 'GRID_SET_TILE',
@@ -246,10 +280,22 @@ class BrambleView extends React.Component {
         drawGrid()
       }
 
+      // Render the Tile Layer
       graphics.tiles(
         this.props.camera.x,
         this.props.camera.y,
         this.props.grid.tiles,
+        spritesheets,
+        this.props.grid.scale,
+        this.props.grid.tileSize,
+        this.props.grid.tileSize
+      )
+
+      // Render the Highlight layer
+      graphics.tiles(
+        this.props.camera.x,
+        this.props.camera.y,
+        this.props.highlights.tiles,
         spritesheets,
         this.props.grid.scale,
         this.props.grid.tileSize,
@@ -283,7 +329,8 @@ function mapStateToProps(state) {
     camera: state.camera,
     activeTool: state.tool.active,
     brush: state.brush,
-    erase: state.erase
+    erase: state.erase,
+    highlights: state.highlights
   }
 }
 
