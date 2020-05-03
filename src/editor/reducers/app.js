@@ -102,8 +102,78 @@ const grid = (state = defaultGridState, action) => {
   }
 }
 
+const defaultHighlightState = Grid.create(100, 100, { scale: 4 })
+
+const highlights = (state = defaultHighlightState, action) => {
+  switch (action.type) {
+    case 'HIGHLIGHT_SET_WIDTH':
+      if (action.value > state.width) {
+        let widthExpanded = copyTiles(state.tiles)
+
+        widthExpanded.forEach(row => {
+          while (row.length < state.width) {
+            row.push(0)
+          }
+        })
+
+        return { ...state, width: action.value, tiles: widthExpanded }
+      } else if (action.value < state.width) {
+        let widthShrunk = copyTiles(state.tiles)
+
+        widthShrunk.forEach(row => {
+          while (row.length >= state.width) {
+            row.pop()
+          }
+        })
+
+        return { ...state, width: action.value, tiles: widthShrunk }
+      }
+
+      return { ...state, width: action.value }
+
+    case 'HIGHLIGHT_SET_HEIGHT':
+      if (action.value > state.height) {
+        let heightExpanded = copyTiles(state.tiles)
+
+        heightExpanded.push(Array(state.width).fill(0))
+
+        return { ...state, height: action.value, tiles: heightExpanded }
+      } else if (action.value < state.height) {
+        let heightShrunk = copyTiles(state.tiles).slice(0, action.value)
+        return { ...state, height: action.value, tiles: heightShrunk }
+      }
+
+      return { ...state, height: action.value }
+
+    case 'HIGHLIGHT_SET_TILE_SIZE':
+      return { ...state, tileSize: action.value }
+
+    case 'HIGHLIGHT_SET_TILE':
+      const isWithinBounds =
+        action.value.y >= 0 &&
+        action.value.x >= 0 &&
+        action.value.x < state.width &&
+        action.value.y < state.height
+
+      if (isWithinBounds) {
+        let copy = copyTiles(state.tiles)
+        copy[action.value.y][action.value.x] = action.value.type
+
+        return { ...state, tiles: copy }
+      }
+
+      return state
+
+    case 'HIGHLIGHT_CLEAR':
+      return Grid.create(100, 100, { scale: 4 })
+
+    default:
+      return state
+  }
+}
+
 // Set the active Tool
-const tool = (state = { active: 'pointer' }, action) => {
+const tool = (state = { active: 'brush' }, action) => {
   switch (action.type) {
     case 'TOOL_SET_ACTIVE':
       return { ...state, active: action.value }
@@ -125,7 +195,7 @@ const pointer = (state = {}, action) => {
 const brush = (state = { size: 1 }, action) => {
   switch (action.type) {
     case 'BRUSH_SET_SIZE':
-      return { ...state, size: action.value }
+      return { ...state, size: parseInt(action.value) }
 
     default:
       return state
@@ -136,7 +206,7 @@ const brush = (state = { size: 1 }, action) => {
 const erase = (state = { size: 1 }, action) => {
   switch (action.type) {
     case 'ERASE_SET_SIZE':
-      return { ...state, size: action.value }
+      return { ...state, size: parseInt(action.value) }
 
     default:
       return state
@@ -159,7 +229,8 @@ const appReducer = combineReducers({
   pointer,
   brush,
   erase,
-  fill
+  fill,
+  highlights
 })
 
 module.exports = appReducer
