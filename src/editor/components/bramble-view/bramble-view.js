@@ -211,37 +211,136 @@ class BrambleView extends React.Component {
       const mouseOverGridX = Math.floor(relativeX)
       const mouseOverGridY = Math.floor(relativeY)
 
-      const xSide = relativeX % 2 >= 0.5 ? -1 : 1
-      const ySide = relativeY % 2 >= 0.5 ? -1 : 1
+      const halfBrush = Math.floor(this.props.brush.size / 2)
 
       if (this.props.activeTool === 'pointer') {
       }
 
       if (this.props.activeTool === 'brush') {
-        if (this.props.brush.size === 1) {
-          this.props.dispatch({
-            type: 'HIGHLIGHT_SET_TILE',
-            value: {
-              x: mouseOverGridX,
-              y: mouseOverGridY,
-              type: 100
-            }
-          })
-        } else {
-          // TODO
-        }
+        if (this.props.brush.size % 2 === 1) {
+          // Odd number of Tiles
 
-        if (mouse.left.pressed) {
-          for (var x = 0; x < this.props.brush.size; x++) {
-            for (var y = 0; y < this.props.brush.size; y++) {
+          for (var x = -halfBrush; x < this.props.brush.size - halfBrush; x++) {
+            for (
+              var y = -halfBrush;
+              y < this.props.brush.size - halfBrush;
+              y++
+            ) {
               this.props.dispatch({
-                type: 'GRID_SET_TILE',
+                type: 'HIGHLIGHT_SET_TILE',
                 value: {
                   x: mouseOverGridX + x,
                   y: mouseOverGridY + y,
-                  type: 2
+                  type: 100
                 }
               })
+            }
+          }
+        } else {
+          // Even Number of Tiles
+          const xSide = relativeX % 1 >= 0.5 ? 1 : -1
+          const ySide = relativeY % 1 >= 0.5 ? 1 : -1
+
+          if (xSide === -1) {
+            // left side
+            for (
+              var x = -halfBrush;
+              x < this.props.brush.size - halfBrush;
+              x++
+            ) {
+              if (ySide === -1) {
+                // top side
+                for (
+                  var y = -halfBrush;
+                  y < this.props.brush.size - halfBrush;
+                  y++
+                ) {
+                  this.props.dispatch({
+                    type: 'HIGHLIGHT_SET_TILE',
+                    value: {
+                      x: mouseOverGridX + x,
+                      y: mouseOverGridY + y,
+                      type: 100
+                    }
+                  })
+                }
+              } else {
+                // bottom side
+                for (
+                  var y = -(halfBrush - 1);
+                  y < this.props.brush.size - (halfBrush - 1);
+                  y++
+                ) {
+                  this.props.dispatch({
+                    type: 'HIGHLIGHT_SET_TILE',
+                    value: {
+                      x: mouseOverGridX + x,
+                      y: mouseOverGridY + y,
+                      type: 100
+                    }
+                  })
+                }
+              }
+            }
+          } else {
+            // right side
+            for (
+              var x = -(halfBrush - 1);
+              x < this.props.brush.size - (halfBrush - 1);
+              x++
+            ) {
+              if (ySide === -1) {
+                // top side
+                for (
+                  var y = -halfBrush;
+                  y < this.props.brush.size - halfBrush;
+                  y++
+                ) {
+                  this.props.dispatch({
+                    type: 'HIGHLIGHT_SET_TILE',
+                    value: {
+                      x: mouseOverGridX + x,
+                      y: mouseOverGridY + y,
+                      type: 100
+                    }
+                  })
+                }
+              } else {
+                // bottom side
+                for (
+                  var y = -(halfBrush - 1);
+                  y < this.props.brush.size - (halfBrush - 1);
+                  y++
+                ) {
+                  this.props.dispatch({
+                    type: 'HIGHLIGHT_SET_TILE',
+                    value: {
+                      x: mouseOverGridX + x,
+                      y: mouseOverGridY + y,
+                      type: 100
+                    }
+                  })
+                }
+              }
+            }
+          }
+        }
+
+        if (mouse.left.pressed) {
+          // Paint the highlighted tile, whatever they may be
+          // tiles stored as an array of rows, so need to go y first here
+          for (var y = 0; y < this.props.highlights.tiles.length; y++) {
+            for (var x = 0; x < this.props.highlights.tiles[y].length; x++) {
+              if (this.props.highlights.tiles[y][x] === 100) {
+                this.props.dispatch({
+                  type: 'GRID_SET_TILE',
+                  value: {
+                    x: x,
+                    y: y,
+                    type: 2
+                  }
+                })
+              }
             }
           }
         }

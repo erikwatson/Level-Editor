@@ -192,7 +192,7 @@ const pointer = (state = {}, action) => {
 }
 
 // Brush Tool Properties
-const brush = (state = { size: 1 }, action) => {
+const brush = (state = { size: 4 }, action) => {
   switch (action.type) {
     case 'BRUSH_SET_SIZE':
       return { ...state, size: parseInt(action.value) }
