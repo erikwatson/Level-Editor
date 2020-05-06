@@ -38,7 +38,7 @@ class ToolPanel extends React.Component {
 
         <div className='input'>
           <label>Terrain</label>
-          <select onChange={terrainChange}>
+          <select onChange={terrainChange} value={this.props.brush.type}>
             <option value='1'>Default</option>
             <option value='2'>Green Hills</option>
           </select>

@@ -39,8 +39,13 @@ const copyTiles = tiles => tiles.map(arr => arr.slice())
 
 const grid = (state = defaultGridState, action) => {
   switch (action.type) {
+    case 'GRID_SET_VISIBILITY':
+      return { ...state, visible: action.value }
+
     case 'GRID_SET_WIDTH':
-      if (action.value > state.width) {
+      const widthValue = parseInt(action.value)
+
+      if (widthValue > state.width) {
         let widthExpanded = copyTiles(state.tiles)
 
         widthExpanded.forEach(row => {
@@ -49,8 +54,8 @@ const grid = (state = defaultGridState, action) => {
           }
         })
 
-        return { ...state, width: action.value, tiles: widthExpanded }
-      } else if (action.value < state.width) {
+        return { ...state, width: widthValue, tiles: widthExpanded }
+      } else if (widthValue < state.width) {
         let widthShrunk = copyTiles(state.tiles)
 
         widthShrunk.forEach(row => {
@@ -59,24 +64,26 @@ const grid = (state = defaultGridState, action) => {
           }
         })
 
-        return { ...state, width: action.value, tiles: widthShrunk }
+        return { ...state, width: widthValue, tiles: widthShrunk }
       }
 
-      return { ...state, width: action.value }
+      return { ...state, width: widthValue }
 
     case 'GRID_SET_HEIGHT':
-      if (action.value > state.height) {
+      const heightValue = parseInt(action.value)
+
+      if (heightValue > state.height) {
         let heightExpanded = copyTiles(state.tiles)
 
         heightExpanded.push(Array(state.width).fill(0))
 
-        return { ...state, height: action.value, tiles: heightExpanded }
-      } else if (action.value < state.height) {
-        let heightShrunk = copyTiles(state.tiles).slice(0, action.value)
-        return { ...state, height: action.value, tiles: heightShrunk }
+        return { ...state, height: heightValue, tiles: heightExpanded }
+      } else if (heightValue < state.height) {
+        let heightShrunk = copyTiles(state.tiles).slice(0, heightValue)
+        return { ...state, height: heightValue, tiles: heightShrunk }
       }
 
-      return { ...state, height: action.value }
+      return { ...state, height: heightValue }
 
     case 'GRID_SET_TILE_SIZE':
       return { ...state, tileSize: action.value }

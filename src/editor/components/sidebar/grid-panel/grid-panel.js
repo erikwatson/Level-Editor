@@ -6,6 +6,7 @@ class GridPanel extends React.Component {
   constructor(props) {
     super(props)
 
+    this.visibleChange = this.visibleChange.bind(this)
     this.onWidthChange = this.onWidthChange.bind(this)
     this.onHeightChange = this.onHeightChange.bind(this)
   }
@@ -13,14 +14,21 @@ class GridPanel extends React.Component {
   onWidthChange(event) {
     this.props.dispatch({
       type: 'GRID_SET_WIDTH',
-      value: parseInt(event.target.value)
+      value: event.target.value
     })
   }
 
   onHeightChange(event) {
     this.props.dispatch({
       type: 'GRID_SET_HEIGHT',
-      value: parseInt(event.target.value)
+      value: event.target.value
+    })
+  }
+
+  visibleChange(e) {
+    this.props.dispatch({
+      type: 'GRID_SET_VISIBILITY',
+      value: event.target.checked
     })
   }
 
@@ -28,6 +36,15 @@ class GridPanel extends React.Component {
     return (
       <Panel title='Grid' {...this.props}>
         <div className='section'>
+          <div className='input range'>
+            <label>Visible:</label>
+            <input
+              type='checkbox'
+              defaultChecked={true}
+              onChange={this.visibleChange}
+            />
+          </div>
+
           <div className='input range'>
             <label>Width:</label>
             <input
@@ -60,7 +77,8 @@ class GridPanel extends React.Component {
 function mapStateToProps(state) {
   return {
     width: state.grid.width,
-    height: state.grid.height
+    height: state.grid.height,
+    visible: state.grid.visible
   }
 }
 
