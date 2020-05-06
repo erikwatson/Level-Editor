@@ -311,6 +311,7 @@ class BrambleView extends React.Component {
       const mouseOverGridX = Math.floor(relativeX)
       const mouseOverGridY = Math.floor(relativeY)
 
+      // keyboard shortcuts for tool switching
       if (this.props.activeTool === 'pointer') {
       }
 
