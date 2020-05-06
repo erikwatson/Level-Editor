@@ -192,9 +192,18 @@ const pointer = (state = {}, action) => {
 }
 
 // Brush Tool Properties
-const brush = (state = { size: 4 }, action) => {
+const brush = (state = { size: 1 }, action) => {
+  const maxBrushSize = 10
+  const minBrushSize = 1
+
   switch (action.type) {
     case 'BRUSH_SET_SIZE':
+      if (action.value > maxBrushSize) {
+        return state
+      }
+      if (action.value < minBrushSize) {
+        return state
+      }
       return { ...state, size: parseInt(action.value) }
 
     default:
@@ -204,8 +213,17 @@ const brush = (state = { size: 4 }, action) => {
 
 // Eraser Tool Properties
 const erase = (state = { size: 1 }, action) => {
+  const maxBrushSize = 10
+  const minBrushSize = 1
+
   switch (action.type) {
     case 'ERASE_SET_SIZE':
+      if (action.value > maxBrushSize) {
+        return state
+      }
+      if (action.value < minBrushSize) {
+        return state
+      }
       return { ...state, size: parseInt(action.value) }
 
     default:
