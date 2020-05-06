@@ -15,6 +15,13 @@ class ToolPanel extends React.Component {
       })
     }
 
+    const terrainChange = e => {
+      this.props.dispatch({
+        type: 'BRUSH_TERRAIN_CHANGE',
+        value: e.target.value
+      })
+    }
+
     const brushControls = (
       <div className='section'>
         <div className='input range'>
@@ -31,9 +38,9 @@ class ToolPanel extends React.Component {
 
         <div className='input'>
           <label>Terrain</label>
-          <select>
-            <option>One</option>
-            <option>Two</option>
+          <select onChange={terrainChange}>
+            <option value='1'>Default</option>
+            <option value='2'>Green Hills</option>
           </select>
         </div>
       </div>
