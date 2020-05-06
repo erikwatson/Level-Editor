@@ -7,14 +7,16 @@ const {
   faFill,
   faPaintBrush,
   faEraser,
-  faMousePointer
+  faMousePointer,
+  faSlash
 } = require('@fortawesome/free-solid-svg-icons')
 
 const labeledIcons = {
   pointer: faMousePointer,
   erase: faEraser,
   brush: faPaintBrush,
-  fill: faFill
+  fill: faFill,
+  line: faSlash
 }
 
 const ToolButtons = ({ tools, setSelected }) => {

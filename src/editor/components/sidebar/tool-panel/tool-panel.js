@@ -81,6 +81,22 @@ class ToolPanel extends React.Component {
       </div>
     )
 
+    const lineControls = (
+      <div className='section'>
+        <div className='input'>
+          <label>Width</label>
+          <input
+            type='range'
+            value={this.props.erase.size}
+            onChange={eraseSizeChanged}
+            max={10}
+            min={1}
+          />
+          <label>{} Tiles</label>
+        </div>
+      </div>
+    )
+
     const getControls = () => {
       switch (this.props.tool) {
         case 'pointer':
@@ -94,6 +110,9 @@ class ToolPanel extends React.Component {
 
         case 'fill':
           return fillControls
+
+        case 'line':
+          return lineControls
 
         default:
           return emptyControls
