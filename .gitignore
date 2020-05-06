@@ -1,6 +1,7 @@
 yarn-error.log
 node_modules
 src/bramble
+dest/editor.js
 assets/
 *.sublime-workspace
 commands/publish
