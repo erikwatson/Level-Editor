@@ -459,7 +459,7 @@ class BrambleView extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    showGrid: true,
+    showGrid: state.grid.visible,
     grid: state.grid,
     camera: state.camera,
     activeTool: state.tool.active,
