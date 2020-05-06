@@ -192,7 +192,7 @@ const pointer = (state = {}, action) => {
 }
 
 // Brush Tool Properties
-const brush = (state = { size: 1 }, action) => {
+const brush = (state = { size: 1, type: 1 }, action) => {
   const maxBrushSize = 10
   const minBrushSize = 1
 
@@ -206,13 +206,16 @@ const brush = (state = { size: 1 }, action) => {
       }
       return { ...state, size: parseInt(action.value) }
 
+    case 'BRUSH_TERRAIN_CHANGE':
+      return { ...state, type: parseInt(action.value) }
+
     default:
       return state
   }
 }
 
 // Eraser Tool Properties
-const erase = (state = { size: 1 }, action) => {
+const erase = (state = { size: 1, type: 0 }, action) => {
   const maxBrushSize = 10
   const minBrushSize = 1
 

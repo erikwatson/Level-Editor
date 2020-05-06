@@ -349,7 +349,7 @@ class BrambleView extends React.Component {
                   value: {
                     x: x,
                     y: y,
-                    type: 2
+                    type: this.props.brush.type
                   }
                 })
               }
