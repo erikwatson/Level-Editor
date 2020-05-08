@@ -378,7 +378,6 @@ class BrambleView extends React.Component {
 
         const eraseSize = this.props.erase.size
 
-        // console.log({relativeX, relativeY})
         setHighlights(
           { x: mouseOverGridX, y: mouseOverGridY },
           { x: relativeX, y: relativeY },
@@ -406,11 +405,21 @@ class BrambleView extends React.Component {
       }
 
       if (this.props.activeTool === 'fill') {
+        if (mouse.left.pressed) {
+          this.props.dispatch({
+            type: 'GRID_FLOOD_FILL',
+            value: {
+              x: mouseOverGridX,
+              y: mouseOverGridY,
+              type: this.props.fill.type
+            }
+          })
+        }
       }
     })
 
     game.setRender(() => {
-      graphics.clear('#000000')
+      graphics.clear(this.props.view.colour)
 
       if (this.props.showGrid) {
         drawGrid()
@@ -460,13 +469,15 @@ class BrambleView extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    view: state.view,
     showGrid: state.grid.visible,
     grid: state.grid,
     camera: state.camera,
     activeTool: state.tool.active,
     brush: state.brush,
     erase: state.erase,
-    highlights: state.highlights
+    highlights: state.highlights,
+    fill: state.fill
   }
 }
 

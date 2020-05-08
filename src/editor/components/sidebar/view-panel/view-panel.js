@@ -1,6 +1,7 @@
 const React = require('react')
 const { connect } = require('react-redux')
 const Panel = require('../panel/panel.js')
+const ColourPicker = require('../colour-picker/colour-picker.js')
 
 class ViewPanel extends React.Component {
   constructor(props) {
@@ -27,6 +28,11 @@ class ViewPanel extends React.Component {
   render() {
     return (
       <Panel title='View' open={this.props.open}>
+        <div className='input'>
+          <label>Colour:</label>
+          <ColourPicker />
+        </div>
+
         <div className='input range'>
           <label>Width:</label>
           <input
