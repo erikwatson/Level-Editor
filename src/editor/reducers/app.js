@@ -1,14 +1,20 @@
 const { combineReducers } = require('redux')
 const Grid = require('@erikwatson/bramble').grid
 
-// Change the size of the View
-const view = (state = { width: 1280, height: 720 }, action) => {
+// Change the properties of the View
+const view = (
+  state = { width: 1280, height: 720, colour: '#000000' },
+  action
+) => {
   switch (action.type) {
     case 'VIEW_SET_WIDTH':
       return { ...state, width: parseInt(action.value) }
 
     case 'VIEW_SET_HEIGHT':
       return { ...state, height: parseInt(action.value) }
+
+    case 'VIEW_SET_COLOUR':
+      return { ...state, colour: action.value }
 
     default:
       return state
@@ -103,6 +109,49 @@ const grid = (state = defaultGridState, action) => {
       }
 
       return state
+
+    case 'GRID_FLOOD_FILL':
+      const gridClone = copyTiles(state.tiles)
+
+      const floodFill = (position, target, replacement) => {
+        const valueAtPosition = gridClone[position.y][position.x]
+
+        if (target === replacement) {
+          return
+        }
+
+        if (valueAtPosition !== target) {
+          return
+        }
+
+        gridClone[position.y][position.x] = replacement
+
+        if (position.y < gridClone.length - 1) {
+          floodFill({ x: position.x, y: position.y + 1 }, target, replacement)
+        }
+
+        if (position.y > 0) {
+          floodFill({ x: position.x, y: position.y - 1 }, target, replacement)
+        }
+
+        if (position.x < gridClone[0].length - 1) {
+          floodFill({ x: position.x + 1, y: position.y }, target, replacement)
+        }
+
+        if (position.x > 0) {
+          floodFill({ x: position.x - 1, y: position.y }, target, replacement)
+        }
+
+        return
+      }
+
+      floodFill(
+        { x: action.value.x, y: action.value.y },
+        gridClone[action.value.y][action.value.x],
+        action.value.type
+      )
+
+      return { ...state, tiles: gridClone }
 
     default:
       return state
@@ -242,8 +291,11 @@ const erase = (state = { size: 1, type: 0 }, action) => {
 }
 
 // Fill Tool Properties
-const fill = (state = {}, action) => {
+const fill = (state = { type: 1 }, action) => {
   switch (action.type) {
+    case 'FILL_SET_TYPE':
+      return { ...state, type: parseInt(action.value) }
+
     default:
       return state
   }
