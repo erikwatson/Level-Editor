@@ -41,7 +41,7 @@ class ViewPanel extends React.Component {
           type='range'
           value={this.props.width}
           onChange={this.onWidthChange}
-          max={960}
+          max={1280}
           min={64}
         />
         <label className='value'>{this.props.width} px</label>
@@ -53,7 +53,7 @@ class ViewPanel extends React.Component {
           type='range'
           value={this.props.height}
           onChange={this.onHeightChange}
-          max={832}
+          max={720}
           min={64}
         />
         <label className='value'>{this.props.height} px</label>
