@@ -3,10 +3,13 @@ const Grid = require('@erikwatson/bramble').grid
 
 // Change the properties of the View
 const view = (
-  state = { width: 1280, height: 720, colour: '#000000' },
+  state = { width: 1280, height: 720, colour: '#000000', fullScreen: true },
   action
 ) => {
   switch (action.type) {
+    case 'VIEW_SET_FULLSCREEN':
+      return { ...state, fullScreen: action.value }
+
     case 'VIEW_SET_WIDTH':
       return { ...state, width: parseInt(action.value) }
 
@@ -39,7 +42,7 @@ const camera = (state = { x: 0, y: 0 }, action) => {
 }
 
 // Manipulate the Grid
-const defaultGridState = Grid.create(100, 100, { scale: 4 })
+const defaultGridState = Grid.create(50, 30, { scale: 4 })
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
 

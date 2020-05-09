@@ -9,6 +9,7 @@ class ViewPanel extends React.Component {
     this.state = {}
     this.onHeightChange = this.onHeightChange.bind(this)
     this.onWidthChange = this.onWidthChange.bind(this)
+    this.fullScreenChange = this.fullScreenChange.bind(this)
   }
 
   onWidthChange(event) {
@@ -25,7 +26,42 @@ class ViewPanel extends React.Component {
     })
   }
 
+  fullScreenChange(event) {
+    this.props.dispatch({
+      type: 'VIEW_SET_FULLSCREEN',
+      value: event.target.checked
+    })
+  }
+
   render() {
+    const sizeControls = [
+      <div className='input range'>
+        <label>Width:</label>
+        <input
+          type='range'
+          value={this.props.width}
+          onChange={this.onWidthChange}
+          max={960}
+          min={64}
+        />
+        <label className='value'>{this.props.width} px</label>
+      </div>,
+
+      <div className='input range'>
+        <label>Height:</label>
+        <input
+          type='range'
+          value={this.props.height}
+          onChange={this.onHeightChange}
+          max={832}
+          min={64}
+        />
+        <label className='value'>{this.props.height} px</label>
+      </div>
+    ]
+
+    const visibilityControlled = this.props.fullScreen ? null : sizeControls
+
     return (
       <Panel title='View' open={this.props.open}>
         <div className='input'>
@@ -33,28 +69,15 @@ class ViewPanel extends React.Component {
           <ColourPicker />
         </div>
 
-        <div className='input range'>
-          <label>Width:</label>
+        <div className='input'>
+          <label>Full:</label>
           <input
-            type='range'
-            value={this.props.width}
-            onChange={this.onWidthChange}
-            max={960}
-            min={64}
+            type='checkbox'
+            defaultChecked={this.props.fullScreen}
+            onChange={this.fullScreenChange}
           />
-          <label className='value'>{this.props.width} px</label>
         </div>
-        <div className='input range'>
-          <label>Height:</label>
-          <input
-            type='range'
-            value={this.props.height}
-            onChange={this.onHeightChange}
-            max={832}
-            min={64}
-          />
-          <label className='value'>{this.props.height} px</label>
-        </div>
+        {visibilityControlled}
       </Panel>
     )
   }
@@ -63,7 +86,8 @@ class ViewPanel extends React.Component {
 const mapStateToProps = state => {
   return {
     width: state.view.width,
-    height: state.view.height
+    height: state.view.height,
+    fullScreen: state.view.fullScreen
   }
 }
 

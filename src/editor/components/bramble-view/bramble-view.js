@@ -447,15 +447,30 @@ class BrambleView extends React.Component {
         this.props.grid.tileSize
       )
 
-      drawBoundingBox()
+      if (!this.props.view.fullScreen) {
+        drawBoundingBox()
+      }
+
       drawOrigin()
-      drawViewportBox()
+
+      if (!this.props.view.fullScreen) {
+        drawViewportBox()
+      }
     })
   }
 
   componentDidUpdate() {
-    game.setSize(this.props.width, this.props.height)
-    game.setSmoothing(false)
+    if (this.props.view.fullScreen) {
+      const bramblePane = document.querySelector('#bramble-pane')
+      const size = {
+        width: bramblePane.offsetWidth,
+        height: bramblePane.offsetHeight
+      }
+      game.setSize(size.width, size.height)
+    } else {
+      game.setSize(this.props.view.width, this.props.view.height)
+      game.setSmoothing(false)
+    }
   }
 
   render() {
