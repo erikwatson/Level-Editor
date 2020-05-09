@@ -21,20 +21,6 @@ module.exports = ({ title = 'Sidebar', cameraX = 0, cameraY = 0 }) => {
       </div>
       <PanelList open={true}>
         <ViewPanel />
-        <Panel title='Camera'>
-          <div className='section'>
-            <div className='property'>
-              <label>X:</label>
-              <p>{cameraX}</p>
-            </div>
-          </div>
-          <div className='section'>
-            <div className='property'>
-              <label>Y:</label>
-              <p>{cameraY}</p>
-            </div>
-          </div>
-        </Panel>
         <ToolPanel />
         <GridPanel />
         <Panel title='Layers'>

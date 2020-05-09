@@ -50,7 +50,7 @@ class GridPanel extends React.Component {
             <input
               type='range'
               value={this.props.width}
-              max={40}
+              max={100}
               min={1}
               onChange={this.onWidthChange}
             />
@@ -62,7 +62,7 @@ class GridPanel extends React.Component {
             <input
               type='range'
               value={this.props.height}
-              max={40}
+              max={100}
               min={1}
               onChange={this.onHeightChange}
             />
