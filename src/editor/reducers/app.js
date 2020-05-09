@@ -124,32 +124,53 @@ const grid = (state = defaultGridState, action) => {
           return
         }
 
-        gridClone[position.y][position.x] = replacement
+        const isWithinBounds =
+          position.x < gridClone[position.y].length &&
+          position.x >= 0 &&
+          position.y < gridClone.length &&
+          position.y >= 0
 
-        if (position.y < gridClone.length - 1) {
-          floodFill({ x: position.x, y: position.y + 1 }, target, replacement)
-        }
+        if (isWithinBounds) {
+          gridClone[position.y][position.x] = replacement
 
-        if (position.y > 0) {
-          floodFill({ x: position.x, y: position.y - 1 }, target, replacement)
-        }
+          if (position.y < gridClone.length - 1) {
+            floodFill({ x: position.x, y: position.y + 1 }, target, replacement)
+          }
 
-        if (position.x < gridClone[0].length - 1) {
-          floodFill({ x: position.x + 1, y: position.y }, target, replacement)
-        }
+          if (position.y > 0) {
+            floodFill({ x: position.x, y: position.y - 1 }, target, replacement)
+          }
 
-        if (position.x > 0) {
-          floodFill({ x: position.x - 1, y: position.y }, target, replacement)
+          if (position.x < gridClone[0].length - 1) {
+            floodFill({ x: position.x + 1, y: position.y }, target, replacement)
+          }
+
+          if (position.x > 0) {
+            floodFill({ x: position.x - 1, y: position.y }, target, replacement)
+          }
         }
 
         return
       }
 
-      floodFill(
-        { x: action.value.x, y: action.value.y },
-        gridClone[action.value.y][action.value.x],
-        action.value.type
-      )
+      if (
+        gridClone[action.value.y] !== undefined &&
+        gridClone[action.value.y][action.value.x] !== undefined
+      ) {
+        const withinBounds =
+          action.value.x < gridClone[action.value.y].length - 1 &&
+          action.value.x >= 0 &&
+          action.value.y < gridClone.length &&
+          action.value.y >= 0
+
+        if (withinBounds) {
+          floodFill(
+            { x: action.value.x, y: action.value.y },
+            gridClone[action.value.y][action.value.x],
+            action.value.type
+          )
+        }
+      }
 
       return { ...state, tiles: gridClone }
 
