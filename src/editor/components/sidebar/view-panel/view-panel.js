@@ -65,11 +65,6 @@ class ViewPanel extends React.Component {
     return (
       <Panel title='View' open={this.props.open}>
         <div className='input'>
-          <label>Colour:</label>
-          <ColourPicker />
-        </div>
-
-        <div className='input'>
           <label>Full:</label>
           <input
             type='checkbox'

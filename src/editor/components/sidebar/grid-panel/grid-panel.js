@@ -16,11 +16,21 @@ class GridPanel extends React.Component {
       type: 'GRID_SET_WIDTH',
       value: event.target.value
     })
+
+    this.props.dispatch({
+      type: 'HIGHLIGHT_SET_WIDTH',
+      value: event.target.value
+    })
   }
 
   onHeightChange(event) {
     this.props.dispatch({
       type: 'GRID_SET_HEIGHT',
+      value: event.target.value
+    })
+
+    this.props.dispatch({
+      type: 'HIGHLIGHT_SET_HEIGHT',
       value: event.target.value
     })
   }
