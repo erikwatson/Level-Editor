@@ -469,8 +469,9 @@ class BrambleView extends React.Component {
       game.setSize(size.width, size.height)
     } else {
       game.setSize(this.props.view.width, this.props.view.height)
-      game.setSmoothing(false)
     }
+
+    game.setSmoothing(false)
   }
 
   render() {
