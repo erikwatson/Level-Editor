@@ -187,7 +187,9 @@ const defaultHighlightState = Grid.create(100, 100, { scale: 4 })
 const highlights = (state = defaultHighlightState, action) => {
   switch (action.type) {
     case 'HIGHLIGHT_SET_WIDTH':
-      if (action.value > state.width) {
+      const widthValue = parseInt(action.value)
+
+      if (widthValue > state.width) {
         let widthExpanded = copyTiles(state.tiles)
 
         widthExpanded.forEach(row => {
@@ -196,8 +198,8 @@ const highlights = (state = defaultHighlightState, action) => {
           }
         })
 
-        return { ...state, width: action.value, tiles: widthExpanded }
-      } else if (action.value < state.width) {
+        return { ...state, width: widthValue, tiles: widthExpanded }
+      } else if (widthValue < state.width) {
         let widthShrunk = copyTiles(state.tiles)
 
         widthShrunk.forEach(row => {
@@ -206,24 +208,25 @@ const highlights = (state = defaultHighlightState, action) => {
           }
         })
 
-        return { ...state, width: action.value, tiles: widthShrunk }
+        return { ...state, width: widthValue, tiles: widthShrunk }
       }
 
-      return { ...state, width: action.value }
+      return { ...state, width: widthValue }
 
     case 'HIGHLIGHT_SET_HEIGHT':
-      if (action.value > state.height) {
-        let heightExpanded = copyTiles(state.tiles)
+      const heightValue = parseInt(action.value)
 
+      if (heightValue > state.height) {
+        let heightExpanded = copyTiles(state.tiles)
         heightExpanded.push(Array(state.width).fill(0))
 
-        return { ...state, height: action.value, tiles: heightExpanded }
-      } else if (action.value < state.height) {
-        let heightShrunk = copyTiles(state.tiles).slice(0, action.value)
-        return { ...state, height: action.value, tiles: heightShrunk }
+        return { ...state, height: heightValue, tiles: heightExpanded }
+      } else if (heightValue < state.height) {
+        let heightShrunk = copyTiles(state.tiles).slice(0, heightValue)
+        return { ...state, height: heightValue, tiles: heightShrunk }
       }
 
-      return { ...state, height: action.value }
+      return { ...state, height: heightValue }
 
     case 'HIGHLIGHT_SET_TILE_SIZE':
       return { ...state, tileSize: action.value }
@@ -245,7 +248,15 @@ const highlights = (state = defaultHighlightState, action) => {
       return state
 
     case 'HIGHLIGHT_CLEAR':
-      return Grid.create(100, 100, { scale: 4 })
+      let clearedTiles = copyTiles(state.tiles)
+
+      for (var y = 0; y < clearedTiles.length; y++) {
+        for (var x = 0; x < clearedTiles[0].length; x++) {
+          clearedTiles[y][x] = 0
+        }
+      }
+
+      return { ...state, tiles: clearedTiles }
 
     default:
       return state
