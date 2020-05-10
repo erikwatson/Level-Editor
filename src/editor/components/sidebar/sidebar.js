@@ -16,8 +16,15 @@ const style = require('./sidebar.sass')
 module.exports = ({ title = 'Sidebar', cameraX = 0, cameraY = 0 }) => {
   return (
     <div id='sidebar'>
-      <div>
+      <div className='header'>
         <h1>{title}</h1>
+        <div className='link'>
+          <span>
+            <a href='https://github.com/championchap/Level-Editor/issues'>
+              Report a Bug or request a Feature
+            </a>
+          </span>
+        </div>
       </div>
       <PanelList open={true}>
         <ViewPanel />
