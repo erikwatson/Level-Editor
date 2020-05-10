@@ -81,7 +81,7 @@ class BrambleView extends React.Component {
             y: bl.y
           },
           {
-            width: i % 2 == 0 ? 2 : 1,
+            width: i % this.props.grid.divisions === 0 ? 2 : 1,
             color: '#663399'
           }
         )
@@ -100,7 +100,7 @@ class BrambleView extends React.Component {
             y: tl.y + i * tileHeight
           },
           {
-            width: i % 2 == 0 ? 2 : 1,
+            width: i % this.props.grid.divisions === 0 ? 2 : 1,
             color: '#663399'
           }
         )
@@ -311,7 +311,6 @@ class BrambleView extends React.Component {
       const mouseOverGridX = Math.floor(relativeX)
       const mouseOverGridY = Math.floor(relativeY)
 
-      // keyboard shortcuts for tool switching
       if (this.props.activeTool === 'pointer') {
       }
 
@@ -466,6 +465,7 @@ class BrambleView extends React.Component {
         width: bramblePane.offsetWidth,
         height: bramblePane.offsetHeight
       }
+
       game.setSize(size.width, size.height)
     } else {
       game.setSize(this.props.view.width, this.props.view.height)

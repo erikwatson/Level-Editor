@@ -9,6 +9,7 @@ class GridPanel extends React.Component {
     this.visibleChange = this.visibleChange.bind(this)
     this.onWidthChange = this.onWidthChange.bind(this)
     this.onHeightChange = this.onHeightChange.bind(this)
+    this.divisionsChange = this.divisionsChange.bind(this)
   }
 
   onWidthChange(event) {
@@ -42,6 +43,13 @@ class GridPanel extends React.Component {
     })
   }
 
+  divisionsChange(e) {
+    this.props.dispatch({
+      type: 'GRID_SET_DIVISIONS',
+      value: event.target.value
+    })
+  }
+
   render() {
     return (
       <Panel title='Grid' {...this.props}>
@@ -55,6 +63,20 @@ class GridPanel extends React.Component {
             />
           </div>
 
+          <div className='input range'>
+            <label>Divisions:</label>
+            <input
+              type='range'
+              value={this.props.divisions}
+              max={10}
+              min={2}
+              onChange={this.divisionsChange}
+            />
+            <label className='value'>{this.props.divisions} Tiles</label>
+          </div>
+        </div>
+
+        <div className='section'>
           <div className='input range'>
             <label>Width:</label>
             <input
@@ -88,7 +110,8 @@ function mapStateToProps(state) {
   return {
     width: state.grid.width,
     height: state.grid.height,
-    visible: state.grid.visible
+    visible: state.grid.visible,
+    divisions: state.grid.divisions
   }
 }
 

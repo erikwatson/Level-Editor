@@ -51,6 +51,9 @@ const grid = (state = defaultGridState, action) => {
     case 'GRID_SET_VISIBILITY':
       return { ...state, visible: action.value }
 
+    case 'GRID_SET_DIVISIONS':
+      return { ...state, divisions: parseInt(action.value) }
+
     case 'GRID_SET_WIDTH':
       const widthValue = parseInt(action.value)
 
