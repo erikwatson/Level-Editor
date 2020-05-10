@@ -42,7 +42,7 @@ const camera = (state = { x: 0, y: 0 }, action) => {
 }
 
 // Manipulate the Grid
-const defaultGridState = Grid.create(50, 30, { scale: 4 })
+const defaultGridState = Grid.create(50, 30, { scale: 4, divisions: 5 })
 
 const copyTiles = tiles => tiles.map(arr => arr.slice())
 
