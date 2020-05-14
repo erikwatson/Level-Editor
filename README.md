@@ -2,9 +2,9 @@
 
 A tile based level editor for a game I'm working on.
 
-## Screenshot
+## Video
 
-![Screenshot](docs/images/screenshot.png)
+![Video](docs/images/video.gif)
 
 ## Authors
 
