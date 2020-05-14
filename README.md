@@ -1,6 +1,6 @@
 # Level Editor
 
-A tile based level editor for a game I'm working on.
+A tile based level editor for [Bramble](https://github.com/championchap/Bramble) Games.
 
 ## Video
 
