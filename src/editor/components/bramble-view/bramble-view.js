@@ -20,7 +20,8 @@ class BrambleView extends React.Component {
     Promise.all([
       assets.loadTerrain('./terrain/default.json'),
       assets.loadTerrain('./terrain/green-hills.json'),
-      assets.loadTerrain('./terrain/highlights.json')
+      assets.loadTerrain('./terrain/highlights.json'),
+      assets.loadTerrain('./terrain/grass-decoration.json')
     ])
       .then(terrain => {
         spritesheets = terrain
