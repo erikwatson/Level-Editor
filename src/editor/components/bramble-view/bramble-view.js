@@ -9,10 +9,19 @@ const {
   prevMouse,
   keyboard,
   assets,
-  sound
+  sound,
+  grid
 } = require('@erikwatson/bramble')
 
 class BrambleView extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      highlights: grid.create(100, 100)
+    }
+  }
+
   componentDidMount() {
     let spritesheets = []
     let music = []
@@ -147,12 +156,14 @@ class BrambleView extends React.Component {
       graphics.line(bl, tl, line)
     }
 
-    const setHighlights = (gridPos, relativePos, brushSize) => {
+    const setBrushHighlights = (gridPos, relativePos, brushSize) => {
       const mouseOverGridX = gridPos.x
       const mouseOverGridY = gridPos.y
 
       const relativeX = relativePos.x
       const relativeY = relativePos.y
+
+      const modifiedTiles = [...this.state.highlights.tiles]
 
       if (brushSize % 2 === 1) {
         // Odd number of Tiles
@@ -160,13 +171,10 @@ class BrambleView extends React.Component {
 
         for (var x = -halfBrush; x < brushSize - halfBrush; x++) {
           for (var y = -halfBrush; y < brushSize - halfBrush; y++) {
-            this.props.dispatch({
-              type: 'HIGHLIGHT_SET_TILE',
-              value: {
-                x: mouseOverGridX + x,
-                y: mouseOverGridY + y,
-                type: 100
-              }
+            modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
+
+            this.setState({
+              highlights: { ...this.state.highlights, tiles: modifiedTiles }
             })
           }
         }
@@ -183,13 +191,10 @@ class BrambleView extends React.Component {
             if (ySide === -1) {
               // top side
               for (var y = -halfBrush; y < brushSize - halfBrush; y++) {
-                this.props.dispatch({
-                  type: 'HIGHLIGHT_SET_TILE',
-                  value: {
-                    x: mouseOverGridX + x,
-                    y: mouseOverGridY + y,
-                    type: 100
-                  }
+                modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
+
+                this.setState({
+                  highlights: { ...this.state.highlights, tiles: modifiedTiles }
                 })
               }
             } else {
@@ -199,13 +204,10 @@ class BrambleView extends React.Component {
                 y < brushSize - (halfBrush - 1);
                 y++
               ) {
-                this.props.dispatch({
-                  type: 'HIGHLIGHT_SET_TILE',
-                  value: {
-                    x: mouseOverGridX + x,
-                    y: mouseOverGridY + y,
-                    type: 100
-                  }
+                modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
+
+                this.setState({
+                  highlights: { ...this.state.highlights, tiles: modifiedTiles }
                 })
               }
             }
@@ -216,13 +218,10 @@ class BrambleView extends React.Component {
             if (ySide === -1) {
               // top side
               for (var y = -halfBrush; y < brushSize - halfBrush; y++) {
-                this.props.dispatch({
-                  type: 'HIGHLIGHT_SET_TILE',
-                  value: {
-                    x: mouseOverGridX + x,
-                    y: mouseOverGridY + y,
-                    type: 100
-                  }
+                modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
+
+                this.setState({
+                  highlights: { ...this.state.highlights, tiles: modifiedTiles }
                 })
               }
             } else {
@@ -232,19 +231,29 @@ class BrambleView extends React.Component {
                 y < brushSize - (halfBrush - 1);
                 y++
               ) {
-                this.props.dispatch({
-                  type: 'HIGHLIGHT_SET_TILE',
-                  value: {
-                    x: mouseOverGridX + x,
-                    y: mouseOverGridY + y,
-                    type: 100
-                  }
+                modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
+
+                this.setState({
+                  highlights: { ...this.state.highlights, tiles: modifiedTiles }
                 })
               }
             }
           }
         }
       }
+    }
+
+    const setFillHighlights = (position, target, replacement) => {
+      const replacementHighlights = grid.fill(
+        this.props.grid,
+        position,
+        target,
+        replacement
+      )
+
+      this.setState({
+        highlights: { ...this.state.highlights, tiles: replacementHighlights }
+      })
     }
 
     // Draw the Origin Axis
@@ -302,7 +311,7 @@ class BrambleView extends React.Component {
     game.setUpdate(delta => {
       // Clearing out the Highlight Layer so we can choose what to show inside
       // it on every frame
-      this.props.dispatch({ type: 'HIGHLIGHT_CLEAR' })
+      // this.props.dispatch({ type: 'HIGHLIGHT_CLEAR' })
 
       const relativeX =
         (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
@@ -311,6 +320,22 @@ class BrambleView extends React.Component {
 
       const mouseOverGridX = Math.floor(relativeX)
       const mouseOverGridY = Math.floor(relativeY)
+
+      const clearHighlights = () => {
+        const modifiedTiles = [...this.state.highlights.tiles]
+
+        for (var y = 0; y < modifiedTiles.length; y++) {
+          for (var x = 0; x < modifiedTiles[0].length; x++) {
+            modifiedTiles[y][x] = 0
+          }
+        }
+
+        this.setState({
+          highlights: { ...this.state.highlights, tiles: modifiedTiles }
+        })
+      }
+
+      clearHighlights()
 
       if (this.props.activeTool === 'pointer') {
       }
@@ -333,7 +358,7 @@ class BrambleView extends React.Component {
         }
 
         const brushSize = this.props.brush.size
-        setHighlights(
+        setBrushHighlights(
           { x: mouseOverGridX, y: mouseOverGridY },
           { x: relativeX, y: relativeY },
           brushSize
@@ -342,9 +367,9 @@ class BrambleView extends React.Component {
         if (mouse.left.pressed) {
           // Paint the highlighted tile, whatever they may be
           // tiles stored as an array of rows, so need to go y first here
-          for (var y = 0; y < this.props.highlights.tiles.length; y++) {
-            for (var x = 0; x < this.props.highlights.tiles[y].length; x++) {
-              if (this.props.highlights.tiles[y][x] === 100) {
+          for (var y = 0; y < this.state.highlights.tiles.length; y++) {
+            for (var x = 0; x < this.state.highlights.tiles[y].length; x++) {
+              if (this.state.highlights.tiles[y][x] === 100) {
                 this.props.dispatch({
                   type: 'GRID_SET_TILE',
                   value: {
@@ -378,7 +403,7 @@ class BrambleView extends React.Component {
 
         const eraseSize = this.props.erase.size
 
-        setHighlights(
+        setBrushHighlights(
           { x: mouseOverGridX, y: mouseOverGridY },
           { x: relativeX, y: relativeY },
           eraseSize
@@ -387,9 +412,9 @@ class BrambleView extends React.Component {
         if (mouse.left.pressed) {
           // Paint the highlighted tile, whatever they may be
           // tiles stored as an array of rows, so need to go y first here
-          for (var y = 0; y < this.props.highlights.tiles.length; y++) {
-            for (var x = 0; x < this.props.highlights.tiles[y].length; x++) {
-              if (this.props.highlights.tiles[y][x] === 100) {
+          for (var y = 0; y < this.state.highlights.tiles.length; y++) {
+            for (var x = 0; x < this.state.highlights.tiles[y].length; x++) {
+              if (this.state.highlights.tiles[y][x] === 100) {
                 this.props.dispatch({
                   type: 'GRID_SET_TILE',
                   value: {
@@ -405,6 +430,14 @@ class BrambleView extends React.Component {
       }
 
       if (this.props.activeTool === 'fill') {
+        console.log(this.props.grid.tiles[mouseOverGridY][mouseOverGridX])
+
+        setFillHighlights(
+          { x: mouseOverGridX, y: mouseOverGridY },
+          this.props.grid.tiles[mouseOverGridY][mouseOverGridX],
+          100
+        )
+
         if (mouse.left.pressed) {
           this.props.dispatch({
             type: 'GRID_FLOOD_FILL',
@@ -436,16 +469,18 @@ class BrambleView extends React.Component {
         this.props.grid.tileSize
       )
 
-      // Render the Highlight layer
+      // Render the Tool highlights
       graphics.tiles(
         this.props.camera.x,
         this.props.camera.y,
-        this.props.highlights.tiles,
+        this.state.highlights.tiles,
         spritesheets,
         this.props.grid.scale,
         this.props.grid.tileSize,
         this.props.grid.tileSize
       )
+
+      // render layer highlights?
 
       if (!this.props.view.fullScreen) {
         drawBoundingBox()
