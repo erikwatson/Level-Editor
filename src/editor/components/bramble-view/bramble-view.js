@@ -245,7 +245,7 @@ class BrambleView extends React.Component {
 
     const setFillHighlights = (position, target, replacement) => {
       const replacementHighlights = grid.fill(
-        this.props.grid,
+        this.props.grid.tiles,
         position,
         target,
         replacement
@@ -309,10 +309,6 @@ class BrambleView extends React.Component {
     const tileHeight = this.props.grid.tileSize
 
     game.setUpdate(delta => {
-      // Clearing out the Highlight Layer so we can choose what to show inside
-      // it on every frame
-      // this.props.dispatch({ type: 'HIGHLIGHT_CLEAR' })
-
       const relativeX =
         (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
       const relativeY =

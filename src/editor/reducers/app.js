@@ -44,8 +44,6 @@ const camera = (state = { x: 0, y: 0 }, action) => {
 // Manipulate the Grid
 const defaultGridState = Grid.create(50, 30, { scale: 4, divisions: 5 })
 
-const copyTiles = tiles => tiles.map(arr => arr.slice())
-
 const grid = (state = defaultGridState, action) => {
   switch (action.type) {
     case 'GRID_SET_VISIBILITY':
@@ -58,7 +56,7 @@ const grid = (state = defaultGridState, action) => {
       const widthValue = parseInt(action.value)
 
       if (widthValue > state.width) {
-        let widthExpanded = copyTiles(state.tiles)
+        let widthExpanded = Grid.copyTiles(state.tiles)
 
         widthExpanded.forEach(row => {
           while (row.length < state.width) {
@@ -68,7 +66,7 @@ const grid = (state = defaultGridState, action) => {
 
         return { ...state, width: widthValue, tiles: widthExpanded }
       } else if (widthValue < state.width) {
-        let widthShrunk = copyTiles(state.tiles)
+        let widthShrunk = Grid.copyTiles(state.tiles)
 
         widthShrunk.forEach(row => {
           while (row.length >= state.width) {
@@ -85,13 +83,13 @@ const grid = (state = defaultGridState, action) => {
       const heightValue = parseInt(action.value)
 
       if (heightValue > state.height) {
-        let heightExpanded = copyTiles(state.tiles)
+        let heightExpanded = Grid.copyTiles(state.tiles)
 
         heightExpanded.push(Array(state.width).fill(0))
 
         return { ...state, height: heightValue, tiles: heightExpanded }
       } else if (heightValue < state.height) {
-        let heightShrunk = copyTiles(state.tiles).slice(0, heightValue)
+        let heightShrunk = Grid.copyTiles(state.tiles).slice(0, heightValue)
         return { ...state, height: heightValue, tiles: heightShrunk }
       }
 
@@ -108,7 +106,7 @@ const grid = (state = defaultGridState, action) => {
         action.value.y < state.height
 
       if (isWithinBounds) {
-        let copy = copyTiles(state.tiles)
+        let copy = Grid.copyTiles(state.tiles)
         copy[action.value.y][action.value.x] = action.value.type
 
         return { ...state, tiles: copy }
@@ -117,66 +115,15 @@ const grid = (state = defaultGridState, action) => {
       return state
 
     case 'GRID_FLOOD_FILL':
-      const gridClone = copyTiles(state.tiles)
-
-      const floodFill = (position, target, replacement) => {
-        const valueAtPosition = gridClone[position.y][position.x]
-
-        if (target === replacement) {
-          return
-        }
-
-        if (valueAtPosition !== target) {
-          return
-        }
-
-        const isWithinBounds =
-          position.x < gridClone[position.y].length &&
-          position.x >= 0 &&
-          position.y < gridClone.length &&
-          position.y >= 0
-
-        if (isWithinBounds) {
-          gridClone[position.y][position.x] = replacement
-
-          if (position.y < gridClone.length - 1) {
-            floodFill({ x: position.x, y: position.y + 1 }, target, replacement)
-          }
-
-          if (position.y > 0) {
-            floodFill({ x: position.x, y: position.y - 1 }, target, replacement)
-          }
-
-          if (position.x < gridClone[0].length - 1) {
-            floodFill({ x: position.x + 1, y: position.y }, target, replacement)
-          }
-
-          if (position.x > 0) {
-            floodFill({ x: position.x - 1, y: position.y }, target, replacement)
-          }
-        }
-
-        return
-      }
-
-      if (
-        gridClone[action.value.y] !== undefined &&
-        gridClone[action.value.y][action.value.x] !== undefined
-      ) {
-        const withinBounds =
-          action.value.x < gridClone[action.value.y].length - 1 &&
-          action.value.x >= 0 &&
-          action.value.y < gridClone.length &&
-          action.value.y >= 0
-
-        if (withinBounds) {
-          floodFill(
-            { x: action.value.x, y: action.value.y },
-            gridClone[action.value.y][action.value.x],
-            action.value.type
-          )
-        }
-      }
+      const gridClone = Grid.fill(
+        state.tiles,
+        {
+          x: action.value.x,
+          y: action.value.y
+        },
+        state.tiles[action.value.y][action.value.x],
+        action.value.type
+      )
 
       return { ...state, tiles: gridClone }
 
@@ -193,7 +140,7 @@ const highlights = (state = defaultHighlightState, action) => {
       const widthValue = parseInt(action.value)
 
       if (widthValue > state.width) {
-        let widthExpanded = copyTiles(state.tiles)
+        let widthExpanded = Grid.copyTiles(state.tiles)
 
         widthExpanded.forEach(row => {
           while (row.length < state.width) {
@@ -203,7 +150,7 @@ const highlights = (state = defaultHighlightState, action) => {
 
         return { ...state, width: widthValue, tiles: widthExpanded }
       } else if (widthValue < state.width) {
-        let widthShrunk = copyTiles(state.tiles)
+        let widthShrunk = Grid.copyTiles(state.tiles)
 
         widthShrunk.forEach(row => {
           while (row.length >= state.width) {
@@ -220,12 +167,12 @@ const highlights = (state = defaultHighlightState, action) => {
       const heightValue = parseInt(action.value)
 
       if (heightValue > state.height) {
-        let heightExpanded = copyTiles(state.tiles)
+        let heightExpanded = Grid.copyTiles(state.tiles)
         heightExpanded.push(Array(state.width).fill(0))
 
         return { ...state, height: heightValue, tiles: heightExpanded }
       } else if (heightValue < state.height) {
-        let heightShrunk = copyTiles(state.tiles).slice(0, heightValue)
+        let heightShrunk = Grid.copyTiles(state.tiles).slice(0, heightValue)
         return { ...state, height: heightValue, tiles: heightShrunk }
       }
 
@@ -242,7 +189,7 @@ const highlights = (state = defaultHighlightState, action) => {
         action.value.y < state.height
 
       if (isWithinBounds) {
-        let copy = copyTiles(state.tiles)
+        let copy = Grid.copyTiles(state.tiles)
         copy[action.value.y][action.value.x] = action.value.type
 
         return { ...state, tiles: copy }
@@ -251,7 +198,7 @@ const highlights = (state = defaultHighlightState, action) => {
       return state
 
     case 'HIGHLIGHT_CLEAR':
-      let clearedTiles = copyTiles(state.tiles)
+      let clearedTiles = Grid.copyTiles(state.tiles)
 
       for (var y = 0; y < clearedTiles.length; y++) {
         for (var x = 0; x < clearedTiles[0].length; x++) {
