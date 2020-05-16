@@ -14,17 +14,35 @@ const {
 } = require('@erikwatson/bramble')
 
 class TerrainEditor extends React.Component {
+  componentDidMount() {
+    const container = document.querySelector('#bramble-view')
+
+    game.attachTo(container)
+    game.disableContextMenu()
+    game.setSize(this.props.width, this.props.height)
+    game.setSmoothing(false)
+
+    game.setUpdate(delta => {})
+
+    game.setRender(() => {
+      graphics.clear('#ff0000')
+    })
+  }
+
   render() {
     return (
-      <div>
-        <h1>Terrain Editor</h1>
+      <div id='bramble-pane'>
+        <div id='bramble-view'></div>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    width: 500,
+    height: 500
+  }
 }
 
 module.exports = connect(mapStateToProps)(TerrainEditor)
