@@ -20,7 +20,7 @@ module.exports = ({ title = 'Sidebar', cameraX = 0, cameraY = 0 }) => {
         <h1>{title}</h1>
         <div className='link'>
           <span>
-            <a href='https://github.com/championchap/Level-Editor/issues'>
+            <a href='https://github.com/erikwatson/Level-Editor/issues'>
               Report a Bug or request a Feature
             </a>
           </span>
