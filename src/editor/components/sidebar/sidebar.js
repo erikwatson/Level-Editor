@@ -3,6 +3,8 @@ const { connect } = require('react-redux')
 const PanelList = require('../ui/panel-list/panel-list.js')
 const Panel = require('../ui/panel/panel.js')
 
+const style = require('./sidebar.sass')
+
 const SideBar = props => {
   const { title = 'Sidebar', cameraX = 0, cameraY = 0, children } = props
 
@@ -19,25 +21,19 @@ const SideBar = props => {
         </div>
       </div>
 
-      <div>
-        <h2>Navigation</h2>
-
+      <div className='nav'>
         <ul>
-          <li>
-            <a
-              onClick={() => {
-                props.setTitle('tile')
-              }}>
-              Tiles
-            </a>
+          <li
+            onClick={() => {
+              props.setTitle('tile')
+            }}>
+            <a>Tiles</a>
           </li>
-          <li>
-            <a
-              onClick={() => {
-                props.setTitle('terrain')
-              }}>
-              Terrain
-            </a>
+          <li
+            onClick={() => {
+              props.setTitle('terrain')
+            }}>
+            <a>Terrain</a>
           </li>
         </ul>
       </div>
