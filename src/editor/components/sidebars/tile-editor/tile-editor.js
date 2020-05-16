@@ -11,7 +11,7 @@ const LayerButtons = require('./layer-buttons/layer-buttons.js')
 const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome')
 const { faPlusSquare } = require('@fortawesome/free-solid-svg-icons')
 
-const style = require('./sidebar.sass')
+const style = require('./tile-editor.sass')
 
 module.exports = ({ title = 'Sidebar', cameraX = 0, cameraY = 0 }) => {
   return (
