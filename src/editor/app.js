@@ -10,20 +10,32 @@ const TerrainEditorSidebar = require('./components/sidebars/terrain-editor/terra
 const style = require('./app.sass')
 
 const App = props => {
-  return (
-    <div id='app'>
-      <TerrainEditorSidebar />
-      <TerrainEditorView {...props} />
-    </div>
-  )
+  const tileView = [<TileEditorSidebar />, <TileEditorView {...props} />]
+  const terrainView = [<TerrainEditorSidebar />, <TerrainEditorView />]
+
+  const getView = title => {
+    switch (title) {
+      case 'tile':
+        return tileView
+      case 'terrain':
+        return terrainView
+      default:
+        console.error(`no view defined for "${title}"`)
+    }
+  }
+
+  const view = getView(props.app)
+
+  return <div id='app'>{view}</div>
 }
 
 const mapStateToProps = state => {
   return {
     width: state.view.width,
     height: state.view.height,
-    cameraX: state.camera.x,
-    cameraY: state.camera.y
+    cameraX: state.tile.camera.x,
+    cameraY: state.tile.camera.y,
+    app: state.app
   }
 }
 

@@ -141,11 +141,13 @@ class ToolPanel extends React.Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
+
   return {
-    tool: state.tool.active,
-    brush: state.brush,
-    erase: state.erase,
-    fill: state.fill
+    tool: state.tile.tool.active,
+    brush: state.tile.brush,
+    erase: state.tile.erase,
+    fill: state.tile.fill
   }
 }
 

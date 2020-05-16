@@ -517,14 +517,14 @@ class TileEditor extends React.Component {
 function mapStateToProps(state) {
   return {
     view: state.view,
-    showGrid: state.grid.visible,
-    grid: state.grid,
-    camera: state.camera,
-    activeTool: state.tool.active,
-    brush: state.brush,
-    erase: state.erase,
-    highlights: state.highlights,
-    fill: state.fill
+    showGrid: state.tile.grid.visible,
+    grid: state.tile.grid,
+    camera: state.tile.camera,
+    activeTool: state.tile.tool.active,
+    brush: state.tile.brush,
+    erase: state.tile.erase,
+    highlights: state.tile.highlights,
+    fill: state.tile.fill
   }
 }
 
