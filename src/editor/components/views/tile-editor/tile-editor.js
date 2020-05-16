@@ -1,6 +1,6 @@
 const React = require('react')
 const { connect } = require('react-redux')
-const style = require('./bramble-view.sass')
+const style = require('./tile-editor.sass')
 
 const {
   game,
@@ -13,7 +13,7 @@ const {
   grid
 } = require('@erikwatson/bramble')
 
-class BrambleView extends React.Component {
+class TileEditor extends React.Component {
   constructor(props) {
     super(props)
 
@@ -427,8 +427,6 @@ class BrambleView extends React.Component {
       }
 
       if (this.props.activeTool === 'fill') {
-        console.log(this.props.grid.tiles[mouseOverGridY][mouseOverGridX])
-
         setFillHighlights(
           { x: mouseOverGridX, y: mouseOverGridY },
           this.props.grid.tiles[mouseOverGridY][mouseOverGridX],
@@ -530,4 +528,4 @@ function mapStateToProps(state) {
   }
 }
 
-module.exports = connect(mapStateToProps)(BrambleView)
+module.exports = connect(mapStateToProps)(TileEditor)

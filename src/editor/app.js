@@ -1,8 +1,9 @@
 const React = require('react')
 const { connect } = require('react-redux')
 
-const Sidebar = require('./components/sidebar/sidebar.js')
-const BrambleView = require('./components/bramble-view/bramble-view.js')
+const Sidebar = require('./components/sidebars/tile-editor/tile-editor.js')
+const TileEditorView = require('./components/views/tile-editor/tile-editor.js')
+const TerrainEditorView = require('./components/views/terrain-editor/terrain-editor.js')
 
 const style = require('./app.sass')
 
@@ -14,7 +15,7 @@ const App = props => {
         cameraX={props.cameraX}
         cameraY={props.cameraY}
       />
-      <BrambleView {...props} />
+      <TileEditorView {...props} />
     </div>
   )
 }
