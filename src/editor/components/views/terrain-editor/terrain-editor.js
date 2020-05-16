@@ -23,7 +23,7 @@ class TerrainEditor extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {}
 }
 

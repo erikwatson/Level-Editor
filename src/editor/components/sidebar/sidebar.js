@@ -1,13 +1,11 @@
 const React = require('react')
+const { connect } = require('react-redux')
 const PanelList = require('../ui/panel-list/panel-list.js')
 const Panel = require('../ui/panel/panel.js')
 
-module.exports = ({
-  title = 'Sidebar',
-  cameraX = 0,
-  cameraY = 0,
-  children
-}) => {
+const SideBar = props => {
+  const { title = 'Sidebar', cameraX = 0, cameraY = 0, children } = props
+
   return (
     <div id='sidebar'>
       <div className='header'>
@@ -21,7 +19,45 @@ module.exports = ({
         </div>
       </div>
 
+      <div>
+        <h2>Navigation</h2>
+
+        <ul>
+          <li>
+            <a
+              onClick={() => {
+                props.setTitle('tile')
+              }}>
+              Tiles
+            </a>
+          </li>
+          <li>
+            <a
+              onClick={() => {
+                props.setTitle('terrain')
+              }}>
+              Terrain
+            </a>
+          </li>
+        </ul>
+      </div>
+
       <PanelList>{children}</PanelList>
     </div>
   )
 }
+
+const mapStateToProps = state => {
+  return {}
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching plain actions
+    setTitle: (title = 'tile') => {
+      dispatch({ type: 'APP_SET_TITLE', value: title })
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(SideBar)

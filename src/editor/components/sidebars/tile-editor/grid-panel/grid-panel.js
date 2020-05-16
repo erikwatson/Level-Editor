@@ -109,10 +109,10 @@ class GridPanel extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    width: state.grid.width,
-    height: state.grid.height,
-    visible: state.grid.visible,
-    divisions: state.grid.divisions
+    width: state.tile.grid.width,
+    height: state.tile.grid.height,
+    visible: state.tile.grid.visible,
+    divisions: state.tile.grid.divisions
   }
 }
 
