@@ -1,7 +1,6 @@
 const React = require('react')
 
 const Panel = require('../panel/panel.js')
-
 const style = require('./panel-list.sass')
 
 class PanelList extends React.Component {
@@ -11,7 +10,7 @@ class PanelList extends React.Component {
   }
 
   render() {
-    const renderThese = this.props.children.map((child, i) => {
+    const renderThese = React.Children.map(this.props.children, (child, i) => {
       return React.cloneElement(child, {
         key: i,
         open:
