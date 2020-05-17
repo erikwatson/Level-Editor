@@ -4,7 +4,7 @@ A tile based level editor for [Bramble](https://github.com/erikwatson/Bramble) G
 
 ## Screenshot
 
-![Screenshot](docs/images/screenshot.gif)
+![Screenshot](docs/images/screenshot.png)
 
 ## Authors
 
