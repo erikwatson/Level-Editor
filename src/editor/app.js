@@ -1,8 +1,8 @@
 const React = require('react')
 const { connect } = require('react-redux')
 
-const TileEditorView = require('./components/views/tile-editor/tile-editor.js')
-const TileEditorSidebar = require('./components/sidebars/tile-editor/tile-editor.js')
+const TileEditorView = require('./components/views/map-editor/map-editor.js')
+const TileEditorSidebar = require('./components/sidebars/map-editor/map-editor.js')
 
 const TerrainEditorView = require('./components/views/terrain-editor/terrain-editor.js')
 const TerrainEditorSidebar = require('./components/sidebars/terrain-editor/terrain-editor.js')

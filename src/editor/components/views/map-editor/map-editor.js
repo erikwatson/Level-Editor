@@ -1,6 +1,6 @@
 const React = require('react')
 const { connect } = require('react-redux')
-const style = require('./tile-editor.sass')
+const style = require('./map-editor.sass')
 
 const {
   game,
@@ -13,7 +13,7 @@ const {
   grid
 } = require('@erikwatson/bramble')
 
-class TileEditor extends React.Component {
+class MapEditor extends React.Component {
   constructor(props) {
     super(props)
 
@@ -530,4 +530,4 @@ function mapStateToProps(state) {
   }
 }
 
-module.exports = connect(mapStateToProps)(TileEditor)
+module.exports = connect(mapStateToProps)(MapEditor)
