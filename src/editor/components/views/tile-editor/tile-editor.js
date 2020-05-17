@@ -31,7 +31,9 @@ class TileEditor extends React.Component {
       assets.loadTerrain('./terrain/green-hills.json'),
       assets.loadTerrain('./terrain/highlights.json'),
       assets.loadTerrain('./terrain/grass-decoration.json'),
-      assets.loadTerrain('./terrain/stalactites.json')
+      assets.loadTerrain('./terrain/stalactites.json'),
+      assets.loadTerrain('./terrain/rock.json'),
+      assets.loadTerrain('./terrain/waterfall.json')
     ])
       .then(terrain => {
         spritesheets = terrain
