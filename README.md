@@ -2,9 +2,9 @@
 
 A tile based level editor for [Bramble](https://github.com/erikwatson/Bramble) Games.
 
-## Video
+## Screenshot
 
-![Video](docs/images/video.gif)
+![Screenshot](docs/images/screenshot.gif)
 
 ## Authors
 
