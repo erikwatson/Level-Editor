@@ -7,11 +7,11 @@ const ViewPanel = require('./view-panel/view-panel.js')
 const GridPanel = require('./grid-panel/grid-panel.js')
 const ToolPanel = require('./tool-panel/tool-panel.js')
 
-const style = require('./tile-editor.sass')
+const style = require('./map-editor.sass')
 
-const TileEditorSidebar = props => {
+const MapEditorSidebar = props => {
   return (
-    <Sidebar title='Tile Editor'>
+    <Sidebar title='Map Editor'>
       <ToolPanel />
       <GridPanel />
       <ViewPanel />
@@ -23,4 +23,4 @@ const mapStateToProps = state => {
   return {}
 }
 
-module.exports = connect(mapStateToProps)(TileEditorSidebar)
+module.exports = connect(mapStateToProps)(MapEditorSidebar)
