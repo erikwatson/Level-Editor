@@ -51,6 +51,8 @@ class ToolPanel extends React.Component {
             <option value='2'>Green Hills</option>
             <option value='3'>Grass Decoration</option>
             <option value='4'>Stalactites</option>
+            <option value='5'>Rock</option>
+            <option value='6'>Waterfall</option>
           </select>
         </div>
       </div>
