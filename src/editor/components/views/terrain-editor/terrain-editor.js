@@ -1728,7 +1728,7 @@ class TerrainEditor extends React.Component {
         0, // camera y
         allShapes, // tiles, the array
         spritesheets, // spritesheets, an array of spritesheets
-        2, // scale
+        4, // scale
         8, // tileSize
         8 // tileSize
       )

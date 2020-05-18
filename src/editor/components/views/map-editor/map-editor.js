@@ -374,7 +374,7 @@ class MapEditor extends React.Component {
                   value: {
                     x: x,
                     y: y,
-                    type: this.props.brush.type
+                    type: this.props.terrain
                   }
                 })
               }
@@ -441,7 +441,7 @@ class MapEditor extends React.Component {
             value: {
               x: mouseOverGridX,
               y: mouseOverGridY,
-              type: this.props.fill.type
+              type: this.props.terrain
             }
           })
         }
@@ -526,7 +526,8 @@ function mapStateToProps(state) {
     brush: state.tile.brush,
     erase: state.tile.erase,
     highlights: state.tile.highlights,
-    fill: state.tile.fill
+    fill: state.tile.fill,
+    terrain: state.tile.terrain
   }
 }
 
