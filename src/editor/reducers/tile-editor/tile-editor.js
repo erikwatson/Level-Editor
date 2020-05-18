@@ -22,17 +22,6 @@ const erase = (state = { size: 1, type: 0 }, action) => {
   }
 }
 
-// Fill Tool Properties
-const fill = (state = { type: 1 }, action) => {
-  switch (action.type) {
-    case 'FILL_SET_TYPE':
-      return { ...state, type: parseInt(action.value) }
-
-    default:
-      return state
-  }
-}
-
 // Control the Camera
 const camera = (state = { x: 0, y: 0 }, action) => {
   switch (action.type) {
@@ -242,7 +231,7 @@ const pointer = (state = {}, action) => {
 }
 
 // Brush Tool Properties
-const brush = (state = { size: 1, type: 1 }, action) => {
+const brush = (state = { size: 1 }, action) => {
   const maxBrushSize = 10
   const minBrushSize = 1
 
@@ -256,8 +245,15 @@ const brush = (state = { size: 1, type: 1 }, action) => {
       }
       return { ...state, size: parseInt(action.value) }
 
-    case 'BRUSH_TERRAIN_CHANGE':
-      return { ...state, type: parseInt(action.value) }
+    default:
+      return state
+  }
+}
+
+const terrain = (state = 1, action) => {
+  switch (action.type) {
+    case 'SET_TERRAIN':
+      return parseInt(action.value)
 
     default:
       return state
@@ -271,8 +267,8 @@ const tileEditor = combineReducers({
   pointer,
   brush,
   erase,
-  fill,
-  highlights
+  highlights,
+  terrain
 })
 
 module.exports = tileEditor

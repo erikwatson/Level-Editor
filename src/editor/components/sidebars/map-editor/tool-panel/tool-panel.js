@@ -18,7 +18,7 @@ class ToolPanel extends React.Component {
 
     const terrainChange = e => {
       this.props.dispatch({
-        type: 'BRUSH_TERRAIN_CHANGE',
+        type: 'SET_TERRAIN',
         value: e.target.value
       })
     }
@@ -42,18 +42,6 @@ class ToolPanel extends React.Component {
             min={1}
           />
           <label>{this.props.brush.size} Tiles</label>
-        </div>
-
-        <div className='input'>
-          <label>Terrain</label>
-          <select onChange={terrainChange} value={this.props.brush.type}>
-            <option value='1'>Default</option>
-            <option value='2'>Green Hills</option>
-            <option value='3'>Grass Decoration</option>
-            <option value='4'>Stalactites</option>
-            <option value='5'>Rock</option>
-            <option value='6'>Waterfall</option>
-          </select>
         </div>
       </div>
     )
@@ -81,17 +69,7 @@ class ToolPanel extends React.Component {
       </div>
     )
 
-    const fillControls = (
-      <div className='section'>
-        <div className='input'>
-          <label>Terrain</label>
-          <select onChange={fillChange} value={this.props.fill.type}>
-            <option value='1'>Default</option>
-            <option value='2'>Green Hills</option>
-          </select>
-        </div>
-      </div>
-    )
+    const fillControls = <div className='section'></div>
 
     const lineControls = (
       <div className='section'>
@@ -134,6 +112,17 @@ class ToolPanel extends React.Component {
     return (
       <Panel title='Tools' open={this.props.open}>
         <div className='section'>
+          <div className='input'>
+            <label>Terrain</label>
+            <select onChange={terrainChange} value={this.props.brush.type}>
+              <option value='1'>Default</option>
+              <option value='2'>Green Hills</option>
+              <option value='3'>Grass Decoration</option>
+              <option value='4'>Stalactites</option>
+              <option value='5'>Rock</option>
+              <option value='6'>Waterfall</option>
+            </select>
+          </div>
           <ToolButtons />
         </div>
         {getControls()}
