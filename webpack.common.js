@@ -1,11 +1,12 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/main.js',
+  entry: './src/editor-main.js',
   output: {
     filename: 'editor.js',
     path: path.resolve(__dirname, 'dest')
   },
+  target: 'electron-renderer',
   module: {
     rules: [
       {
