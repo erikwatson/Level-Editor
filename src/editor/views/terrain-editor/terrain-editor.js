@@ -1747,6 +1747,19 @@ class TerrainEditor extends React.Component {
       })
   }
 
+  componentDidUpdate() {
+    const bramblePane = document.querySelector('#bramble-view')
+    const size = {
+      width: bramblePane.offsetWidth,
+      height: bramblePane.offsetHeight
+    }
+
+    console.log('component did update?')
+
+    game.setSize(size.width, size.height)
+    game.setSmoothing(false)
+  }
+
   render() {
     return (
       <Layout>
@@ -1760,7 +1773,8 @@ class TerrainEditor extends React.Component {
 const mapStateToProps = state => {
   return {
     width: 500,
-    height: 500
+    height: 500,
+    fullScreen: true
   }
 }
 

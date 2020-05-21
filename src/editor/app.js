@@ -29,11 +29,7 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    width: state.view.width,
-    height: state.view.height,
-    cameraX: state.tile.camera.x,
-    cameraY: state.tile.camera.y,
-    view: state.app
+    view: state.view
   }
 }
 

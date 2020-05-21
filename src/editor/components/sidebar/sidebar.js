@@ -51,7 +51,7 @@ const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
     setTitle: (title = 'tile') => {
-      dispatch({ type: 'APP_SET_TITLE', value: title })
+      dispatch({ type: 'APP_SET_VIEW', value: title })
     }
   }
 }
