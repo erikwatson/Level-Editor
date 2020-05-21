@@ -13,6 +13,7 @@ const {
   grid
 } = require('@erikwatson/bramble')
 
+const Layout = require('../layouts/sidebar-left/sidebar-left.js')
 const Sidebar = require('./sidebar/sidebar.js')
 
 class MapEditor extends React.Component {
@@ -511,12 +512,12 @@ class MapEditor extends React.Component {
 
   render() {
     return (
-      <div id='map-editor'>
+      <Layout>
         <Sidebar />
         <div id='bramble-pane'>
           <div id='bramble-view'></div>
         </div>
-      </div>
+      </Layout>
     )
   }
 }

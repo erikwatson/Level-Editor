@@ -17,17 +17,14 @@ function getView(name) {
       return <SplashView />
 
     default:
-      console.error('No View Defined')
+      console.error(`No View named: ${name}`)
       return <SplashView />
   }
 }
 
 const App = props => {
-  return (
-    <div>
-      <MapEditorView />
-    </div>
-  )
+  const view = getView(props.view)
+  return <div>{view}</div>
 }
 
 const mapStateToProps = state => {
@@ -36,7 +33,7 @@ const mapStateToProps = state => {
     height: state.view.height,
     cameraX: state.tile.camera.x,
     cameraY: state.tile.camera.y,
-    app: state.app
+    view: state.app
   }
 }
 

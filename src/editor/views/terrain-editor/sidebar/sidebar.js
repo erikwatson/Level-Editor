@@ -2,8 +2,8 @@ const React = require('react')
 const { connect } = require('react-redux')
 const style = require('./sidebar.sass')
 
-const Sidebar = require('../../sidebar/sidebar.js')
-const Panel = require('../../ui/panel/panel.js')
+const Sidebar = require('../../../components/sidebar/sidebar.js')
+const Panel = require('../../../components/ui/panel/panel.js')
 
 const TerrainEditorSidebar = props => {
   return (

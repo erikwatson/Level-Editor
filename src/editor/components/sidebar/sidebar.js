@@ -25,7 +25,7 @@ const SideBar = props => {
         <ul>
           <li
             onClick={() => {
-              props.setTitle('tile')
+              props.setTitle('map')
             }}>
             <a>Tiles</a>
           </li>

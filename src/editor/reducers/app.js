@@ -26,7 +26,7 @@ const view = (
   }
 }
 
-const app = (state = 'tile', action) => {
+const app = (state = 'terrain', action) => {
   switch (action.type) {
     case 'APP_SET_TITLE':
       state = action.value

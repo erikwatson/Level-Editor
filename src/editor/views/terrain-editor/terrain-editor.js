@@ -13,6 +13,9 @@ const {
   grid
 } = require('@erikwatson/bramble')
 
+const Layout = require('../layouts/sidebar-left/sidebar-left.js')
+const Sidebar = require('./sidebar/sidebar.js')
+
 const allShapes = [
   [
     0,
@@ -1746,9 +1749,10 @@ class TerrainEditor extends React.Component {
 
   render() {
     return (
-      <div id='bramble-pane'>
-        <div id='bramble-view'></div>
-      </div>
+      <Layout>
+        <Sidebar />
+        <div id='bramble-view' />
+      </Layout>
     )
   }
 }
