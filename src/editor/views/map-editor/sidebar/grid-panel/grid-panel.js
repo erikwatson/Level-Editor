@@ -1,7 +1,7 @@
 const React = require('react')
 const { connect } = require('react-redux')
 
-const Panel = require('../../../ui/panel/panel.js')
+const Panel = require('../../../../components/ui/panel/panel.js')
 
 class GridPanel extends React.Component {
   constructor(props) {

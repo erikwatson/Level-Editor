@@ -1,8 +1,9 @@
 const React = require('react')
 const { connect } = require('react-redux')
 
-const Panel = require('../../../ui/panel/panel.js')
-const ColourPicker = require('../../../ui/colour-picker/colour-picker.js')
+// const Panel = require('../../../../ui/panel/panel.js')
+const Panel = require('../../../../components/ui/panel/panel.js')
+const ColourPicker = require('../../../../components/ui/colour-picker/colour-picker.js')
 
 class ViewPanel extends React.Component {
   constructor(props) {

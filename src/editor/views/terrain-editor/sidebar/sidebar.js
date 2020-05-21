@@ -1,6 +1,6 @@
 const React = require('react')
 const { connect } = require('react-redux')
-const style = require('./terrain-editor.sass')
+const style = require('./sidebar.sass')
 
 const Sidebar = require('../../sidebar/sidebar.js')
 const Panel = require('../../ui/panel/panel.js')

@@ -13,6 +13,8 @@ const {
   grid
 } = require('@erikwatson/bramble')
 
+const Sidebar = require('./sidebar/sidebar.js')
+
 class MapEditor extends React.Component {
   constructor(props) {
     super(props)
@@ -509,8 +511,11 @@ class MapEditor extends React.Component {
 
   render() {
     return (
-      <div id='bramble-pane'>
-        <div id='bramble-view'></div>
+      <div id='map-editor'>
+        <Sidebar />
+        <div id='bramble-pane'>
+          <div id='bramble-view'></div>
+        </div>
       </div>
     )
   }

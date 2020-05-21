@@ -32,8 +32,7 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "build": "yarn webpack --config webpack.dev.js",
-    "build:production": "yarn webpack --config webpack.prod.js",
+    "build": "yarn webpack --config webpack.prod.js",
     "watch": "yarn build --watch",
     "serve": "yarn webpack-dev-server --open --config webpack.dev.js",
     "start": "yarn build && yarn electron ."

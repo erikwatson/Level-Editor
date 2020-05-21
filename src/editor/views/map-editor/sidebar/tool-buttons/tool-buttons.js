@@ -1,8 +1,8 @@
 const React = require('react')
 const { connect } = require('react-redux')
 
-const ButtonGroup = require('../../../ui/button-group/button-group.js')
-const Button = require('../../../ui/button/button')
+const ButtonGroup = require('../../../../components/ui/button-group/button-group.js')
+const Button = require('../../../../components/ui/button/button.js')
 
 const {
   faFill,

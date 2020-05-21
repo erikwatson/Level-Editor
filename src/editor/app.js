@@ -1,32 +1,33 @@
 const React = require('react')
 const { connect } = require('react-redux')
 
-const TileEditorView = require('./components/views/map-editor/map-editor.js')
-const TileEditorSidebar = require('./components/sidebars/map-editor/map-editor.js')
-
-const TerrainEditorView = require('./components/views/terrain-editor/terrain-editor.js')
-const TerrainEditorSidebar = require('./components/sidebars/terrain-editor/terrain-editor.js')
+const MapEditorView = require('./views/map-editor/map-editor.js')
+const TerrainEditorView = require('./views/terrain-editor/terrain-editor.js')
+const SplashView = require('./views/welcome/welcome.js')
 
 const style = require('./app.sass')
 
-const App = props => {
-  const tileView = [<TileEditorSidebar />, <TileEditorView {...props} />]
-  const terrainView = [<TerrainEditorSidebar />, <TerrainEditorView />]
+function getView(name) {
+  switch (name) {
+    case 'map':
+      return <MapEditorView />
+    case 'terrain':
+      return <TerrainEditorView />
+    case 'splash':
+      return <SplashView />
 
-  const getView = title => {
-    switch (title) {
-      case 'tile':
-        return tileView
-      case 'terrain':
-        return terrainView
-      default:
-        console.error(`no view defined for "${title}"`)
-    }
+    default:
+      console.error('No View Defined')
+      return <SplashView />
   }
+}
 
-  const view = getView(props.app)
-
-  return <div id='app'>{view}</div>
+const App = props => {
+  return (
+    <div>
+      <MapEditorView />
+    </div>
+  )
 }
 
 const mapStateToProps = state => {
