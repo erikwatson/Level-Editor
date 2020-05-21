@@ -1,9 +1,9 @@
 const { combineReducers } = require('redux')
 
 const terrain = require('./terrain-editor/terrain-editor.js')
-const tile = require('./tile-editor/tile-editor.js')
+const map = require('./map-editor/map-editor.js')
 
-const view = (state = 'terrain', action) => {
+const view = (state = 'map', action) => {
   switch (action.type) {
     case 'APP_SET_VIEW':
       state = action.value
@@ -17,7 +17,7 @@ const view = (state = 'terrain', action) => {
 const appReducer = combineReducers({
   view,
   terrain,
-  tile
+  map
 })
 
 module.exports = appReducer

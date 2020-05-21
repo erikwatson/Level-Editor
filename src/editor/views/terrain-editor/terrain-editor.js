@@ -1754,8 +1754,6 @@ class TerrainEditor extends React.Component {
       height: bramblePane.offsetHeight
     }
 
-    console.log('component did update?')
-
     game.setSize(size.width, size.height)
     game.setSmoothing(false)
   }

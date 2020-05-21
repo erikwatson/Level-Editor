@@ -68,20 +68,20 @@ class MapEditor extends React.Component {
       const heightInTiles = this.props.grid.height
 
       const tl = {
-        x: this.props.cameraX,
-        y: this.props.cameraY
+        x: this.props.camera.x,
+        y: this.props.camera.y
       }
       const tr = {
-        x: tileWidth * widthInTiles + this.props.cameraX,
-        y: this.props.cameraY
+        x: tileWidth * widthInTiles + this.props.camera.x,
+        y: this.props.camera.y
       }
       const bl = {
-        x: this.props.cameraX,
-        y: tileHeight * heightInTiles + this.props.cameraY
+        x: this.props.camera.x,
+        y: tileHeight * heightInTiles + this.props.camera.y
       }
       const br = {
-        x: tileWidth * widthInTiles + this.props.cameraX,
-        y: tileHeight * heightInTiles + this.props.cameraY
+        x: tileWidth * widthInTiles + this.props.camera.x,
+        y: tileHeight * heightInTiles + this.props.camera.y
       }
 
       const columns = (tr.x - tl.x) / tileWidth
@@ -134,23 +134,23 @@ class MapEditor extends React.Component {
 
       // position of the corners of the bounding box
       const tl = {
-        x: 0 + this.props.cameraX,
-        y: 0 + this.props.cameraY
+        x: 0 + this.props.camera.x,
+        y: 0 + this.props.camera.y
       }
 
       const tr = {
-        x: tileWidth * widthInTiles + this.props.cameraX,
-        y: 0 + this.props.cameraY
+        x: tileWidth * widthInTiles + this.props.camera.x,
+        y: 0 + this.props.camera.y
       }
 
       const bl = {
-        x: 0 + this.props.cameraX,
-        y: tileHeight * heightInTiles + this.props.cameraY
+        x: 0 + this.props.camera.x,
+        y: tileHeight * heightInTiles + this.props.camera.y
       }
 
       const br = {
-        x: tileWidth * widthInTiles + this.props.cameraX,
-        y: tileHeight * heightInTiles + this.props.cameraY
+        x: tileWidth * widthInTiles + this.props.camera.x,
+        y: tileHeight * heightInTiles + this.props.camera.y
       }
 
       // draw the box
@@ -266,8 +266,8 @@ class MapEditor extends React.Component {
     // { X, Y, Z } === { R, G, B }
     const drawOrigin = () => {
       const origin = {
-        x: 0 + this.props.cameraX,
-        y: 0 + this.props.cameraY
+        x: 0 + this.props.camera.x,
+        y: 0 + this.props.camera.y
       }
 
       graphics.line(
@@ -452,7 +452,7 @@ class MapEditor extends React.Component {
     })
 
     game.setRender(() => {
-      graphics.clear(this.props.view.colour)
+      graphics.clear('#000000')
 
       if (this.props.showGrid) {
         drawGrid()
@@ -480,33 +480,19 @@ class MapEditor extends React.Component {
         this.props.grid.tileSize
       )
 
-      // render layer highlights?
-
-      if (!this.props.view.fullScreen) {
-        drawBoundingBox()
-      }
-
       drawOrigin()
-
-      if (!this.props.view.fullScreen) {
-        drawViewportBox()
-      }
+      drawViewportBox()
     })
   }
 
   componentDidUpdate() {
-    if (this.props.view.fullScreen) {
-      const bramblePane = document.querySelector('#bramble-pane')
-      const size = {
-        width: bramblePane.offsetWidth,
-        height: bramblePane.offsetHeight
-      }
-
-      game.setSize(size.width, size.height)
-    } else {
-      game.setSize(this.props.view.width, this.props.view.height)
+    const bramblePane = document.querySelector('#bramble-pane')
+    const size = {
+      width: bramblePane.offsetWidth,
+      height: bramblePane.offsetHeight
     }
 
+    game.setSize(size.width, size.height)
     game.setSmoothing(false)
   }
 
@@ -524,16 +510,15 @@ class MapEditor extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    view: state.view,
-    showGrid: state.tile.grid.visible,
-    grid: state.tile.grid,
-    camera: state.tile.camera,
-    activeTool: state.tile.tool.active,
-    brush: state.tile.brush,
-    erase: state.tile.erase,
-    highlights: state.tile.highlights,
-    fill: state.tile.fill,
-    terrain: state.tile.terrain
+    showGrid: state.map.grid.visible,
+    grid: state.map.grid,
+    camera: state.map.camera,
+    activeTool: state.map.tool.active,
+    brush: state.map.brush,
+    erase: state.map.erase,
+    highlights: state.map.highlights,
+    fill: state.map.fill,
+    terrain: state.map.terrain
   }
 }
 

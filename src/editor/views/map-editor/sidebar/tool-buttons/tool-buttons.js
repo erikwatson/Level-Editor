@@ -47,7 +47,7 @@ const ToolButtons = ({ tools, setSelected }) => {
 
 const mapStateToProps = state => {
   return {
-    tools: state.tile.tool
+    tools: state.map.tool
   }
 }
 

@@ -82,9 +82,9 @@ class ViewPanel extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    width: state.view.width,
-    height: state.view.height,
-    fullScreen: state.view.fullScreen
+    width: state.map.width,
+    height: state.map.height,
+    fullScreen: state.map.fullScreen
   }
 }
 
