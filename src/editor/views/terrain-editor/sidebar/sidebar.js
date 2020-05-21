@@ -8,9 +8,9 @@ const Panel = require('../../../components/ui/panel/panel.js')
 const TerrainEditorSidebar = props => {
   return (
     <Sidebar title='Terrain Editor'>
-      <Panel title='Terrain' />
-      <Panel title='Tiles' />
-      <Panel title='Images' />
+      <Panel title='Example'>
+        <span>Nothing to see here.</span>
+      </Panel>
     </Sidebar>
   )
 }
