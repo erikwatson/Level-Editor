@@ -26,25 +26,9 @@ class MapEditor extends React.Component {
   }
 
   componentDidMount() {
-    let spritesheets = []
     let music = []
 
-    Promise.all([
-      assets.loadTerrain('./terrain/default.json'),
-      assets.loadTerrain('./terrain/green-hills.json'),
-      assets.loadTerrain('./terrain/highlights.json'),
-      assets.loadTerrain('./terrain/grass-decoration.json'),
-      assets.loadTerrain('./terrain/stalactites.json'),
-      assets.loadTerrain('./terrain/rock.json'),
-      assets.loadTerrain('./terrain/waterfall.json')
-    ])
-      .then(terrain => {
-        spritesheets = terrain
-        game.start()
-      })
-      .catch(err => {
-        console.error(err)
-      })
+    game.start()
 
     const drawViewportBox = () => {
       const tl = { x: 0, y: 0 }
@@ -463,7 +447,7 @@ class MapEditor extends React.Component {
         this.props.camera.x,
         this.props.camera.y,
         this.props.grid.tiles,
-        spritesheets,
+        this.props.spritesheets,
         this.props.grid.scale,
         this.props.grid.tileSize,
         this.props.grid.tileSize
@@ -474,7 +458,7 @@ class MapEditor extends React.Component {
         this.props.camera.x,
         this.props.camera.y,
         this.state.highlights.tiles,
-        spritesheets,
+        this.props.spritesheets,
         this.props.grid.scale,
         this.props.grid.tileSize,
         this.props.grid.tileSize
@@ -518,7 +502,8 @@ function mapStateToProps(state) {
     erase: state.map.erase,
     highlights: state.map.highlights,
     fill: state.map.fill,
-    terrain: state.map.terrain
+    terrain: state.map.terrain,
+    spritesheets: state.spritesheets
   }
 }
 
