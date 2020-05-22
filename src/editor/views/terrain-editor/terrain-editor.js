@@ -14,7 +14,8 @@ const {
   grid
 } = require('@erikwatson/bramble')
 
-const Layout = require('../layouts/sidebar-left/sidebar-left.js')
+// const Layout = require('../layouts/sidebar-left/sidebar-left.js')
+const Layout = require('../layouts/three-column/three-column.js')
 const Sidebar = require('./sidebar/sidebar.js')
 const BrambleView = require('../../components/ui/bramble-view/bramble-view.js')
 
@@ -288,6 +289,7 @@ class TerrainEditor extends React.Component {
       <Layout>
         <Sidebar />
         <BrambleView update={brambleUpdate} render={brambleRender} />
+        <Sidebar />
       </Layout>
     )
   }
