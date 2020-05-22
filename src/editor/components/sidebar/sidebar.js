@@ -27,7 +27,7 @@ const SideBar = props => {
             onClick={() => {
               props.setTitle('map')
             }}>
-            <a>Tiles</a>
+            <a>Map</a>
           </li>
           <li
             onClick={() => {
