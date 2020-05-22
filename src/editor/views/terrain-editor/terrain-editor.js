@@ -18,54 +18,81 @@ const Layout = require('../layouts/sidebar-left/sidebar-left.js')
 const Sidebar = require('./sidebar/sidebar.js')
 const BrambleView = require('../../components/ui/bramble-view/bramble-view.js')
 
+// prettier-ignore
+const allShapes = [
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,0,0,0,1,0,0,0,1,1,0,0,1,0,0,1,1,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0],
+  [0,0,1,0,0,1,1,1,0,1,1,1,0,0,1,1,0,1,1,1,0],
+  [0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,0,0,0,1,0,0,1,1,0,0,0,1,1,0,1,1,0,0],
+  [0,1,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,0,0],
+  [0,0,1,0,0,0,1,0,0,0,1,1,0,1,1,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0],
+  [0,0,1,1,0,0,1,1,0,1,1,0,0,1,1,0,0,0,1,1,0],
+  [0,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,0,1,1,0],
+  [0,0,1,1,0,1,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0],
+  [0,0,1,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,1,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,0,0,1,1,1,0,0,1,1,0,0,0,0,0,1,1,0,0],
+  [0,1,1,1,0,1,1,1,0,0,1,1,0,1,1,1,0,1,1,0,0],
+  [0,0,1,1,0,0,0,0,0,0,1,1,0,1,1,1,0,1,1,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,1,0,0,1,0,0,0,0,0,0,1,1,0,0,0,1,0,0],
+  [0,1,1,1,0,0,1,1,0,1,1,1,0,1,1,0,0,1,1,0,0],
+  [0,0,0,0,0,0,1,1,0,1,1,0,0,0,1,0,0,1,1,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,1,1,0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,1,0,0],
+  [0,1,1,1,0,0,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0],
+  [0,0,0,0,0,0,1,0,0,0,1,1,0,1,1,1,0,1,1,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,1,1,1,0,0,1,1,0,0,1,1,0,1,1,0,0,1,1,1,0],
+  [0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0,1,1,1,0],
+  [0,0,1,0,0,0,1,1,0,1,1,1,0,1,1,1,0,1,1,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+  [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+]
+
 class TerrainEditor extends React.Component {
-  componentDidMount() {
-    const container = document.querySelector('#bramble-view')
+  render() {
+    const brambleUpdate = delta => {}
 
-    game.attachTo(container)
-    game.disableContextMenu()
-    game.setSize()
-    game.setSmoothing(false)
-
-    game.setUpdate(delta => {})
-
-    let spritesheets = []
-
-    game.setRender(() => {})
-
-    Promise.all([assets.loadTerrain('./terrain/default.json')])
-      .then(terrain => {
-        spritesheets = terrain
-        game.start()
-      })
-      .catch(err => {
-        console.error(err)
-      })
-  }
-
-  componentDidUpdate() {
-    const bramblePane = document.querySelector('#bramble-pane')
-    const size = {
-      width: bramblePane.offsetWidth,
-      height: bramblePane.offsetHeight
+    const brambleRender = () => {
+      graphics.clear('#000000')
+      graphics.tiles(
+        0, // camera x
+        0, // camera y
+        allShapes, // tiles, the array
+        this.props.spritesheets, // spritesheets, an array of spritesheets
+        4, // scale
+        8, // tileSize
+        8 // tileSize
+      )
     }
 
-    game.setSize(size.width, size.height)
-    game.setSmoothing(false)
-  }
-
-  render() {
     return (
       <Layout>
         <Sidebar />
-        <BrambleView />
+        <BrambleView update={brambleUpdate} render={brambleRender} />
       </Layout>
     )
   }
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    spritesheets: state.spritesheets
+  }
 }
 
 module.exports = connect(mapStateToProps)(TerrainEditor)

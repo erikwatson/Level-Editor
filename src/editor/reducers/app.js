@@ -6,7 +6,17 @@ const map = require('./map-editor/map-editor.js')
 const view = (state = 'map', action) => {
   switch (action.type) {
     case 'APP_SET_VIEW':
-      state = action.value
+      return action.value
+
+    default:
+      return state
+  }
+}
+
+const spritesheets = (state = [], action) => {
+  switch (action.type) {
+    case 'SPRITESHEETS_SET':
+      return action.value
 
     default:
       return state
@@ -17,7 +27,8 @@ const view = (state = 'map', action) => {
 const appReducer = combineReducers({
   view,
   terrain,
-  map
+  map,
+  spritesheets
 })
 
 module.exports = appReducer
