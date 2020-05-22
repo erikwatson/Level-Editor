@@ -258,17 +258,30 @@ class TerrainEditor extends React.Component {
     const brambleRender = () => {
       graphics.clear('#000000')
 
-      allShapes.forEach((shape, i) => {
-        graphics.tiles(
-          i * (8 * 4 * 3),
-          0,
-          shape,
-          this.props.spritesheets,
-          4,
-          8,
-          8
-        )
-      })
+      const widthDividedByTiles = 8
+      const heightDividedByTiles = 6
+
+      for (var y = 0; y < heightDividedByTiles; y++) {
+        for (var x = 0; x < widthDividedByTiles; x++) {
+          const index = y * widthDividedByTiles + x
+
+          if (index >= allShapes.length) {
+            return
+          }
+
+          graphics.tiles(
+            32 + x * (8 * 4 * 3) + x * 32,
+            32 + y * (8 * 4 * 3) + y * 32,
+            allShapes[index],
+            this.props.spritesheets,
+            4,
+            8,
+            8
+          )
+        }
+      }
+
+      allShapes.forEach((shape, i) => {})
     }
 
     return (
