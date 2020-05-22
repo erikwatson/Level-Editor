@@ -14,8 +14,7 @@ const {
   grid
 } = require('@erikwatson/bramble')
 
-// const Layout = require('../layouts/sidebar-left/sidebar-left.js')
-const Layout = require('../layouts/three-column/three-column.js')
+const Layout = require('../layouts/sidebar-left/sidebar-left.js')
 const Sidebar = require('./sidebar/sidebar.js')
 const BrambleView = require('../../components/ui/bramble-view/bramble-view.js')
 
@@ -254,8 +253,6 @@ const allShapes = [
 
 class TerrainEditor extends React.Component {
   render() {
-    const brambleUpdate = delta => {}
-
     const brambleRender = () => {
       graphics.clear('#000000')
 
@@ -288,8 +285,7 @@ class TerrainEditor extends React.Component {
     return (
       <Layout>
         <Sidebar />
-        <BrambleView update={brambleUpdate} render={brambleRender} />
-        <Sidebar />
+        <BrambleView render={brambleRender} />
       </Layout>
     )
   }

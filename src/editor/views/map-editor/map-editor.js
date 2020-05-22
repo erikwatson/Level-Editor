@@ -161,6 +161,14 @@ class MapEditor extends React.Component {
 
         for (var x = -halfBrush; x < brushSize - halfBrush; x++) {
           for (var y = -halfBrush; y < brushSize - halfBrush; y++) {
+            if (mouseOverGridY + y < 0) {
+              continue
+            }
+
+            if (mouseOverGridX + x < 0) {
+              continue
+            }
+
             modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
 
             this.setState({
@@ -181,6 +189,14 @@ class MapEditor extends React.Component {
             if (ySide === -1) {
               // top side
               for (var y = -halfBrush; y < brushSize - halfBrush; y++) {
+                if (mouseOverGridY + y < 0) {
+                  continue
+                }
+
+                if (mouseOverGridX + x < 0) {
+                  continue
+                }
+
                 modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
 
                 this.setState({
@@ -194,6 +210,14 @@ class MapEditor extends React.Component {
                 y < brushSize - (halfBrush - 1);
                 y++
               ) {
+                if (mouseOverGridY + y < 0) {
+                  continue
+                }
+
+                if (mouseOverGridX + x < 0) {
+                  continue
+                }
+
                 modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
 
                 this.setState({
@@ -208,6 +232,14 @@ class MapEditor extends React.Component {
             if (ySide === -1) {
               // top side
               for (var y = -halfBrush; y < brushSize - halfBrush; y++) {
+                if (mouseOverGridY + y < 0) {
+                  continue
+                }
+
+                if (mouseOverGridX + x < 0) {
+                  continue
+                }
+
                 modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
 
                 this.setState({
@@ -221,6 +253,14 @@ class MapEditor extends React.Component {
                 y < brushSize - (halfBrush - 1);
                 y++
               ) {
+                if (mouseOverGridY + y < 0) {
+                  continue
+                }
+
+                if (mouseOverGridX + x < 0) {
+                  continue
+                }
+
                 modifiedTiles[mouseOverGridY + y][mouseOverGridX + x] = 100
 
                 this.setState({
