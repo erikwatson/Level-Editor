@@ -3,6 +3,8 @@ const style = require('./bramble-view.sass')
 
 const { game } = require('@erikwatson/bramble')
 
+let g = null
+
 class BrambleView extends React.Component {
   constructor(props) {
     super(props)
@@ -18,8 +20,8 @@ class BrambleView extends React.Component {
   onResize(event) {
     const container = document.querySelector('.bramble-view')
 
-    game.setSize(container.offsetWidth, container.offsetHeight)
-    game.setSmoothing(false)
+    g.setSize(container.offsetWidth, container.offsetHeight)
+    g.setSmoothing(false)
 
     this.setState({
       width: container.width,
@@ -29,8 +31,8 @@ class BrambleView extends React.Component {
 
   componentDidUpdate() {
     const container = document.querySelector('.bramble-view')
-    game.setSize(container.offsetWidth, container.offsetHeight)
-    game.setSmoothing(false)
+    g.setSize(container.offsetWidth, container.offsetHeight)
+    g.setSmoothing(false)
   }
 
   componentDidMount() {
@@ -38,15 +40,19 @@ class BrambleView extends React.Component {
 
     const container = document.querySelector('.bramble-view')
 
-    game.attachTo(container)
-    game.disableContextMenu()
-    game.setUpdate(this.props.update)
-    game.setRender(this.props.render)
+    if (!g) {
+      g = game.create()
+    }
 
-    game.setSize(container.offsetWidth, container.offsetHeight)
-    game.setSmoothing(false)
+    g.attachTo(container)
+    g.disableContextMenu()
+    g.setUpdate(this.props.update)
+    g.setRender(this.props.render)
 
-    game.start()
+    g.setSize(container.offsetWidth, container.offsetHeight)
+    g.setSmoothing(false)
+
+    g.start()
 
     this.setState({
       width: container.width,

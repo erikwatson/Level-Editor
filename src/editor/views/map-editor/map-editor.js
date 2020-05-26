@@ -16,6 +16,8 @@ const {
 const Layout = require('../layouts/sidebar-left/sidebar-left.js')
 const Sidebar = require('./sidebar/sidebar.js')
 
+let g = null
+
 class MapEditor extends React.Component {
   constructor(props) {
     super(props)
@@ -28,7 +30,11 @@ class MapEditor extends React.Component {
   componentDidMount() {
     let music = []
 
-    game.start()
+    if (!g) {
+      g = game.create()
+    }
+
+    g.start()
 
     const drawViewportBox = () => {
       const tl = { x: 0, y: 0 }
@@ -330,15 +336,15 @@ class MapEditor extends React.Component {
 
     const container = document.querySelector('#bramble-view')
 
-    game.attachTo(container)
-    game.disableContextMenu()
-    game.setSize(this.props.width, this.props.height)
-    game.setSmoothing(false)
+    g.attachTo(container)
+    g.disableContextMenu()
+    g.setSize(this.props.width, this.props.height)
+    g.setSmoothing(false)
 
     const tileWidth = this.props.grid.tileSize
     const tileHeight = this.props.grid.tileSize
 
-    game.setUpdate(delta => {
+    g.setUpdate(delta => {
       const relativeX =
         (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
       const relativeY =
@@ -475,7 +481,7 @@ class MapEditor extends React.Component {
       }
     })
 
-    game.setRender(() => {
+    g.setRender(() => {
       graphics.clear('#000000')
 
       if (this.props.showGrid) {
@@ -516,8 +522,8 @@ class MapEditor extends React.Component {
       height: bramblePane.offsetHeight
     }
 
-    game.setSize(size.width, size.height)
-    game.setSmoothing(false)
+    g.setSize(size.width, size.height)
+    g.setSmoothing(false)
   }
 
   render() {
