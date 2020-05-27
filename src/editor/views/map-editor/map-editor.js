@@ -10,13 +10,15 @@ const {
   keyboard,
   assets,
   sound,
-  grid
+  grid,
+  canvas
 } = require('@erikwatson/bramble')
 
 const Layout = require('../layouts/sidebar-left/sidebar-left.js')
 const Sidebar = require('./sidebar/sidebar.js')
 
 let g = null
+let m = null
 
 class MapEditor extends React.Component {
   constructor(props) {
@@ -32,6 +34,10 @@ class MapEditor extends React.Component {
 
     if (!g) {
       g = game.create()
+    }
+
+    if (!m) {
+      m = mouse.create(canvas.element)
     }
 
     g.start()

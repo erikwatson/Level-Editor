@@ -11,7 +11,8 @@ const {
   keyboard,
   assets,
   sound,
-  grid
+  grid,
+  canvas
 } = require('@erikwatson/bramble')
 
 const Layout = require('../layouts/sidebar-left/sidebar-left.js')
@@ -256,30 +257,59 @@ class TerrainEditor extends React.Component {
     const brambleRender = () => {
       graphics.clear('#000000')
 
-      const widthDividedByTiles = 8
-      const heightDividedByTiles = 6
+      const tileSize = 8
+      const zoom = 4
+      const shapeSize = 3
 
-      for (var y = 0; y < heightDividedByTiles; y++) {
-        for (var x = 0; x < widthDividedByTiles; x++) {
-          const index = y * widthDividedByTiles + x
+      const zoomedTileSize = tileSize * zoom
+      const zoomedShapeSize = zoomedTileSize * shapeSize
+
+      const widthOfShapePlusSingleBorder = Math.floor(
+        zoomedShapeSize + zoomedTileSize
+      )
+      const widthDividedByShapeBorder = Math.floor(
+        (canvas.element.width - zoomedTileSize) / widthOfShapePlusSingleBorder
+      )
+
+      const widthDividedByShapes = Math.floor(
+        canvas.element.width / widthOfShapePlusSingleBorder
+      )
+      const heightDividedByShapes = Math.ceil(
+        allShapes.length / widthDividedByShapes
+      )
+
+      for (var y = 0; y < heightDividedByShapes; y++) {
+        for (var x = 0; x < widthDividedByShapeBorder; x++) {
+          const index = y * widthDividedByShapeBorder + x
 
           if (index >= allShapes.length) {
             return
           }
 
+          graphics.rect(
+            zoomedTileSize + widthOfShapePlusSingleBorder * x,
+            zoomedTileSize + widthOfShapePlusSingleBorder * y,
+            zoomedShapeSize,
+            zoomedShapeSize,
+            {
+              line: {
+                width: 2,
+                color: '#ffffff'
+              }
+            }
+          )
+
           graphics.tiles(
-            32 + x * (8 * 4 * 3) + x * 32,
-            32 + y * (8 * 4 * 3) + y * 32,
+            zoomedTileSize + widthOfShapePlusSingleBorder * x,
+            zoomedTileSize + widthOfShapePlusSingleBorder * y,
             allShapes[index],
             this.props.spritesheets,
-            4,
-            8,
-            8
+            zoom,
+            tileSize,
+            tileSize
           )
         }
       }
-
-      allShapes.forEach((shape, i) => {})
     }
 
     return (
