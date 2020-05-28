@@ -82,7 +82,7 @@ const allShapes = [
   ],
   [
     [1, 1, 0],
-    [1, 1, 0],
+    [1, 1, 1],
     [0, 1, 1]
   ],
   [
@@ -142,6 +142,11 @@ const allShapes = [
   ],
   [
     [0, 1, 1],
+    [1, 1, 1],
+    [0, 1, 0]
+  ],
+  [
+    [0, 1, 0],
     [1, 1, 1],
     [0, 1, 1]
   ],
@@ -254,8 +259,20 @@ const allShapes = [
 
 class TerrainEditor extends React.Component {
   render() {
+    const modifiedShapes = allShapes.map(shape => {
+      return shape.map(row => {
+        return row.map(col => {
+          if (col === 1) {
+            return 2
+          }
+
+          return 0
+        })
+      })
+    })
+
     const brambleRender = () => {
-      graphics.clear('#000000')
+      graphics.clear('#232323')
 
       const tileSize = 8
       const zoom = 4
@@ -278,6 +295,11 @@ class TerrainEditor extends React.Component {
         allShapes.length / widthDividedByShapes
       )
 
+      // avoid infinite looping
+      if (widthDividedByShapes <= 0) {
+        return
+      }
+
       for (var y = 0; y < heightDividedByShapes; y++) {
         for (var x = 0; x < widthDividedByShapeBorder; x++) {
           const index = y * widthDividedByShapeBorder + x
@@ -292,6 +314,9 @@ class TerrainEditor extends React.Component {
             zoomedShapeSize,
             zoomedShapeSize,
             {
+              fill: {
+                color: '#000000'
+              },
               line: {
                 width: 2,
                 color: '#ffffff'
@@ -302,11 +327,24 @@ class TerrainEditor extends React.Component {
           graphics.tiles(
             zoomedTileSize + widthOfShapePlusSingleBorder * x,
             zoomedTileSize + widthOfShapePlusSingleBorder * y,
-            allShapes[index],
+            modifiedShapes[index],
             this.props.spritesheets,
             zoom,
             tileSize,
             tileSize
+          )
+
+          graphics.rect(
+            zoomedTileSize + widthOfShapePlusSingleBorder * x + zoomedTileSize,
+            zoomedTileSize + widthOfShapePlusSingleBorder * y + zoomedTileSize,
+            zoomedTileSize,
+            zoomedTileSize,
+            {
+              line: {
+                width: 2,
+                color: '#ffffff'
+              }
+            }
           )
         }
       }
