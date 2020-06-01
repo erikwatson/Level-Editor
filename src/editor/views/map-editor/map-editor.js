@@ -535,7 +535,7 @@ class MapEditor extends React.Component {
   render() {
     return (
       <Layout>
-        <Sidebar />
+        <Sidebar showHeader={true} />
         <div id='bramble-pane'>
           <div id='bramble-view'></div>
         </div>

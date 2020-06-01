@@ -11,7 +11,7 @@ const style = require('./sidebar.sass')
 
 const LevelEditorSidebar = props => {
   return (
-    <Sidebar title='Map Editor'>
+    <Sidebar title='Map Editor' showHeader={true} showNav={true}>
       <ToolPanel />
       <GridPanel />
     </Sidebar>

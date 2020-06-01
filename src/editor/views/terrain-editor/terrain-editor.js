@@ -15,8 +15,9 @@ const {
   canvas
 } = require('@erikwatson/bramble')
 
-const Layout = require('../layouts/sidebar-left/sidebar-left.js')
+const Layout = require('../layouts/three-column/three-column.js')
 const Sidebar = require('./sidebar/sidebar.js')
+const PropertiesSidebar = require('./properties-sidebar/properties-sidebar.js')
 const BrambleView = require('../../components/ui/bramble-view/bramble-view.js')
 
 const allShapes = [
@@ -258,25 +259,36 @@ const allShapes = [
 ]
 
 class TerrainEditor extends React.Component {
-  render() {
-    const modifiedShapes = allShapes.map(shape => {
-      return shape.map(row => {
-        return row.map(col => {
-          if (col === 1) {
-            return 2
-          }
+  constructor(props) {
+    super(props)
 
-          return 0
-        })
-      })
-    })
+    this.state = {
+      height: 6250
+    }
+  }
+
+  render() {
+    const translateTiles = to =>
+      allShapes.map(shape =>
+        shape.map(row =>
+          row.map(col => {
+            if (col === 1) {
+              return to
+            }
+
+            return 0
+          })
+        )
+      )
+
+    const modifiedShapes = translateTiles(1)
+
+    const tileSize = 8
+    const zoom = 4
+    const shapeSize = 3
 
     const brambleRender = () => {
       graphics.clear('#232323')
-
-      const tileSize = 8
-      const zoom = 4
-      const shapeSize = 3
 
       const zoomedTileSize = tileSize * zoom
       const zoomedShapeSize = zoomedTileSize * shapeSize
@@ -352,8 +364,13 @@ class TerrainEditor extends React.Component {
 
     return (
       <Layout>
-        <Sidebar />
-        <BrambleView render={brambleRender} />
+        <Sidebar showHeader={true} showNav={true} />
+        <BrambleView
+          render={brambleRender}
+          scrollY={true}
+          height={this.state.height}
+        />
+        <PropertiesSidebar />
       </Layout>
     )
   }

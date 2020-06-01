@@ -8,35 +8,46 @@ const style = require('./sidebar.sass')
 const SideBar = props => {
   const { title = 'Sidebar', cameraX = 0, cameraY = 0, children } = props
 
+  const header = (
+    <div className='header'>
+      <h1>{title}</h1>
+      <div className='link'>
+        <span>
+          <a href='https://github.com/erikwatson/Level-Editor/issues'>
+            Report a Bug or request a Feature
+          </a>
+        </span>
+      </div>
+    </div>
+  )
+
+  const nav = (
+    <div className='nav'>
+      <ul>
+        <li
+          onClick={() => {
+            props.setTitle('map')
+          }}>
+          <a>Map</a>
+        </li>
+        <li
+          onClick={() => {
+            props.setTitle('terrain')
+          }}>
+          <a>Terrain</a>
+        </li>
+      </ul>
+    </div>
+  )
+
+  const headerElement = props.showHeader === true ? header : null
+
+  const navElement = props.showNav === true ? nav : null
+
   return (
     <div id='sidebar'>
-      <div className='header'>
-        <h1>{title}</h1>
-        <div className='link'>
-          <span>
-            <a href='https://github.com/erikwatson/Level-Editor/issues'>
-              Report a Bug or request a Feature
-            </a>
-          </span>
-        </div>
-      </div>
-
-      <div className='nav'>
-        <ul>
-          <li
-            onClick={() => {
-              props.setTitle('map')
-            }}>
-            <a>Map</a>
-          </li>
-          <li
-            onClick={() => {
-              props.setTitle('terrain')
-            }}>
-            <a>Terrain</a>
-          </li>
-        </ul>
-      </div>
+      {headerElement}
+      {navElement}
 
       <PanelList>{children}</PanelList>
     </div>
