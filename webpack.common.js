@@ -2,6 +2,7 @@ const path = require('path')
 
 module.exports = {
   entry: './src/editor-main.js',
+  devtool: 'inline-source-map',
   output: {
     filename: 'editor.js',
     path: path.resolve(__dirname, 'dest')
