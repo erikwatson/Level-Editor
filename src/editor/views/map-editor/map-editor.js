@@ -44,6 +44,31 @@ class MapEditor extends React.Component {
 
     g.start()
 
+    const element = document.querySelector('#bramble-pane')
+
+    bramblePane = {
+      element,
+      width: element.offsetWidth,
+      height: element.offsetHeight
+    }
+
+    // probably wants moving outside of here
+    const origin = {
+      x: 0,
+      y: 0
+    }
+
+    const widthInPixels = this.props.widthInPixels
+    const heightInPixels = this.props.heightInPixels
+
+    if (bramblePane.width > widthInPixels) {
+      origin.x = (bramblePane.width - widthInPixels) / 2
+    }
+
+    if (bramblePane.height > heightInPixels) {
+      origin.y = (bramblePane.height - heightInPixels) / 2
+    }
+
     const drawViewportBox = () => {
       const tl = { x: 0, y: 0 }
       const tr = { x: this.props.width, y: 0 }
@@ -59,28 +84,14 @@ class MapEditor extends React.Component {
     }
 
     const drawGrid = () => {
-      const tileWidth = this.props.grid.tileSize * this.props.grid.scale
-      const tileHeight = this.props.grid.tileSize * this.props.grid.scale
+      const tileWidth = this.props.tileWidth
+      const tileHeight = this.props.tileHeight
 
-      const widthInTiles = this.props.grid.width
-      const heightInTiles = this.props.grid.height
+      const widthInTiles = this.props.widthInTiles
+      const heightInTiles = this.props.heightInTiles
 
-      const widthInPixels = tileWidth * widthInTiles
-      const heightInPixels = tileHeight * heightInTiles
-
-      // probably wants moving outside of here
-      const origin = {
-        x: 0,
-        y: 0
-      }
-
-      if (bramblePane.width > widthInPixels) {
-        origin.x = (bramblePane.width - widthInPixels) / 2
-      }
-
-      if (bramblePane.height > heightInPixels) {
-        origin.y = (bramblePane.height - heightInPixels) / 2
-      }
+      const widthInPixels = this.props.widthInPixels
+      const heightInPixels = this.props.heightInPixels
 
       const tl = {
         x: origin.x,
@@ -140,12 +151,12 @@ class MapEditor extends React.Component {
 
     const drawBoundingBox = () => {
       // size of a single tile
-      const tileWidth = this.props.grid.tileSize * this.props.grid.scale
-      const tileHeight = this.props.grid.tileSize * this.props.grid.scale
+      const tileWidth = this.props.tileWidth
+      const tileHeight = this.props.tileHeight
 
       // size of the bounding box as a number of those tiles
-      const widthInTiles = this.props.grid.width
-      const heightInTiles = this.props.grid.height
+      const widthInTiles = this.props.widthInTiles
+      const heightInTiles = this.props.heightInTiles
 
       // position of the corners of the bounding box
       const tl = {
@@ -366,14 +377,12 @@ class MapEditor extends React.Component {
     g.setSize(this.props.width, this.props.height)
     g.setSmoothing(false)
 
-    const tileWidth = this.props.grid.tileSize
-    const tileHeight = this.props.grid.tileSize
-
     g.setUpdate(delta => {
-      const relativeX =
-        (m.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
-      const relativeY =
-        (m.y - this.props.camera.y) / (tileHeight * this.props.grid.scale)
+      const tileWidth = this.props.tileWidth
+      const tileHeight = this.props.tileHeight
+
+      const relativeX = (m.x - this.props.camera.x) / tileWidth
+      const relativeY = (m.y - this.props.camera.y) / tileHeight
 
       const mouseOverGridX = Math.floor(relativeX)
       const mouseOverGridY = Math.floor(relativeY)
@@ -566,6 +575,12 @@ class MapEditor extends React.Component {
 }
 
 function mapStateToProps(state) {
+  const tileWidth = state.map.grid.tileSize * state.map.grid.scale
+  const tileHeight = state.map.grid.tileSize * state.map.grid.scale
+
+  const widthInTiles = state.map.grid.width
+  const heightInTiles = state.map.grid.height
+
   return {
     showGrid: state.map.grid.visible,
     grid: state.map.grid,
@@ -576,7 +591,16 @@ function mapStateToProps(state) {
     highlights: state.map.highlights,
     fill: state.map.fill,
     terrain: state.map.terrain,
-    spritesheets: state.spritesheets
+    spritesheets: state.spritesheets,
+
+    tileWidth,
+    tileHeight,
+
+    widthInTiles,
+    heightInTiles,
+
+    widthInPixels: tileWidth * widthInTiles,
+    heightInPixels: tileHeight * heightInTiles
   }
 }
 
