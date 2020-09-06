@@ -3,7 +3,7 @@ const { combineReducers } = require('redux')
 const terrain = require('./terrain-editor/terrain-editor.js')
 const map = require('./map-editor/map-editor.js')
 
-const view = (state = 'terrain', action) => {
+const view = (state = 'map', action) => {
   switch (action.type) {
     case 'APP_SET_VIEW':
       return action.value
