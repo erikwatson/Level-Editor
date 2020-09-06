@@ -20,6 +20,8 @@ const Sidebar = require('./sidebar/sidebar.js')
 let g = null
 let m = null
 
+let bramblePane = null
+
 class MapEditor extends React.Component {
   constructor(props) {
     super(props)
@@ -63,21 +65,38 @@ class MapEditor extends React.Component {
       const widthInTiles = this.props.grid.width
       const heightInTiles = this.props.grid.height
 
+      const widthInPixels = tileWidth * widthInTiles
+      const heightInPixels = tileHeight * heightInTiles
+
+      // probably wants moving outside of here
+      const origin = {
+        x: 0,
+        y: 0
+      }
+
+      if (bramblePane.width > widthInPixels) {
+        origin.x = (bramblePane.width - widthInPixels) / 2
+      }
+
+      if (bramblePane.height > heightInPixels) {
+        origin.y = (bramblePane.height - heightInPixels) / 2
+      }
+
       const tl = {
-        x: this.props.camera.x,
-        y: this.props.camera.y
+        x: origin.x,
+        y: origin.y
       }
       const tr = {
-        x: tileWidth * widthInTiles + this.props.camera.x,
-        y: this.props.camera.y
+        x: tileWidth * widthInTiles + origin.x,
+        y: origin.y
       }
       const bl = {
-        x: this.props.camera.x,
-        y: tileHeight * heightInTiles + this.props.camera.y
+        x: origin.x,
+        y: tileHeight * heightInTiles + origin.y
       }
       const br = {
-        x: tileWidth * widthInTiles + this.props.camera.x,
-        y: tileHeight * heightInTiles + this.props.camera.y
+        x: tileWidth * widthInTiles + origin.x,
+        y: tileHeight * heightInTiles + origin.y
       }
 
       const columns = (tr.x - tl.x) / tileWidth
@@ -522,13 +541,15 @@ class MapEditor extends React.Component {
   }
 
   componentDidUpdate() {
-    const bramblePane = document.querySelector('#bramble-pane')
-    const size = {
-      width: bramblePane.offsetWidth,
-      height: bramblePane.offsetHeight
+    const element = document.querySelector('#bramble-pane')
+
+    bramblePane = {
+      element,
+      width: element.offsetWidth,
+      height: element.offsetHeight
     }
 
-    g.setSize(size.width, size.height)
+    g.setSize(bramblePane.width, bramblePane.height)
     g.setSmoothing(false)
   }
 
