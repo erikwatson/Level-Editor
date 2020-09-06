@@ -37,7 +37,7 @@ class MapEditor extends React.Component {
     }
 
     if (!m) {
-      m = mouse.create(canvas.element)
+      m = mouse.create(canvas.element).mouse
     }
 
     g.start()
@@ -352,9 +352,9 @@ class MapEditor extends React.Component {
 
     g.setUpdate(delta => {
       const relativeX =
-        (mouse.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
+        (m.x - this.props.camera.x) / (tileWidth * this.props.grid.scale)
       const relativeY =
-        (mouse.y - this.props.camera.y) / (tileHeight * this.props.grid.scale)
+        (m.y - this.props.camera.y) / (tileHeight * this.props.grid.scale)
 
       const mouseOverGridX = Math.floor(relativeX)
       const mouseOverGridY = Math.floor(relativeY)
@@ -379,15 +379,15 @@ class MapEditor extends React.Component {
       }
 
       if (this.props.activeTool === 'brush') {
-        if (mouse.wheel.moved) {
-          if (mouse.wheel.direction === 'up') {
+        if (m.wheel.moved) {
+          if (m.wheel.direction === 'up') {
             this.props.dispatch({
               type: 'BRUSH_SET_SIZE',
               value: this.props.brush.size + 1
             })
           }
 
-          if (mouse.wheel.direction === 'down') {
+          if (m.wheel.direction === 'down') {
             this.props.dispatch({
               type: 'BRUSH_SET_SIZE',
               value: this.props.brush.size - 1
@@ -402,7 +402,7 @@ class MapEditor extends React.Component {
           brushSize
         )
 
-        if (mouse.left.pressed) {
+        if (m.left.pressed) {
           // Paint the highlighted tile, whatever they may be
           // tiles stored as an array of rows, so need to go y first here
           for (var y = 0; y < this.state.highlights.tiles.length; y++) {
@@ -423,15 +423,15 @@ class MapEditor extends React.Component {
       }
 
       if (this.props.activeTool === 'erase') {
-        if (mouse.wheel.moved) {
-          if (mouse.wheel.direction === 'up') {
+        if (m.wheel.moved) {
+          if (m.wheel.direction === 'up') {
             this.props.dispatch({
               type: 'ERASE_SET_SIZE',
               value: this.props.erase.size + 1
             })
           }
 
-          if (mouse.wheel.direction === 'down') {
+          if (m.wheel.direction === 'down') {
             this.props.dispatch({
               type: 'ERASE_SET_SIZE',
               value: this.props.erase.size - 1
@@ -447,7 +447,7 @@ class MapEditor extends React.Component {
           eraseSize
         )
 
-        if (mouse.left.pressed) {
+        if (m.left.pressed) {
           // Paint the highlighted tile, whatever they may be
           // tiles stored as an array of rows, so need to go y first here
           for (var y = 0; y < this.state.highlights.tiles.length; y++) {
@@ -474,7 +474,7 @@ class MapEditor extends React.Component {
           100
         )
 
-        if (mouse.left.pressed) {
+        if (m.left.pressed) {
           this.props.dispatch({
             type: 'GRID_FLOOD_FILL',
             value: {
