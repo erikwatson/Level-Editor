@@ -14,6 +14,7 @@ function createWindow() {
     }
   })
 
+  win.setIcon('dest/images/icon.png')
   win.loadFile('dest/index.html')
 }
 
