@@ -1,3 +1,8 @@
+const {
+  default: installExtension,
+  REACT_DEVELOPER_TOOLS,
+  REDUX_DEVTOOLS
+} = require('electron-devtools-installer')
 const { app, BrowserWindow } = require('electron')
 
 function createWindow() {
@@ -12,4 +17,13 @@ function createWindow() {
   win.loadFile('dest/index.html')
 }
 
-app.whenReady().then(createWindow)
+app
+  .whenReady()
+  .then(() => installExtension(REACT_DEVELOPER_TOOLS))
+  .then(() => installExtension(REDUX_DEVTOOLS))
+  .then(() => {
+    createWindow()
+  })
+  .catch(err => {
+    console.error(err)
+  })

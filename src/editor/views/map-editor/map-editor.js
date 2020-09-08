@@ -58,17 +58,6 @@ class MapEditor extends React.Component {
       y: 0
     }
 
-    const widthInPixels = this.props.widthInPixels
-    const heightInPixels = this.props.heightInPixels
-
-    if (bramblePane.width > widthInPixels) {
-      origin.x = (bramblePane.width - widthInPixels) / 2
-    }
-
-    if (bramblePane.height > heightInPixels) {
-      origin.y = (bramblePane.height - heightInPixels) / 2
-    }
-
     const drawViewportBox = () => {
       const tl = { x: 0, y: 0 }
       const tr = { x: this.props.width, y: 0 }
