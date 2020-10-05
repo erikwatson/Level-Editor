@@ -36,13 +36,13 @@ class MapEditor extends React.Component {
 
     if (!g) {
       g = game.create()
+      g.start()
     }
 
     if (!m) {
-      m = mouse.create(canvas.element).mouse
+      m = mouse.create(canvas.element)
+      m.start()
     }
-
-    g.start()
 
     const element = document.querySelector('#bramble-pane')
 
@@ -367,6 +367,8 @@ class MapEditor extends React.Component {
     g.setSmoothing(false)
 
     g.setUpdate(delta => {
+      console.log(m)
+
       const tileWidth = this.props.tileWidth
       const tileHeight = this.props.tileHeight
 
