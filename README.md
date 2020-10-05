@@ -6,8 +6,6 @@ A tile based level editor for [Bramble](https://github.com/erikwatson/Bramble) G
 
 ![Screenshot](docs/images/screenshot.png)
 
-![Video](docs/images/video.gif)
-
 ## Features
 
 - Electron based Desktop App
