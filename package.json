@@ -33,10 +33,10 @@
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "build": "yarn webpack --config webpack.prod.js",
-    "watch": "yarn build --watch",
-    "serve": "yarn webpack-dev-server --open --config webpack.dev.js",
-    "start": "yarn build && yarn electron ."
+    "build": "npx webpack --config webpack.prod.js",
+    "watch": "npm run build --watch",
+    "serve": "npx webpack-dev-server --open --config webpack.dev.js",
+    "start": "npm run build && npx electron ."
   },
   "dependencies": {
     "@erikwatson/bramble": "file:../Bramble",
