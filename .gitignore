@@ -7,3 +7,5 @@ assets/
 commands/publish
 src/**/*.css
 src/**/*.css.map
+*.swp
+*.swo

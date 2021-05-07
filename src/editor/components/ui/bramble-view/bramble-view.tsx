@@ -5,8 +5,22 @@ const { game } = require('@erikwatson/bramble')
 
 let g = null
 
-class BrambleView extends React.Component {
-  constructor(props) {
+interface State {
+  width: Number
+  height: Number
+}
+
+interface Props {
+  width: Number
+  height: Number
+  update: (dt: Number) => {}
+  render: (graphics: Object) => {}
+  scrollX: Boolean
+  scrollY: Boolean
+}
+
+class BrambleView extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
 
     this.onResize = this.onResize.bind(this)
@@ -29,7 +43,7 @@ class BrambleView extends React.Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     const container: HTMLElement = document.querySelector('.bramble-view')
 
     const width =
@@ -72,12 +86,15 @@ class BrambleView extends React.Component {
   }
 
   render() {
-    const styles = {
-      overflowX: this.props.scrollX === true ? 'scroll' : 'hidden',
-      overflowY: this.props.scrollY === true ? 'scroll' : 'hidden'
-    }
-
-    return <div className='bramble-view' style={styles} />
+    return (
+      <div
+        className='bramble-view'
+        style={{
+          overflowX: this.props.scrollX === true ? 'scroll' : 'hidden',
+          overflowY: this.props.scrollY === true ? 'scroll' : 'hidden'
+        }}
+      />
+    )
   }
 }
 
