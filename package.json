@@ -10,6 +10,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
+    "@types/react": "^17.0.0",
     "babel-core": "^6.26.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
@@ -25,18 +26,21 @@
     "rollup-plugin-babel": "^3.0.3",
     "rollup-plugin-copy": "^3.1.0",
     "rollup-plugin-node-resolve": "^3.0.3",
+    "sass": "^1.32.12",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.1",
+    "ts-loader": "^8.1.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
     "webpack-merge": "^4.2.2"
   },
   "scripts": {
-    "build": "npx webpack --config webpack.prod.js",
-    "watch": "npm run build --watch",
+    "build": "npx webpack --config webpack.dev.js",
+    "watch": "npx webpack --config webpack.dev.js --watch",
     "serve": "npx webpack-dev-server --open --config webpack.dev.js",
-    "start": "npm run build && npx electron ."
+    "start": "npm run build && npx electron .",
+    "sass:watch": "npx sass --watch ./src:./src"
   },
   "dependencies": {
     "@erikwatson/bramble": "file:../Bramble",

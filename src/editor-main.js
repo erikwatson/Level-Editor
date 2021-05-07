@@ -1,14 +1,17 @@
-const React = require('react')
-const DOM = require('react-dom')
-const { Provider } = require('react-redux')
-const store = require('./store')
-const App = require('./editor/app.js')
-
-document.addEventListener('DOMContentLoaded', event => {
+'use strict'
+exports.__esModule = true
+var React = require('react')
+var DOM = require('react-dom')
+var Provider = require('react-redux').Provider
+var store = require('./store.ts')
+var App = require('./editor/app.tsx')
+document.addEventListener('DOMContentLoaded', function(event) {
   DOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    React.createElement(
+      Provider,
+      { store: store },
+      React.createElement(App, null)
+    ),
     document.querySelector('#app-container')
   )
 })

@@ -5,3 +5,5 @@ dest/editor.js
 assets/
 *.sublime-workspace
 commands/publish
+src/**/*.css
+src/**/*.css.map

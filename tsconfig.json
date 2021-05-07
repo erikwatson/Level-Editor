@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "outDir": "./dest",
+    "allowJs": true,
+    "target": "es5",
+    "lib": ["es2017", "dom"],
+    "jsx": "react"
+  },
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

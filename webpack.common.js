@@ -1,13 +1,16 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/editor-main.js',
+  entry: './src/editor-main.tsx',
   devtool: 'inline-source-map',
   output: {
     filename: 'editor.js',
     path: path.resolve(__dirname, 'dest')
   },
   target: 'electron-renderer',
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.sass', '.css']
+  },
   module: {
     rules: [
       {
@@ -16,6 +19,16 @@ module.exports = {
         use: [
           {
             loader: 'babel-loader'
+          }
+        ]
+      },
+
+      {
+        test: /(\.ts|\.tsx)$/,
+        exclude: /(node_modules|dist)/,
+        use: [
+          {
+            loader: 'ts-loader'
           }
         ]
       },
