@@ -5,7 +5,8 @@
     "allowJs": true,
     "target": "es5",
     "lib": ["es2017", "dom"],
-    "jsx": "react"
+    "jsx": "react",
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
   "typedocOptions": {
     "mode": "modules",

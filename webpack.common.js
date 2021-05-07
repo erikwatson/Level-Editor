@@ -34,7 +34,7 @@ module.exports = {
       },
 
       {
-        test: /(\.scss|.sass)$/,
+        test: /(\.css)$/,
         exclude: /(node_modules|dist)/,
         use: [
           {
