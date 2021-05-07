@@ -18,7 +18,7 @@ class BrambleView extends React.Component {
   }
 
   onResize(event) {
-    const container = document.querySelector('.bramble-view')
+    const container: HTMLElement = document.querySelector('.bramble-view')
 
     g.setSize(container.offsetWidth, this.state.height)
     g.setSmoothing(false)
@@ -30,7 +30,7 @@ class BrambleView extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const container = document.querySelector('.bramble-view')
+    const container: HTMLElement = document.querySelector('.bramble-view')
 
     const width =
       this.state.width !== null ? this.state.width : container.offsetWidth
@@ -44,7 +44,7 @@ class BrambleView extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.onResize)
 
-    const container = document.querySelector('.bramble-view')
+    const container: HTMLElement = document.querySelector('.bramble-view')
 
     if (!g) {
       g = game.create()
