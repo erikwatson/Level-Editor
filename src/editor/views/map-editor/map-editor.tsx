@@ -2,32 +2,57 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import style from './map-editor.sass'
 
-import {
-  game,
-  graphics,
-  mouse,
-  prevMouse,
-  keyboard,
-  assets,
-  sound,
-  grid,
-  canvas
-} from '@erikwatson/bramble'
+import { game, graphics, mouse, grid } from '@erikwatson/bramble'
+
+import { Grid, Game } from '@erikwatson/bramble/dist/types'
 
 import Layout from '../layouts/sidebar-left/sidebar-left'
 import Sidebar from './sidebar/sidebar'
+import propertiesSidebar from '../terrain-editor/properties-sidebar/properties-sidebar'
 
-let g = null
+let g: Game = null
+let ctx = null
 let m = null
 
 let bramblePane = null
 
-class MapEditor extends React.Component {
-  constructor(props) {
+enum ActiveTools {
+  POINTER = 'pointer',
+  BRUSH = 'brush',
+  ERASE = 'erase',
+  FILL = 'fill'
+}
+
+type Brush = {
+  size: number
+}
+
+type Props = {
+  width: number
+  height: number
+  tileWidth: number
+  tileHeight: number
+  widthInTiles: number
+  heightInTiles: number
+  widthInPixels: number
+  heightInPixels: number
+  camera: { x: number; y: number }
+  grid: Grid
+  activeTool: ActiveTools
+  brush: Brush
+  showGrid: boolean
+}
+
+type State = {
+  highlights: Grid
+}
+
+class MapEditor extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
-      highlights: grid.create(100, 100)
+      highlights: grid.create({ width: 100, height: 100 })
     }
   }
 
@@ -37,14 +62,16 @@ class MapEditor extends React.Component {
     if (!g) {
       g = game.create()
       g.start()
+
+      ctx = g.canvas.getContext('2d')
     }
 
     if (!m) {
-      m = mouse.create(canvas.element)
+      m = mouse.create(g.canvas)
       m.start()
     }
 
-    const element = document.querySelector('#bramble-pane')
+    const element: HTMLElement = document.querySelector('#bramble-pane')
 
     bramblePane = {
       element,
@@ -66,10 +93,10 @@ class MapEditor extends React.Component {
 
       const line = { width: 4, color: '#ffffff' }
 
-      graphics.line(tl, tr, line)
-      graphics.line(tr, br, line)
-      graphics.line(br, bl, line)
-      graphics.line(bl, tl, line)
+      graphics.line(ctx, tl, tr, line)
+      graphics.line(ctx, tr, br, line)
+      graphics.line(ctx, br, bl, line)
+      graphics.line(ctx, bl, tl, line)
     }
 
     const drawGrid = () => {
@@ -103,6 +130,7 @@ class MapEditor extends React.Component {
 
       for (let i = 0; i <= columns; i++) {
         graphics.line(
+          ctx,
           {
             x: tl.x + i * tileWidth,
             y: tl.y
@@ -113,7 +141,7 @@ class MapEditor extends React.Component {
           },
           {
             width: i % this.props.grid.divisions === 0 ? 2 : 1,
-            color: '#663399'
+            colour: '#663399'
           }
         )
       }
@@ -122,6 +150,7 @@ class MapEditor extends React.Component {
 
       for (let i = 0; i <= rows; i++) {
         graphics.line(
+          ctx,
           {
             x: tl.x,
             y: tl.y + i * tileHeight
@@ -132,7 +161,7 @@ class MapEditor extends React.Component {
           },
           {
             width: i % this.props.grid.divisions === 0 ? 2 : 1,
-            color: '#663399'
+            colour: '#663399'
           }
         )
       }
@@ -171,10 +200,11 @@ class MapEditor extends React.Component {
       // draw the box
       const line = { width: 4, color: '#ffffff' }
 
-      graphics.line(tl, tr, line)
-      graphics.line(tr, br, line)
-      graphics.line(br, bl, line)
-      graphics.line(bl, tl, line)
+      graphics.line(ctx, tl, tr, line)
+
+      graphics.line(ctx, tr, br, line)
+      graphics.line(ctx, br, bl, line)
+      graphics.line(ctx, bl, tl, line)
     }
 
     const setBrushHighlights = (gridPos, relativePos, brushSize) => {
@@ -326,13 +356,11 @@ class MapEditor extends React.Component {
       }
 
       graphics.line(
+        ctx,
         origin,
         { ...origin, x: origin.x + 64 },
-        { width: 4, color: 'red' }
+        { width: 4, colour: 'red' }
       )
-
-      // TODO: We shouldn't have to use the graphics context directly like this
-      const ctx = graphics.getContext()
 
       ctx.fillStyle = 'red'
 
@@ -344,9 +372,10 @@ class MapEditor extends React.Component {
       ctx.fill()
 
       graphics.line(
+        ctx,
         origin,
         { ...origin, y: origin.y + 64 },
-        { width: 4, color: 'green' }
+        { width: 4, colour: 'green' }
       )
 
       ctx.fillStyle = 'green'
@@ -507,7 +536,7 @@ class MapEditor extends React.Component {
     })
 
     g.setRender(() => {
-      graphics.clear('#000000')
+      graphics.clear(ctx, '#000000')
 
       if (this.props.showGrid) {
         drawGrid()

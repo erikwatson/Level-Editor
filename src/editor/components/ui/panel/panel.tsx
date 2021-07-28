@@ -3,7 +3,7 @@ const useState = React.useState
 import style from './panel.sass'
 
 type Props = {
-  open: boolean
+  open?: boolean
   title: string
 }
 

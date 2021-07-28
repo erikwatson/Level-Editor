@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux'
 import { grid as Grid } from '@erikwatson/bramble'
+// import} from '@erikwatson/bramble/dist/types'
 
 // Eraser Tool Properties
 const erase = (state = { size: 1, type: 0 }, action) => {
@@ -39,9 +40,24 @@ const camera = (state = { x: 0, y: 0 }, action) => {
 }
 
 // Manipulate the Grid
-const defaultGridState = Grid.create(50, 50, { scale: 4, divisions: 5 })
+const defaultGrid = Grid.create(
+  { width: 50, height: 50 },
+  { scale: 4, divisions: 5 }
+)
 
-const grid = (state = defaultGridState, action) => {
+type GridState = {
+  tiles: number[][]
+  width: number
+  height: number
+}
+
+const defaultGridState: GridState = {
+  tiles: defaultGrid.tiles,
+  width: defaultGrid.size.width,
+  height: defaultGrid.size.height
+}
+
+const grid = (state: GridState = defaultGridState, action) => {
   switch (action.type) {
     case 'GRID_SET_VISIBILITY':
       return { ...state, visible: action.value }
@@ -129,9 +145,17 @@ const grid = (state = defaultGridState, action) => {
   }
 }
 
-const defaultHighlightState = Grid.create(100, 100, { scale: 4 })
+const defaultHighlightGrid = Grid.create(
+  { width: 100, height: 100 },
+  { scale: 4 }
+)
+const defaultHighlightState: GridState = {
+  width: defaultHighlightGrid.size.width,
+  height: defaultHighlightGrid.size.height,
+  tiles: defaultHighlightGrid.tiles
+}
 
-const highlights = (state = defaultHighlightState, action) => {
+const highlights = (state: GridState = defaultHighlightState, action) => {
   switch (action.type) {
     case 'HIGHLIGHT_SET_WIDTH':
       const widthValue = parseInt(action.value)
