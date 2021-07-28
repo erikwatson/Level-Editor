@@ -1,6 +1,6 @@
 import * as React from 'react'
 const { connect } = require('react-redux')
-const style = require('./map-editor.css')
+const style = require('./map-editor.sass')
 
 const {
   game,

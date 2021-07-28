@@ -1,6 +1,6 @@
 import * as React from 'react'
 const { connect } = require('react-redux')
-const style = require('./properties-sidebar.css')
+const style = require('./properties-sidebar.sass')
 
 const Sidebar = require('../../../components/sidebar/sidebar')
 const Panel = require('../../../components/ui/panel/panel')

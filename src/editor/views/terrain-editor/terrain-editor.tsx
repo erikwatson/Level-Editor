@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import style = require('./terrain-editor.css')
+import style = require('./terrain-editor.sass')
 
 import { game, mouse, keyboard, assets, sound, grid } from '@erikwatson/bramble'
 

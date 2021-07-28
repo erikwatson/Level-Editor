@@ -5,7 +5,7 @@ const MapEditorView = require('./views/map-editor/map-editor')
 const TerrainEditorView = require('./views/terrain-editor/terrain-editor')
 const SplashView = require('./views/welcome/welcome')
 
-const style = require('./app.css')
+const style = require('./app.sass')
 
 // const { assets } = require('@erikwatson/bramble')
 import { assets } from '@erikwatson/bramble'

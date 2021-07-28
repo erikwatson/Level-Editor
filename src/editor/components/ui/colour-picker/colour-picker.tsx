@@ -1,6 +1,6 @@
 import * as React from 'react'
 const { connect } = require('react-redux')
-const style = require('./colour-picker.css')
+const style = require('./colour-picker.sass')
 
 class ColourPicker extends React.Component {
   constructor(props) {

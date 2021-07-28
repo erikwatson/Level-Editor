@@ -7,7 +7,7 @@ const ViewPanel = require('./view-panel/view-panel')
 const GridPanel = require('./grid-panel/grid-panel')
 const ToolPanel = require('./tool-panel/tool-panel')
 
-const style = require('./sidebar.css')
+const style = require('./sidebar.sass')
 
 const LevelEditorSidebar = props => {
   return (

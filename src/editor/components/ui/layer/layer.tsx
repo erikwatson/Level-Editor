@@ -8,7 +8,7 @@ const {
   faLockOpen
 } = require('@fortawesome/free-solid-svg-icons')
 
-const style = require('./layer.css')
+const style = require('./layer.sass')
 
 export default ({ title = 'Layer', visible = false, selected = false }) => {
   const visibilityIcon = visible ? (

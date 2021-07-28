@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 const Panel = require('../panel/panel')
-const style = require('./panel-list.css')
+const style = require('./panel-list.sass')
 
 class PanelList extends React.Component {
   constructor(props) {

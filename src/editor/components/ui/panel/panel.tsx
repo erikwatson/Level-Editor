@@ -1,6 +1,6 @@
 import * as React from 'react'
 const useState = React.useState
-const style = require('./panel.css')
+const style = require('./panel.sass')
 
 class Panel extends React.Component {
   constructor(props) {

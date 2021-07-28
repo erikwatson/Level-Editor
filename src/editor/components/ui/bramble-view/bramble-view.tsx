@@ -1,5 +1,5 @@
 import * as React from 'react'
-const style = require('./bramble-view.css')
+const style = require('./bramble-view.sass')
 
 const { game } = require('@erikwatson/bramble')
 
