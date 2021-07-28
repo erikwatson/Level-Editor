@@ -1,7 +1,7 @@
-const { combineReducers } = require('redux')
+import { combineReducers } from 'redux'
 
-const terrain = require('./terrain-editor/terrain-editor')
-const map = require('./map-editor/map-editor')
+import terrain from './terrain-editor/terrain-editor'
+import map from './map-editor/map-editor'
 
 const view = (state = 'map', action) => {
   switch (action.type) {

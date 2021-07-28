@@ -1,7 +1,7 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const Panel = require('../../../../components/ui/panel/panel')
+import Panel from '../../../../components/ui/panel/panel'
 
 class GridPanel extends React.Component {
   constructor(props) {
@@ -116,4 +116,4 @@ function mapStateToProps(state) {
   }
 }
 
-module.exports = connect(mapStateToProps)(GridPanel)
+export default connect(mapStateToProps)(GridPanel)

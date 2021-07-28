@@ -1,5 +1,5 @@
 import * as React from 'react'
-const style = require('./button-group.sass')
+import style from './button-group.sass'
 
 class ButtonGroup extends React.Component {
   render() {

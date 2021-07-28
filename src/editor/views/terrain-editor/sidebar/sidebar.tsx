@@ -1,9 +1,9 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
-const style = require('./sidebar.sass')
+import { connect } from 'react-redux'
+import style from './sidebar.sass'
 
-const Sidebar = require('../../../components/sidebar/sidebar')
-const Panel = require('../../../components/ui/panel/panel')
+import Sidebar from '../../../components/sidebar/sidebar'
+import Panel from '../../../components/ui/panel/panel'
 
 const TerrainEditorSidebar = props => {
   return (

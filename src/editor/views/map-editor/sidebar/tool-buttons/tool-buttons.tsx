@@ -1,16 +1,16 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const ButtonGroup = require('../../../../components/ui/button-group/button-group')
-const Button = require('../../../../components/ui/button/button')
+import ButtonGroup from '../../../../components/ui/button-group/button-group'
+import Button from '../../../../components/ui/button/button'
 
-const {
+import {
   faFill,
   faPaintBrush,
   faEraser,
   faMousePointer,
   faSlash
-} = require('@fortawesome/free-solid-svg-icons')
+} from '@fortawesome/free-solid-svg-icons'
 
 const labeledIcons = {
   pointer: faMousePointer,
@@ -62,4 +62,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-module.exports = connect(mapStateToProps, mapDispatchToProps)(ToolButtons)
+export default connect(mapStateToProps, mapDispatchToProps)(ToolButtons)

@@ -1,13 +1,13 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const MapEditorView = require('./views/map-editor/map-editor')
-const TerrainEditorView = require('./views/terrain-editor/terrain-editor')
-const SplashView = require('./views/welcome/welcome')
+import MapEditorView from './views/map-editor/map-editor'
+import TerrainEditorView from './views/terrain-editor/terrain-editor'
+import SplashView from './views/welcome/welcome'
 
-const style = require('./app.sass')
+import style from './app.sass'
 
-// const { assets } = require('@erikwatson/bramble')
+// const { assets } from '@erikwatson/bramble')
 import { assets } from '@erikwatson/bramble'
 
 function getView(name) {

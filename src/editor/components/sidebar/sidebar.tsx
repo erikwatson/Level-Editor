@@ -1,11 +1,22 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 import { connect } from 'react-redux'
 import PanelList from '../ui/panel-list/panel-list'
 import Panel from '../ui/panel/panel'
 
 import style from './sidebar.css'
 
-const SideBar = props => {
+type Props = {
+  title: string
+  cameraX: number
+  cameraY: number
+  children: ReactNode
+  showHeader: boolean
+  showNav: boolean
+  setTitle: (title: string) => void
+}
+
+const SideBar = (props: Props) => {
   const { title = 'Sidebar', cameraX = 0, cameraY = 0, children } = props
 
   const header = (

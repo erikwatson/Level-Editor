@@ -1,9 +1,17 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
-const style = require('./colour-picker.sass')
+import { connect } from 'react-redux'
+import style from './colour-picker.sass'
 
-class ColourPicker extends React.Component {
-  constructor(props) {
+type Props = {
+  colour: string
+}
+
+type State = {
+  open: boolean
+}
+
+class ColourPicker extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     this.state = {
       open: false
@@ -23,7 +31,7 @@ class ColourPicker extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: Props) {
   return {
     colour: '#ff0000'
   }

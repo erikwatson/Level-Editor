@@ -1,5 +1,5 @@
 import * as React from 'react'
-const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome')
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export default ({ icon, selected, onClick, tip }) => {
   const className = selected ? 'selected' : ''

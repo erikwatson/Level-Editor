@@ -1,8 +1,8 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const Panel = require('../../../../components/ui/panel/panel')
-const ToolButtons = require('../tool-buttons/tool-buttons')
+import Panel from '../../../../components/ui/panel/panel'
+import ToolButtons from '../tool-buttons/tool-buttons'
 
 class ToolPanel extends React.Component {
   render() {
@@ -140,4 +140,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = connect(mapStateToProps)(ToolPanel)
+export default connect(mapStateToProps)(ToolPanel)

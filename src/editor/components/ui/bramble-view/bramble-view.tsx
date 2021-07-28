@@ -1,7 +1,6 @@
 import * as React from 'react'
-const style = require('./bramble-view.sass')
-
-const { game } = require('@erikwatson/bramble')
+import style from './bramble-view.sass'
+import { game } from '@erikwatson/bramble'
 
 let g = null
 

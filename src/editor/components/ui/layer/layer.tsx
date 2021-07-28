@@ -1,14 +1,14 @@
 import * as React from 'react'
 
-const { FontAwesomeIcon } = require('@fortawesome/react-fontawesome')
-const {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
   faEye,
   faEyeSlash,
   faTrash,
   faLockOpen
-} = require('@fortawesome/free-solid-svg-icons')
+} from '@fortawesome/free-solid-svg-icons'
 
-const style = require('./layer.sass')
+import style from './layer.sass'
 
 export default ({ title = 'Layer', visible = false, selected = false }) => {
   const visibilityIcon = visible ? (

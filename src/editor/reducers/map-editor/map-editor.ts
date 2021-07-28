@@ -1,6 +1,5 @@
-const { combineReducers } = require('redux')
-
-const Grid = require('@erikwatson/bramble').grid
+import { combineReducers } from 'redux'
+import { grid as Grid } from '@erikwatson/bramble'
 
 // Eraser Tool Properties
 const erase = (state = { size: 1, type: 0 }, action) => {

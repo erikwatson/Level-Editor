@@ -1,13 +1,13 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-const Sidebar = require('../../../components/sidebar/sidebar')
+import Sidebar from '../../../components/sidebar/sidebar'
 
-const ViewPanel = require('./view-panel/view-panel')
-const GridPanel = require('./grid-panel/grid-panel')
-const ToolPanel = require('./tool-panel/tool-panel')
+import ViewPanel from './view-panel/view-panel'
+import GridPanel from './grid-panel/grid-panel'
+import ToolPanel from './tool-panel/tool-panel'
 
-const style = require('./sidebar.sass')
+import style from './sidebar.sass'
 
 const LevelEditorSidebar = props => {
   return (
@@ -22,4 +22,4 @@ const mapStateToProps = state => {
   return {}
 }
 
-module.exports = connect(mapStateToProps)(LevelEditorSidebar)
+export default connect(mapStateToProps)(LevelEditorSidebar)

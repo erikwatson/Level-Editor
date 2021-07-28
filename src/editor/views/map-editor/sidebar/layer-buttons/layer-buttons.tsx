@@ -1,13 +1,13 @@
 import * as React from 'react'
-const { faPlusSquare, faCopy } = require('@fortawesome/free-solid-svg-icons')
+import { faPlusSquare, faCopy } from '@fortawesome/free-solid-svg-icons'
 
-const ButtonGroup = require('../../../ui/button-group/button-group')
+import ButtonGroup from '../../../ui/button-group/button-group'
 
 // Note :: I have just realised this shouldn't be a ButtonGroup because that
 //         acts as more of a dropdown list replacement for small lists of icons.
 //
 //         This should be just regular boring buttons instead.
 
-module.exports = () => {
+export default () => {
   return <ButtonGroup icons={[faPlusSquare, faCopy]} selected={1} />
 }

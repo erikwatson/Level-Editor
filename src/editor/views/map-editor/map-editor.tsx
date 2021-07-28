@@ -1,8 +1,8 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
-const style = require('./map-editor.sass')
+import { connect } from 'react-redux'
+import style from './map-editor.sass'
 
-const {
+import {
   game,
   graphics,
   mouse,
@@ -12,10 +12,10 @@ const {
   sound,
   grid,
   canvas
-} = require('@erikwatson/bramble')
+} from '@erikwatson/bramble'
 
-const Layout = require('../layouts/sidebar-left/sidebar-left')
-const Sidebar = require('./sidebar/sidebar')
+import Layout from '../layouts/sidebar-left/sidebar-left'
+import Sidebar from './sidebar/sidebar'
 
 let g = null
 let m = null
@@ -595,4 +595,4 @@ function mapStateToProps(state) {
   }
 }
 
-module.exports = connect(mapStateToProps)(MapEditor)
+export default connect(mapStateToProps)(MapEditor)

@@ -1,4 +1,4 @@
-const { combineReducers } = require('redux')
+import { combineReducers } from 'redux'
 
 const terrainEditor = combineReducers({
   test: (state = true, action) => {

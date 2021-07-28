@@ -1,9 +1,8 @@
 import * as React from 'react'
-const { connect } = require('react-redux')
+import { connect } from 'react-redux'
 
-// const Panel = require('../../../../ui/panel/panel')
-const Panel = require('../../../../components/ui/panel/panel')
-const ColourPicker = require('../../../../components/ui/colour-picker/colour-picker')
+import Panel from '../../../../components/ui/panel/panel'
+import ColourPicker from '../../../../components/ui/colour-picker/colour-picker'
 
 class ViewPanel extends React.Component {
   constructor(props) {
@@ -88,4 +87,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = connect(mapStateToProps)(ViewPanel)
+export default connect(mapStateToProps)(ViewPanel)

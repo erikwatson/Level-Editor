@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import style = require('./terrain-editor.sass')
+import style from './terrain-editor.sass'
 
 import { game, mouse, keyboard, assets, sound, grid } from '@erikwatson/bramble'
 
@@ -380,4 +380,4 @@ const mapStateToProps = state => {
   }
 }
 
-module.exports = connect(mapStateToProps)(TerrainEditor)
+export default connect(mapStateToProps)(TerrainEditor)

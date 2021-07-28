@@ -1,22 +1,35 @@
 import * as React from 'react'
+import { ReactNode } from 'react'
 
-const Panel = require('../panel/panel')
-const style = require('./panel-list.sass')
+import Panel from '../panel/panel'
+import style from './panel-list.sass'
 
-class PanelList extends React.Component {
-  constructor(props) {
+type Props = {
+  open?: boolean
+  children: ReactNode
+}
+
+type State = {
+  open: boolean
+}
+
+class PanelList extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
     this.state = { open: this.props.open }
   }
 
   render() {
-    const renderThese = React.Children.map(this.props.children, (child, i) => {
-      return React.cloneElement(child, {
-        key: i,
-        open:
-          child.props.open !== undefined ? child.props.open : this.state.open
-      })
-    })
+    const renderThese = React.Children.map(
+      this.props.children,
+      (child: any, i) => {
+        return React.cloneElement(child, {
+          key: i,
+          open:
+            child.props.open !== undefined ? child.props.open : this.state.open
+        })
+      }
+    )
 
     return (
       <div id='panel-list'>

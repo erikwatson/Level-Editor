@@ -1,9 +1,18 @@
 import * as React from 'react'
 const useState = React.useState
-const style = require('./panel.sass')
+import style from './panel.sass'
 
-class Panel extends React.Component {
-  constructor(props) {
+type Props = {
+  open: boolean
+  title: string
+}
+
+type State = {
+  open: boolean
+}
+
+class Panel extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props)
 
     this.state = {
