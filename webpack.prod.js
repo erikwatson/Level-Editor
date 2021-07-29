@@ -1,11 +1,7 @@
 const merge = require('webpack-merge')
-const common = require('./webpack.common.js')
+const { render, electron } = require('./webpack.common.js')
 
-module.exports = merge(common, [
-  {
-    mode: 'production'
-  },
-  {
-    mode: 'production'
-  }
-])
+const prodRender = merge(render, { mode: 'production' })
+const prodElectron = merge(electron, { mode: 'production' })
+
+module.exports = [prodRender, prodElectron]
