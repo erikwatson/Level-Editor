@@ -9,7 +9,7 @@ const render = {
   },
   target: 'electron-renderer',
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx', '.sass', '.css']
+    extensions: ['.js', '.jsx', '.ts', '.tsx', '.sass']
   },
   module: {
     rules: [
@@ -34,7 +34,7 @@ const render = {
       },
 
       {
-        test: /(\.sass|\.css)$/,
+        test: /\.s[ac]ss$/i,
         exclude: /(node_modules|dist)/,
         use: [
           {

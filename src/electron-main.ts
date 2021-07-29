@@ -24,8 +24,7 @@ app
   .whenReady()
   .then(() =>
     installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS], {
-      loadExtensionOptions: { allowFileAccess: true },
-      forceDownload: true
+      loadExtensionOptions: { allowFileAccess: true }
     })
   )
   .then(name => console.log(`Added extension: ${name}`))

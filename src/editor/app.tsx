@@ -5,7 +5,7 @@ import MapEditorView from './views/map-editor/map-editor'
 import TerrainEditorView from './views/terrain-editor/terrain-editor'
 import SplashView from './views/welcome/welcome'
 
-import style from './app.sass'
+import './app.sass'
 
 // const { assets } from '@erikwatson/bramble')
 import { assets } from '@erikwatson/bramble'

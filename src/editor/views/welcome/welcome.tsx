@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import style from './welcome.css'
+import './welcome.sass'
 
 class Welcome extends React.Component {
   render() {
