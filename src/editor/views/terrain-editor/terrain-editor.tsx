@@ -3,7 +3,15 @@ import { connect } from 'react-redux'
 
 import style from './terrain-editor.sass'
 
-import { game, mouse, keyboard, assets, sound, grid } from '@erikwatson/bramble'
+import {
+  game,
+  mouse,
+  keyboard,
+  assets,
+  grid,
+  graphics
+} from '@erikwatson/bramble'
+import { Graphics } from '@erikwatson/bramble/dist/types'
 
 import Layout from '../layouts/three-column/three-column'
 import Sidebar from './sidebar/sidebar'
@@ -285,79 +293,8 @@ class TerrainEditor extends React.Component<Props, State> {
     const zoom = 4
     const shapeSize = 3
 
-    const brambleRender = graphics => {
+    const brambleRender = (graphics: Graphics) => {
       graphics.clear('#232323')
-
-      const zoomedTileSize = tileSize * zoom
-      const zoomedShapeSize = zoomedTileSize * shapeSize
-
-      const widthOfShapePlusSingleBorder = Math.floor(
-        zoomedShapeSize + zoomedTileSize
-      )
-      const widthDividedByShapeBorder = Math.floor(
-        (canvas.element.width - zoomedTileSize) / widthOfShapePlusSingleBorder
-      )
-
-      const widthDividedByShapes = Math.floor(
-        canvas.element.width / widthOfShapePlusSingleBorder
-      )
-      const heightDividedByShapes = Math.ceil(
-        allShapes.length / widthDividedByShapes
-      )
-
-      // avoid infinite looping
-      if (widthDividedByShapes <= 0) {
-        return
-      }
-
-      for (var y = 0; y < heightDividedByShapes; y++) {
-        for (var x = 0; x < widthDividedByShapeBorder; x++) {
-          const index = y * widthDividedByShapeBorder + x
-
-          if (index >= allShapes.length) {
-            return
-          }
-
-          graphics.rect(
-            zoomedTileSize + widthOfShapePlusSingleBorder * x,
-            zoomedTileSize + widthOfShapePlusSingleBorder * y,
-            zoomedShapeSize,
-            zoomedShapeSize,
-            {
-              fill: {
-                color: '#000000'
-              },
-              line: {
-                width: 2,
-                color: '#ffffff'
-              }
-            }
-          )
-
-          graphics.tiles(
-            zoomedTileSize + widthOfShapePlusSingleBorder * x,
-            zoomedTileSize + widthOfShapePlusSingleBorder * y,
-            modifiedShapes[index],
-            this.props.spritesheets,
-            zoom,
-            tileSize,
-            tileSize
-          )
-
-          graphics.rect(
-            zoomedTileSize + widthOfShapePlusSingleBorder * x + zoomedTileSize,
-            zoomedTileSize + widthOfShapePlusSingleBorder * y + zoomedTileSize,
-            zoomedTileSize,
-            zoomedTileSize,
-            {
-              line: {
-                width: 2,
-                color: '#ffffff'
-              }
-            }
-          )
-        }
-      }
     }
 
     return (

@@ -1,14 +1,20 @@
 const merge = require('webpack-merge')
 const path = require('path')
-const common = require('./webpack.common.js')
+const { render, electron } = require('./webpack.common.js')
 
-module.exports = merge(common, {
+const devRender = merge(render, {
   mode: 'development',
   devtool: 'inline-source-map',
-  target: 'web',
   devServer: {
     contentBase: path.join(__dirname, 'dest'),
     compress: true,
     port: 9000
   }
 })
+
+const devElectron = merge(electron, {
+  mode: 'development',
+  devtool: 'inline-source-map'
+})
+
+module.exports = [devElectron, devRender]

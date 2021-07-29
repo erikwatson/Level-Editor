@@ -1,10 +1,10 @@
 const path = require('path')
 
-module.exports = {
+const render = {
   entry: './src/editor-main.tsx',
   devtool: 'inline-source-map',
   output: {
-    filename: 'editor.js',
+    filename: 'editor-main.js',
     path: path.resolve(__dirname, 'dest')
   },
   target: 'electron-renderer',
@@ -58,4 +58,45 @@ module.exports = {
       }
     ]
   }
+}
+
+const electron = {
+  entry: './src/electron-main.ts',
+  devtool: 'inline-source-map',
+  output: {
+    filename: 'electron-main.js',
+    path: path.resolve(__dirname, 'dest')
+  },
+  target: 'electron-main',
+  resolve: {
+    extensions: ['.js', '.jsx', '.ts', '.tsx']
+  },
+  module: {
+    rules: [
+      {
+        test: /(\.js|\.jsx)$/,
+        exclude: /(node_modules|dist)/,
+        use: [
+          {
+            loader: 'babel-loader'
+          }
+        ]
+      },
+
+      {
+        test: /(\.ts|\.tsx)$/,
+        exclude: /(node_modules|dist)/,
+        use: [
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      }
+    ]
+  }
+}
+
+module.exports = {
+  electron,
+  render
 }

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { faPlusSquare, faCopy } from '@fortawesome/free-solid-svg-icons'
 
-import ButtonGroup from '../../../ui/button-group/button-group'
+import ButtonGroup from '../../../../../editor/components/ui/button-group/button-group'
 
 // Note :: I have just realised this shouldn't be a ButtonGroup because that
 //         acts as more of a dropdown list replacement for small lists of icons.

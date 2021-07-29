@@ -1,9 +1,17 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 
 import Panel from '../../../../components/ui/panel/panel'
 
-class GridPanel extends React.Component {
+type Props = {
+  divisions: number
+  width: number
+  height: number
+  dispatch: Dispatch
+}
+
+class GridPanel extends React.Component<Props> {
   constructor(props) {
     super(props)
 
@@ -13,41 +21,41 @@ class GridPanel extends React.Component {
     this.divisionsChange = this.divisionsChange.bind(this)
   }
 
-  onWidthChange(event) {
+  onWidthChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_WIDTH',
-      value: event.target.value
+      value: e.target.value
     })
 
     this.props.dispatch({
       type: 'HIGHLIGHT_SET_WIDTH',
-      value: event.target.value
+      value: e.target.value
     })
   }
 
-  onHeightChange(event) {
+  onHeightChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_HEIGHT',
-      value: event.target.value
+      value: e.target.value
     })
 
     this.props.dispatch({
       type: 'HIGHLIGHT_SET_HEIGHT',
-      value: event.target.value
+      value: e.target.value
     })
   }
 
   visibleChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_VISIBILITY',
-      value: event.target.checked
+      value: e.target.checked
     })
   }
 
   divisionsChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_DIVISIONS',
-      value: event.target.value
+      value: e.target.value
     })
   }
 

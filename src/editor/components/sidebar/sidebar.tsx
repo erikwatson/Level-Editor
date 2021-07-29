@@ -7,12 +7,12 @@ import Panel from '../ui/panel/panel'
 import style from './sidebar.css'
 
 type Props = {
-  title: string
-  cameraX: number
-  cameraY: number
-  children: ReactNode
-  showHeader: boolean
-  showNav: boolean
+  title?: string
+  cameraX?: number
+  cameraY?: number
+  children?: ReactNode
+  showHeader?: boolean
+  showNav?: boolean
   setTitle: (title: string) => void
 }
 

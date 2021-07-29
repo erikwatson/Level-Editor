@@ -4,11 +4,12 @@ import style from './map-editor.sass'
 
 import { game, graphics, mouse, grid } from '@erikwatson/bramble'
 
-import { Grid, Game } from '@erikwatson/bramble/dist/types'
+import { Grid, Game, Terrain } from '@erikwatson/bramble/dist/types'
 
 import Layout from '../layouts/sidebar-left/sidebar-left'
 import Sidebar from './sidebar/sidebar'
 import propertiesSidebar from '../terrain-editor/properties-sidebar/properties-sidebar'
+import { Dispatch } from 'redux'
 
 let g: Game = null
 let ctx = null
@@ -41,6 +42,10 @@ type Props = {
   activeTool: ActiveTools
   brush: Brush
   showGrid: boolean
+  spritesheets: []
+  dispatch: Dispatch
+  terrain: Terrain
+  erase: { size: number }
 }
 
 type State = {
@@ -544,24 +549,18 @@ class MapEditor extends React.Component<Props, State> {
 
       // Render the Tile Layer
       graphics.tiles(
-        this.props.camera.x,
-        this.props.camera.y,
+        ctx,
+        this.props.camera,
         this.props.grid.tiles,
         this.props.spritesheets,
-        this.props.grid.scale,
-        this.props.grid.tileSize,
-        this.props.grid.tileSize
+        this.props.grid.scale
       )
-
-      // Render the Tool highlights
       graphics.tiles(
-        this.props.camera.x,
-        this.props.camera.y,
+        ctx,
+        this.props.camera,
         this.state.highlights.tiles,
         this.props.spritesheets,
-        this.props.grid.scale,
-        this.props.grid.tileSize,
-        this.props.grid.tileSize
+        this.props.grid.scale
       )
 
       drawOrigin()
@@ -570,7 +569,7 @@ class MapEditor extends React.Component<Props, State> {
   }
 
   componentDidUpdate() {
-    const element = document.querySelector('#bramble-pane')
+    const element: HTMLElement = document.querySelector('#bramble-pane')
 
     bramblePane = {
       element,

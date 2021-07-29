@@ -2,7 +2,7 @@
   "name": "bramble",
   "version": "1.0.0",
   "description": "A game engine built in JavaScript",
-  "main": "src/electron-main.js",
+  "main": "dest/electron-main.js",
   "author": "Erik Watson",
   "license": "MIT",
   "devDependencies": {
@@ -48,6 +48,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.7",
+    "@types/react-redux": "^7.1.18",
     "babel-loader": "^8.0.6",
     "node-fetch": "^2.0.0",
     "react": "^16.12.0",

@@ -12,22 +12,14 @@ const TerrainEditorSidebar = props => {
         <div className='section'>
           <div className='input range'>
             <label>Outline:</label>
-            <input
-              type='checkbox'
-              defaultChecked={true}
-              onChange={this.visibleChange}
-            />
+            <input type='checkbox' defaultChecked={true} />
           </div>
         </div>
 
         <div className='section'>
           <div className='input range'>
             <label>Innerline:</label>
-            <input
-              type='checkbox'
-              defaultChecked={true}
-              onChange={this.visibleChange}
-            />
+            <input type='checkbox' defaultChecked={true} />
           </div>
         </div>
       </Panel>

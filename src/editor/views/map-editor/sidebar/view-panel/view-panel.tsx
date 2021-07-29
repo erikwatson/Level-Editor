@@ -3,8 +3,17 @@ import { connect } from 'react-redux'
 
 import Panel from '../../../../components/ui/panel/panel'
 import ColourPicker from '../../../../components/ui/colour-picker/colour-picker'
+import { Dispatch } from 'redux'
 
-class ViewPanel extends React.Component {
+type Props = {
+  dispatch: Dispatch
+  width: number
+  height: number
+  fullScreen: boolean
+  open: boolean
+}
+
+class ViewPanel extends React.Component<Props> {
   constructor(props) {
     super(props)
     this.state = {}

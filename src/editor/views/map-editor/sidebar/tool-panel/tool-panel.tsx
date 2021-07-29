@@ -1,10 +1,19 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
+import { Dispatch } from 'redux'
 
 import Panel from '../../../../components/ui/panel/panel'
 import ToolButtons from '../tool-buttons/tool-buttons'
 
-class ToolPanel extends React.Component {
+type Props = {
+  brush: any
+  erase: any
+  tool: any
+  open?: boolean
+  dispatch: Dispatch
+}
+
+class ToolPanel extends React.Component<Props> {
   render() {
     const emptyControls = <div className='section'></div>
     const pointerControls = emptyControls

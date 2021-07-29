@@ -10,12 +10,12 @@ interface State {
 }
 
 interface Props {
-  width: Number
-  height: Number
-  update: (dt: Number) => {}
-  render: (graphics: Object) => {}
-  scrollX: Boolean
-  scrollY: Boolean
+  width?: Number
+  height?: Number
+  update?: (dt: Number) => void
+  render?: (graphics: Object) => void
+  scrollX?: Boolean
+  scrollY?: Boolean
 }
 
 class BrambleView extends React.Component<Props, State> {
