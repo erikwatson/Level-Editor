@@ -1,4 +1,4 @@
-const {merge} = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const { render, electron } = require('./webpack.common.js')
 
 const prodRender = merge(render, { mode: 'production' })

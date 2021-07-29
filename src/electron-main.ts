@@ -20,8 +20,8 @@ function createWindow() {
 
 app
   .whenReady()
-  .then(() => installExtension(REACT_DEVELOPER_TOOLS))
-  .then(() => installExtension(REDUX_DEVTOOLS))
+  // .then(() => installExtension(REACT_DEVELOPER_TOOLS))
+  // .then(() => installExtension(REDUX_DEVTOOLS))
   .then(() => {
     createWindow()
   })
