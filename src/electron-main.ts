@@ -16,13 +16,21 @@ function createWindow() {
 
   win.setIcon('dest/images/icon.png')
   win.loadFile('dest/index.html')
+
+  win.webContents.openDevTools()
 }
 
 app
   .whenReady()
-  .then(() => installExtension(REACT_DEVELOPER_TOOLS))
-  .then(() => installExtension(REDUX_DEVTOOLS))
+  .then(() =>
+    installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS], {
+      loadExtensionOptions: { allowFileAccess: true },
+      forceDownload: true
+    })
+  )
+  .then(name => console.log(`Added extension: ${name}`))
   .then(() => {
+    console.log('created the window')
     createWindow()
   })
   .catch(err => {

@@ -13,10 +13,10 @@ import { assets } from '@erikwatson/bramble'
 function getView(name) {
   switch (name) {
     case 'map':
-      // return <MapEditorView />
+      return <MapEditorView />
       return null
     case 'terrain':
-      // return <TerrainEditorView />
+      return <TerrainEditorView />
       return null
     case 'splash':
       return <SplashView />
@@ -29,19 +29,18 @@ function getView(name) {
 
 const App = props => {
   Promise.all([
-    assets.loadTerrain('./terrain/default.json'),
-    assets.loadTerrain('./terrain/green-hills.json'),
-    assets.loadTerrain('./terrain/highlights.json'),
-    assets.loadTerrain('./terrain/grass-decoration.json'),
-    assets.loadTerrain('./terrain/stalactites.json'),
-    assets.loadTerrain('./terrain/rock.json'),
-    assets.loadTerrain('./terrain/waterfall.json')
+    assets.loadTerrain('./terrain/default.json')
+    // assets.loadTerrain('./terrain/green-hills.json'),
+    // assets.loadTerrain('./terrain/highlights.json'),
+    // assets.loadTerrain('./terrain/grass-decoration.json'),
+    // assets.loadTerrain('./terrain/stalactites.json'),
+    // assets.loadTerrain('./terrain/rock.json'),
+    // assets.loadTerrain('./terrain/waterfall.json')
   ]).then(terrain => {
     props.setSpritesheets(terrain)
   })
 
-  // const view = getView(props.view)
-  const view = null
+  const view = getView(props.view)
 
   return <div>{view}</div>
 }

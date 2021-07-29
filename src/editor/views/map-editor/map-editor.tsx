@@ -29,23 +29,23 @@ type Brush = {
 }
 
 type Props = {
-  width: number
-  height: number
-  tileWidth: number
-  tileHeight: number
-  widthInTiles: number
-  heightInTiles: number
-  widthInPixels: number
-  heightInPixels: number
-  camera: { x: number; y: number }
-  grid: Grid
-  activeTool: ActiveTools
-  brush: Brush
-  showGrid: boolean
-  spritesheets: []
-  dispatch: Dispatch
-  terrain: Terrain
-  erase: { size: number }
+  width?: number
+  height?: number
+  tileWidth?: number
+  tileHeight?: number
+  widthInTiles?: number
+  heightInTiles?: number
+  widthInPixels?: number
+  heightInPixels?: number
+  camera?: { x: number; y: number }
+  grid?: Grid
+  activeTool?: ActiveTools
+  brush?: Brush
+  showGrid?: boolean
+  spritesheets?: []
+  dispatch?: Dispatch
+  terrain?: Terrain
+  erase?: { size: number }
 }
 
 type State = {
