@@ -1,5 +1,5 @@
 import * as React from 'react'
-import style from './button-group.sass'
+import './button-group.sass'
 
 type Props = {
   icons?: any[]

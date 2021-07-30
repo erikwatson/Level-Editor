@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import style from './sidebar.sass'
+import './sidebar.sass'
 
 import Sidebar from '../../../components/sidebar/sidebar'
 import Panel from '../../../components/ui/panel/panel'

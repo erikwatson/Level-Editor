@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import style from './map-editor.sass'
+import './map-editor.sass'
 
 import { game, graphics, mouse, grid } from '@erikwatson/bramble'
 

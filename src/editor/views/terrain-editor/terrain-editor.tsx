@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 
-import style from './terrain-editor.sass'
+import './terrain-editor.sass'
 
 import {
   game,

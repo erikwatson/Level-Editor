@@ -1,5 +1,5 @@
 import * as React from 'react'
-import style from './bramble-view.sass'
+import './bramble-view.sass'
 import { game } from '@erikwatson/bramble'
 
 let g = null

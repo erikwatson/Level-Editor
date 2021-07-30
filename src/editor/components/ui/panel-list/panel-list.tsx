@@ -2,7 +2,7 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 
 import Panel from '../panel/panel'
-import style from './panel-list.sass'
+import './panel-list.sass'
 
 type Props = {
   open?: boolean

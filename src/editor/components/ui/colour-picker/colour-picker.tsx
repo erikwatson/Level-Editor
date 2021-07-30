@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import style from './colour-picker.sass'
+import './colour-picker.sass'
 
 type Props = {
   colour: string

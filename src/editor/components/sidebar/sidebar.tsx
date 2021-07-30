@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import PanelList from '../ui/panel-list/panel-list'
 import Panel from '../ui/panel/panel'
 
-import style from './sidebar.css'
+import './sidebar.sass'
 
 type Props = {
   title?: string

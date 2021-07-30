@@ -1,6 +1,6 @@
 import * as React from 'react'
 const useState = React.useState
-import style from './panel.sass'
+import './panel.sass'
 
 type Props = {
   open?: boolean

@@ -7,7 +7,7 @@ import ViewPanel from './view-panel/view-panel'
 import GridPanel from './grid-panel/grid-panel'
 import ToolPanel from './tool-panel/tool-panel'
 
-import style from './sidebar.sass'
+import './sidebar.sass'
 
 const LevelEditorSidebar = props => {
   return (

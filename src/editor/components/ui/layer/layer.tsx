@@ -8,7 +8,7 @@ import {
   faLockOpen
 } from '@fortawesome/free-solid-svg-icons'
 
-import style from './layer.sass'
+import './layer.sass'
 
 export default ({ title = 'Layer', visible = false, selected = false }) => {
   const visibilityIcon = visible ? (
