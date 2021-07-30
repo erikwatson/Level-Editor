@@ -1,5 +1,5 @@
 {
-  "name": "LevelEditor",
+  "name": "level-editor",
   "version": "1.0.0",
   "description": "A game engine built in JavaScript",
   "main": "dest/electron-main.js",
