@@ -76,7 +76,9 @@ class MapEditor extends React.Component<Props, State> {
       mouseObj.start()
     }
 
-    const element: HTMLElement = document.querySelector('#bramble-pane')
+    const element: HTMLElement = document.querySelectorAll(
+      '.bramble-pane'
+    )[0] as HTMLElement
 
     bramblePane = {
       element,
@@ -395,7 +397,9 @@ class MapEditor extends React.Component<Props, State> {
       ctx.fill()
     }
 
-    const container = document.querySelector('#bramble-view')
+    const container = document.querySelectorAll(
+      '.bramble-view'
+    )[0] as HTMLElement
 
     g.attachTo(container)
     g.disableContextMenu()
@@ -544,7 +548,7 @@ class MapEditor extends React.Component<Props, State> {
     })
 
     g.setRender(() => {
-      graphics.clear(ctx, '#000000')
+      // graphics.clear(ctx, '#000000')
 
       if (this.props.showGrid) {
         drawGrid()
@@ -558,6 +562,7 @@ class MapEditor extends React.Component<Props, State> {
         this.props.spritesheets,
         this.props.grid.scale
       )
+
       graphics.tiles(
         ctx,
         this.props.camera,
@@ -572,7 +577,9 @@ class MapEditor extends React.Component<Props, State> {
   }
 
   componentDidUpdate() {
-    const element: HTMLElement = document.querySelector('#bramble-pane')
+    const element: HTMLElement = document.querySelectorAll(
+      '.bramble-pane'
+    )[0] as HTMLElement
 
     bramblePane = {
       element,
@@ -586,10 +593,10 @@ class MapEditor extends React.Component<Props, State> {
 
   render() {
     return (
-      <Layout>
+      <Layout className='map-editor'>
         <Sidebar showHeader={true} />
-        <div id='bramble-pane'>
-          <div id='bramble-view'></div>
+        <div className='bramble-pane'>
+          <div className='bramble-view'></div>
         </div>
       </Layout>
     )

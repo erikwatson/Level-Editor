@@ -49,6 +49,12 @@ const render = {
           },
 
           {
+            loader: 'postcss-loader'
+          },
+
+          { loader: 'resolve-url-loader' },
+
+          {
             loader: 'sass-loader',
             options: {
               sourceMap: true

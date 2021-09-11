@@ -1,19 +1,21 @@
 @import '../../variables.sass'
 
-#map-editor
+.map-editor
   display: grid
-  background-color: $dark
+  // background-color: $dark
   grid-template-columns: 400px auto
   grid-template-rows: 100vh
   overflow: hidden
 
-  #bramble-pane
-    background-color: #121212
+  .bramble-pane
+    // background-color: #121212
     display: flex
+    border-style: solid
 
-    #bramble-view
+    .bramble-view
       display: flex
       margin: 0 auto
       flex-direction: column
       justify-content: center
       align-items: center
+      // background-image: url('./images/starfield.jpg')
