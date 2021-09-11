@@ -23,10 +23,13 @@ class PanelList extends React.Component<Props, State> {
     const renderThese = React.Children.map(
       this.props.children,
       (child: any, i) => {
+        console.log('test', React.Children.count(this.props.children), i)
+
         return React.cloneElement(child, {
           key: i,
           open:
-            child.props.open !== undefined ? child.props.open : this.state.open
+            child.props.open !== undefined ? child.props.open : this.state.open,
+          last: React.Children.count(this.props.children) - 1 === i
         })
       }
     )

@@ -13,6 +13,8 @@ import {
   faEyeDropper
 } from '@fortawesome/free-solid-svg-icons'
 
+import './tool-buttons.sass'
+
 const labeledIcons = {
   pointer: faMousePointer,
   erase: faEraser,
@@ -44,7 +46,11 @@ const ToolButtons = ({ tools, setSelected }) => {
     return <Button {...buttonProps} />
   })
 
-  return <ButtonGroup>{iconList}</ButtonGroup>
+  return (
+    <div className='tool-buttons'>
+      <ButtonGroup>{iconList}</ButtonGroup>
+    </div>
+  )
 }
 
 const mapStateToProps = state => {

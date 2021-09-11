@@ -5,6 +5,8 @@ import { Dispatch } from 'redux'
 import Panel from '../../../../components/ui/panel/panel'
 import ToolButtons from '../tool-buttons/tool-buttons'
 
+import './tool-panel.sass'
+
 type Spritesheet = {
   name: string
   type: number
@@ -47,7 +49,7 @@ class ToolPanel extends React.Component<Props> {
             <label>{this.props.brush.size} Tiles</label>
           </div>
         </div>
-        <div className='section'>
+        <div className='section last'>
           <div className='selector'>
             <label>Terrain</label>
             <select
@@ -185,4 +187,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ToolPanel)
+export default connect(mapStateToProps, mapDispatchToProps)(ToolPanel as any)
