@@ -548,12 +548,10 @@ class MapEditor extends React.Component<Props, State> {
     })
 
     g.setRender(() => {
-      // graphics.clear(ctx, '#000000')
-
+      // graphics.clear(ctx, '#ff0000')
       if (this.props.showGrid) {
         drawGrid()
       }
-
       // Render the Tile Layer
       graphics.tiles(
         ctx,
@@ -562,7 +560,6 @@ class MapEditor extends React.Component<Props, State> {
         this.props.spritesheets,
         this.props.grid.scale
       )
-
       graphics.tiles(
         ctx,
         this.props.camera,
@@ -570,7 +567,6 @@ class MapEditor extends React.Component<Props, State> {
         this.props.spritesheets,
         this.props.grid.scale
       )
-
       drawOrigin()
       drawViewportBox()
     })

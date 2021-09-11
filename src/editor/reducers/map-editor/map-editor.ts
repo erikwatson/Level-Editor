@@ -41,7 +41,7 @@ const camera = (state = { x: 0, y: 0 }, action) => {
 
 // Manipulate the Grid
 const defaultGrid = Grid.create(
-  { width: 50, height: 50 },
+  { width: 80, height: 60 },
   { divisions: 5, scale: 4 }
 )
 
