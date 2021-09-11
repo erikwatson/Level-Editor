@@ -9,7 +9,8 @@ import {
   faPaintBrush,
   faEraser,
   faMousePointer,
-  faSlash
+  faSlash,
+  faEyeDropper
 } from '@fortawesome/free-solid-svg-icons'
 
 const labeledIcons = {
@@ -17,7 +18,8 @@ const labeledIcons = {
   erase: faEraser,
   brush: faPaintBrush,
   fill: faFill,
-  line: faSlash
+  line: faSlash,
+  dropper: faEyeDropper
 }
 
 const ToolButtons = ({ tools, setSelected }) => {

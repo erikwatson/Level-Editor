@@ -42,19 +42,29 @@ const camera = (state = { x: 0, y: 0 }, action) => {
 // Manipulate the Grid
 const defaultGrid = Grid.create(
   { width: 50, height: 50 },
-  { scale: 4, divisions: 5 }
+  { divisions: 5, scale: 4 }
 )
 
 type GridState = {
   tiles: number[][]
   width: number
   height: number
+  tileWidth: number
+  tileHeight: number
+  divisions: number
+  scale: number
+  visible: boolean
 }
 
 const defaultGridState: GridState = {
   tiles: defaultGrid.tiles,
   width: defaultGrid.size.width,
-  height: defaultGrid.size.height
+  height: defaultGrid.size.height,
+  divisions: defaultGrid.divisions,
+  scale: defaultGrid.scale,
+  tileWidth: defaultGrid.tileWidth,
+  tileHeight: defaultGrid.tileHeight,
+  visible: defaultGrid.visible
 }
 
 const grid = (state: GridState = defaultGridState, action) => {
@@ -109,7 +119,7 @@ const grid = (state: GridState = defaultGridState, action) => {
       return { ...state, height: heightValue }
 
     case 'GRID_SET_TILE_SIZE':
-      return { ...state, tileSize: action.value }
+      return { ...state, tileWidth: action.value, tileHeight: action.value }
 
     case 'GRID_SET_TILE':
       const isWithinBounds =
@@ -149,10 +159,16 @@ const defaultHighlightGrid = Grid.create(
   { width: 100, height: 100 },
   { scale: 4 }
 )
+
 const defaultHighlightState: GridState = {
-  width: defaultHighlightGrid.size.width,
-  height: defaultHighlightGrid.size.height,
-  tiles: defaultHighlightGrid.tiles
+  tiles: defaultGrid.tiles,
+  width: defaultGrid.size.width,
+  height: defaultGrid.size.height,
+  divisions: defaultGrid.divisions,
+  scale: defaultGrid.scale,
+  tileWidth: defaultGrid.tileWidth,
+  tileHeight: defaultGrid.tileHeight,
+  visible: defaultGrid.visible
 }
 
 const highlights = (state: GridState = defaultHighlightState, action) => {
@@ -200,7 +216,7 @@ const highlights = (state: GridState = defaultHighlightState, action) => {
       return { ...state, height: heightValue }
 
     case 'HIGHLIGHT_SET_TILE_SIZE':
-      return { ...state, tileSize: action.value }
+      return { ...state, tileWidth: action.value, tileHeight: action.value }
 
     case 'HIGHLIGHT_SET_TILE':
       const isWithinBounds =

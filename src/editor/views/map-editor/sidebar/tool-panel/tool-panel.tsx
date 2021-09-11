@@ -5,12 +5,22 @@ import { Dispatch } from 'redux'
 import Panel from '../../../../components/ui/panel/panel'
 import ToolButtons from '../tool-buttons/tool-buttons'
 
+type Spritesheet = {
+  name: string
+  type: number
+}
+
 type Props = {
   brush: any
   erase: any
   tool: any
   open?: boolean
+  spritesheets: Spritesheet[]
   dispatch: Dispatch
+  setTerrain: (id: number) => void
+  setBrushSize: (size: number) => void
+  setEraseSize: (size: number) => void
+  terrain: number
 }
 
 class ToolPanel extends React.Component<Props> {
@@ -19,47 +29,46 @@ class ToolPanel extends React.Component<Props> {
     const pointerControls = emptyControls
 
     const brushSizeChanged = e => {
-      this.props.dispatch({
-        type: 'BRUSH_SET_SIZE',
-        value: e.target.value
-      })
-    }
-
-    const terrainChange = e => {
-      this.props.dispatch({
-        type: 'SET_TERRAIN',
-        value: e.target.value
-      })
-    }
-
-    const fillChange = e => {
-      this.props.dispatch({
-        type: 'FILL_SET_TYPE',
-        value: e.target.value
-      })
+      this.props.setBrushSize(e.target.value)
     }
 
     const brushControls = (
       <div className='section'>
-        <div className='input range'>
-          <label>Size</label>
-          <input
-            type='range'
-            value={this.props.brush.size}
-            onChange={brushSizeChanged}
-            max={10}
-            min={1}
-          />
-          <label>{this.props.brush.size} Tiles</label>
+        <div className='section'>
+          <div className='input range'>
+            <label>Size</label>
+            <input
+              type='range'
+              value={this.props.brush.size}
+              onChange={brushSizeChanged}
+              max={10}
+              min={1}
+            />
+            <label>{this.props.brush.size} Tiles</label>
+          </div>
+        </div>
+        <div className='section'>
+          <div className='selector'>
+            <label>Terrain</label>
+            <select
+              onChange={e => {
+                this.props.setTerrain(parseInt(e.target.value))
+              }}>
+              {this.props.spritesheets.map(x => (
+                <option
+                  selected={this.props.terrain === x.type}
+                  value={`${x.type}`}>
+                  {x.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
     )
 
     const eraseSizeChanged = e => {
-      this.props.dispatch({
-        type: 'ERASE_SET_SIZE',
-        value: e.target.value
-      })
+      this.props.setEraseSize(e.target.value)
     }
 
     const eraseControls = (
@@ -83,8 +92,17 @@ class ToolPanel extends React.Component<Props> {
         <div className='section'>
           <div className='selector'>
             <label>Terrain</label>
-            <select>
-              <option>Test</option>
+            <select
+              onChange={e => {
+                this.props.setTerrain(parseInt(e.target.value))
+              }}>
+              {this.props.spritesheets.map(x => (
+                <option
+                  selected={this.props.terrain === x.type}
+                  value={`${x.type}`}>
+                  {x.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>
@@ -145,8 +163,26 @@ const mapStateToProps = state => {
     tool: state.map.tool.active,
     brush: state.map.brush,
     erase: state.map.erase,
-    fill: state.map.fill
+    fill: state.map.fill,
+    spritesheets: state.spritesheets.filter(x => x.type !== 100),
+    terrain: state.map.terrain
   }
 }
 
-export default connect(mapStateToProps)(ToolPanel)
+const mapDispatchToProps = dispatch => {
+  return {
+    setTerrain: terrainType => {
+      dispatch({ type: 'SET_TERRAIN', value: terrainType })
+    },
+
+    setBrushSize: size => {
+      dispatch({ type: 'BRUSH_SET_SIZE', value: size })
+    },
+
+    setEraseSize: size => {
+      dispatch({ type: 'ERASE_SET_SIZE', value: size })
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToolPanel)

@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import './map-editor.sass'
 
 import { game, graphics, mouse, grid } from '@erikwatson/bramble'
-
 import { Grid, Game, Terrain } from '@erikwatson/bramble/dist/types'
 
 import Layout from '../layouts/sidebar-left/sidebar-left'
@@ -13,7 +12,8 @@ import { Dispatch } from 'redux'
 
 let g: Game = null
 let ctx = null
-let m = null
+
+let mouseObj = null
 
 let bramblePane = null
 
@@ -71,9 +71,9 @@ class MapEditor extends React.Component<Props, State> {
       ctx = g.canvas.getContext('2d')
     }
 
-    if (!m) {
-      m = mouse.create(g.canvas)
-      m.start()
+    if (!mouseObj) {
+      mouseObj = mouse.create(g.canvas)
+      mouseObj.start()
     }
 
     const element: HTMLElement = document.querySelector('#bramble-pane')
@@ -250,8 +250,10 @@ class MapEditor extends React.Component<Props, State> {
         const ySide = relativeY % 1 >= 0.5 ? 1 : -1
 
         if (xSide === -1) {
+          console.log(halfBrush, brushSize)
           // left side
-          for (var x = -halfBrush; x < brushSize - halfBrush; x++) {
+
+          for (let x = -halfBrush; x < brushSize - halfBrush; x++) {
             if (ySide === -1) {
               // top side
               for (var y = -halfBrush; y < brushSize - halfBrush; y++) {
@@ -401,13 +403,14 @@ class MapEditor extends React.Component<Props, State> {
     g.setSmoothing(false)
 
     g.setUpdate(delta => {
-      console.log(m)
+      mouseObj.update()
+      const m = mouseObj.getState()
 
       const tileWidth = this.props.tileWidth
       const tileHeight = this.props.tileHeight
 
-      const relativeX = (m.x - this.props.camera.x) / tileWidth
-      const relativeY = (m.y - this.props.camera.y) / tileHeight
+      const relativeX = (m.position.x - this.props.camera.x) / tileWidth
+      const relativeY = (m.position.y - this.props.camera.y) / tileHeight
 
       const mouseOverGridX = Math.floor(relativeX)
       const mouseOverGridY = Math.floor(relativeY)
@@ -594,11 +597,11 @@ class MapEditor extends React.Component<Props, State> {
 }
 
 function mapStateToProps(state) {
-  const tileWidth = state.map.grid.tileSize * state.map.grid.scale
-  const tileHeight = state.map.grid.tileSize * state.map.grid.scale
+  const tileWidth = state.map.grid.tileWidth * state.map.grid.scale
+  const tileHeight = state.map.grid.tileHeight * state.map.grid.scale
 
-  const widthInTiles = state.map.grid.width
-  const heightInTiles = state.map.grid.height
+  const widthInTiles = state.map.grid.tiles[0].length
+  const heightInTiles = state.map.grid.tiles.length
 
   return {
     showGrid: state.map.grid.visible,

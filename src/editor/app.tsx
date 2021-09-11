@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import MapEditorView from './views/map-editor/map-editor'
@@ -27,20 +28,23 @@ function getView(name) {
 }
 
 const App = props => {
-  Promise.all([
-    assets.loadTerrain('./terrain/default.json')
-    // assets.loadTerrain('./terrain/green-hills.json'),
-    // assets.loadTerrain('./terrain/highlights.json'),
-    // assets.loadTerrain('./terrain/grass-decoration.json'),
-    // assets.loadTerrain('./terrain/stalactites.json'),
-    // assets.loadTerrain('./terrain/rock.json'),
-    // assets.loadTerrain('./terrain/waterfall.json')
-  ]).then(terrain => {
-    props.setSpritesheets(terrain)
+  const [state, setState] = useState({
+    terrain: []
   })
 
-  const view = getView(props.view)
+  useEffect(() => {
+    Promise.all([
+      assets.loadTerrain('./terrain/default.json'),
+      assets.loadTerrain('./terrain/default-2.json'),
+      assets.loadTerrain('./terrain/highlights.json')
+    ]).then(spritesheets => {
+      props.setSpritesheets(spritesheets)
+    })
+  }, [])
 
+  if (!state.terrain) return <div>Loading...</div>
+
+  const view = getView(props.view)
   return <div>{view}</div>
 }
 
@@ -58,4 +62,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App as any)
