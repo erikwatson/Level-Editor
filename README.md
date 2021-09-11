@@ -1,6 +1,6 @@
-# Level Editor
+# Game Editor
 
-A tile based level editor for [Bramble](https://github.com/erikwatson/Bramble) Games.
+A general purpose editor for [Bramble](https://github.com/erikwatson/Bramble) Games.
 
 ## Screenshot
 

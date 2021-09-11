@@ -5,19 +5,18 @@ import MapEditorView from './views/map-editor/map-editor'
 import TerrainEditorView from './views/terrain-editor/terrain-editor'
 import SplashView from './views/welcome/welcome'
 
-import './app.sass'
-
-// const { assets } from '@erikwatson/bramble')
 import { assets } from '@erikwatson/bramble'
+
+import './app.sass'
 
 function getView(name) {
   switch (name) {
     case 'map':
       return <MapEditorView />
-      return null
+
     case 'terrain':
       return <TerrainEditorView />
-      return null
+
     case 'splash':
       return <SplashView />
 
