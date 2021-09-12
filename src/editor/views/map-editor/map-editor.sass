@@ -7,10 +7,10 @@
   justify-content: center
   align-items: center
   background-image: url('./images/starfield.jpg')
+  animation: move-background linear 240s infinite
 
 .map-editor
   display: grid
-  // background-color: $dark
   grid-template-columns: 400px auto
   grid-template-rows: 100vh
   overflow: hidden
@@ -18,11 +18,10 @@
   .bramble-pane
     display: flex
     border-style: solid
+      
 
-    .bramble-view
-      display: flex
-      margin: 0 auto
-      flex-direction: column
-      justify-content: center
-      align-items: center
-      background-image: url('./images/starfield.jpg')
+@keyframes move-background
+  0%
+    background-position: 0 0
+  100%
+    background-position: -512px -512px

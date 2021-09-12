@@ -37,23 +37,15 @@ const render = {
         test: /\.s[ac]ss$/i,
         exclude: /(node_modules|dist)/,
         use: [
-          {
-            loader: 'style-loader'
-          },
-
+          { loader: 'style-loader' },
           {
             loader: 'css-loader',
             options: {
               sourceMap: true
             }
           },
-
-          {
-            loader: 'postcss-loader'
-          },
-
           { loader: 'resolve-url-loader' },
-
+          { loader: 'postcss-loader' },
           {
             loader: 'sass-loader',
             options: {
