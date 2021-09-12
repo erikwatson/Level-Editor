@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
 import { grid as Grid } from '@erikwatson/bramble'
-// import} from '@erikwatson/bramble/dist/types'
+import { Grid as GridType } from '@erikwatson/bramble/dist/types'
+import { Layer, GridState } from '../../types'
 
 // Eraser Tool Properties
 const erase = (state = { size: 1, type: 0 }, action) => {
@@ -44,17 +45,6 @@ const defaultGrid = Grid.create(
   { width: 80, height: 60 },
   { divisions: 5, scale: 4 }
 )
-
-type GridState = {
-  tiles: number[][]
-  width: number
-  height: number
-  tileWidth: number
-  tileHeight: number
-  divisions: number
-  scale: number
-  visible: boolean
-}
 
 const defaultGridState: GridState = {
   tiles: defaultGrid.tiles,
@@ -299,15 +289,61 @@ const terrain = (state = 1, action) => {
   }
 }
 
+const defaultLayerState: Layer[] = [
+  { title: 'Layer 1', position: 0, grid: defaultGridState, type: 'Grid' },
+  { title: 'Layer 2', position: 1, grid: defaultGridState, type: 'Grid' },
+  { title: 'Layer 3', position: 2, grid: defaultGridState, type: 'Grid' }
+]
+
+const layers = (state: Layer[] = defaultLayerState, action) => {
+  switch (action.type) {
+    case 'LAYERS_SET_TILE': {
+      return state.map((layer, index) => {
+        if (index !== action.value.layer) return layer
+
+        const isWithinBounds =
+          action.value.y >= 0 &&
+          action.value.x >= 0 &&
+          action.value.x < layer.grid.width &&
+          action.value.y < layer.grid.height
+
+        if (!isWithinBounds) {
+          return layer
+        }
+
+        let copy = Grid.copyTiles(layer.grid.tiles)
+        copy[action.value.y][action.value.x] = action.value.type
+
+        return { ...layer, grid: { ...layer.grid, tiles: copy } }
+      })
+    }
+
+    default:
+      return state
+  }
+}
+
+const currentLayer = (state = 0, action) => {
+  switch (action.type) {
+    case 'SET_LAYER':
+      return action.value
+
+    default:
+      return state
+  }
+}
+
 const tileEditor = combineReducers({
   camera,
   grid,
+  layers,
   tool,
   pointer,
   brush,
   erase,
   highlights,
-  terrain
+  terrain,
+  currentLayer
 })
 
 export default tileEditor

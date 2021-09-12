@@ -2,14 +2,16 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import './map-editor.sass'
 
-import { game, graphics, mouse, grid } from '@erikwatson/bramble'
-import { Grid, Game, Terrain } from '@erikwatson/bramble/dist/types'
+import { game, mouse, grid } from '@erikwatson/bramble'
+import { Grid, Game, Terrain, Graphics } from '@erikwatson/bramble/dist/types'
+import { Layer } from '../../types'
 
 import Layout from '../layouts/sidebar-left/sidebar-left'
 import Sidebar from './sidebar/sidebar'
 import propertiesSidebar from '../terrain-editor/properties-sidebar/properties-sidebar'
 import { Dispatch } from 'redux'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
+import { textChangeRangeIsUnchanged } from 'typescript'
 
 let g: Game = null
 let ctx = null
@@ -48,6 +50,8 @@ type Props = {
   dispatch?: Dispatch
   terrain?: Terrain
   erase?: { size: number }
+  layers: Layer[]
+  currentLayer: number
 }
 
 type State = {
@@ -94,7 +98,7 @@ class MapEditor extends React.Component<Props, State> {
       y: 0
     }
 
-    const drawViewportBox = () => {
+    const drawViewportBox = gfx => {
       const tl = { x: 0, y: 0 }
       const tr = { x: this.props.width, y: 0 }
       const bl = { x: 0, y: this.props.height }
@@ -102,13 +106,13 @@ class MapEditor extends React.Component<Props, State> {
 
       const line = { width: 4, color: '#ffffff' }
 
-      graphics.line(ctx, tl, tr, line)
-      graphics.line(ctx, tr, br, line)
-      graphics.line(ctx, br, bl, line)
-      graphics.line(ctx, bl, tl, line)
+      gfx.line(tl, tr, line)
+      gfx.line(tr, br, line)
+      gfx.line(br, bl, line)
+      gfx.line(bl, tl, line)
     }
 
-    const drawGrid = () => {
+    const drawGrid = gfx => {
       const tileWidth = this.props.tileWidth
       const tileHeight = this.props.tileHeight
 
@@ -143,8 +147,7 @@ class MapEditor extends React.Component<Props, State> {
       const columns = (tr.x - tl.x) / tileWidth
 
       for (let i = 0; i <= columns; i++) {
-        graphics.line(
-          ctx,
+        gfx.line(
           {
             x: tl.x + i * tileWidth,
             y: tl.y
@@ -163,8 +166,7 @@ class MapEditor extends React.Component<Props, State> {
       const rows = (br.y - tr.y) / tileHeight
 
       for (let i = 0; i <= rows; i++) {
-        graphics.line(
-          ctx,
+        gfx.line(
           {
             x: tl.x,
             y: tl.y + i * tileHeight
@@ -181,7 +183,7 @@ class MapEditor extends React.Component<Props, State> {
       }
     }
 
-    const drawBoundingBox = () => {
+    const drawBoundingBox = gfx => {
       // size of a single tile
       const tileWidth = this.props.tileWidth
       const tileHeight = this.props.tileHeight
@@ -214,11 +216,11 @@ class MapEditor extends React.Component<Props, State> {
       // draw the box
       const line = { width: 4, color: '#ffffff' }
 
-      graphics.line(ctx, tl, tr, line)
+      gfx.line(tl, tr, line)
 
-      graphics.line(ctx, tr, br, line)
-      graphics.line(ctx, br, bl, line)
-      graphics.line(ctx, bl, tl, line)
+      gfx.line(tr, br, line)
+      gfx.line(br, bl, line)
+      gfx.line(bl, tl, line)
     }
 
     const setBrushHighlights = (gridPos, relativePos, brushSize) => {
@@ -364,14 +366,13 @@ class MapEditor extends React.Component<Props, State> {
 
     // Draw the Origin Axis
     // { X, Y, Z } === { R, G, B }
-    const drawOrigin = () => {
+    const drawOrigin = gfx => {
       const origin = {
         x: 0 + this.props.camera.x,
         y: 0 + this.props.camera.y
       }
 
-      graphics.line(
-        ctx,
+      gfx.line(
         origin,
         { ...origin, x: origin.x + 64 },
         { width: 4, colour: 'red' }
@@ -386,8 +387,7 @@ class MapEditor extends React.Component<Props, State> {
 
       ctx.fill()
 
-      graphics.line(
-        ctx,
+      gfx.line(
         origin,
         { ...origin, y: origin.y + 64 },
         { width: 4, colour: 'green' }
@@ -480,11 +480,12 @@ class MapEditor extends React.Component<Props, State> {
             for (var x = 0; x < this.state.highlights.tiles[y].length; x++) {
               if (this.state.highlights.tiles[y][x] === 100) {
                 this.props.dispatch({
-                  type: 'GRID_SET_TILE',
+                  type: 'LAYERS_SET_TILE',
                   value: {
                     x: x,
                     y: y,
-                    type: this.props.terrain
+                    type: this.props.terrain,
+                    layer: this.props.currentLayer
                   }
                 })
               }
@@ -525,11 +526,12 @@ class MapEditor extends React.Component<Props, State> {
             for (var x = 0; x < this.state.highlights.tiles[y].length; x++) {
               if (this.state.highlights.tiles[y][x] === 100) {
                 this.props.dispatch({
-                  type: 'GRID_SET_TILE',
+                  type: 'LAYERS_SET_TILE',
                   value: {
                     x: x,
                     y: y,
-                    type: 0
+                    type: 0,
+                    layer: this.props.currentLayer
                   }
                 })
               }
@@ -560,28 +562,52 @@ class MapEditor extends React.Component<Props, State> {
       mouseObj.update()
     })
 
-    g.setRender(() => {
-      // graphics.clear(ctx, '#ff0000')
+    g.setRender((gfx: Graphics) => {
       if (this.props.showGrid) {
-        drawGrid()
+        drawGrid(gfx)
       }
+
       // Render the Tile Layer
-      graphics.tiles(
-        ctx,
-        this.props.camera,
-        this.props.grid.tiles,
-        this.props.spritesheets,
-        this.props.grid.scale
-      )
-      graphics.tiles(
-        ctx,
+      gfx.transparency(() => {
+        this.props.layers.forEach(layer => {
+          if (this.props.currentLayer !== layer.position) {
+            gfx.tiles(
+              this.props.camera,
+              layer.grid.tiles,
+              this.props.spritesheets,
+              layer.grid.scale,
+              {
+                width: this.props.grid.tileSize,
+                height: this.props.grid.tileSize
+              }
+            )
+          }
+        })
+      })
+
+      gfx.shadow(() => {
+        gfx.tiles(
+          this.props.camera,
+          this.props.layers[this.props.currentLayer].grid.tiles,
+          this.props.spritesheets,
+          this.props.layers[this.props.currentLayer].grid.scale,
+          {
+            width: this.props.grid.tileSize,
+            height: this.props.grid.tileSize
+          }
+        )
+      })
+
+      // highlights on the very top layer
+      gfx.tiles(
         this.props.camera,
         this.state.highlights.tiles,
         this.props.spritesheets,
-        this.props.grid.scale
+        this.props.grid.scale,
+        { width: this.props.grid.tileSize, height: this.props.grid.tileSize }
       )
-      drawOrigin()
-      drawViewportBox()
+      drawOrigin(gfx)
+      drawViewportBox(gfx)
     })
   }
 
@@ -613,15 +639,17 @@ class MapEditor extends React.Component<Props, State> {
 }
 
 function mapStateToProps(state) {
-  const tileWidth = state.map.grid.tileWidth * state.map.grid.scale
-  const tileHeight = state.map.grid.tileHeight * state.map.grid.scale
+  const tileWidth =
+    state.map.layers[0].grid.tileWidth * state.map.layers[0].grid.scale
+  const tileHeight =
+    state.map.layers[0].grid.tileHeight * state.map.layers[0].grid.scale
 
-  const widthInTiles = state.map.grid.tiles[0].length
-  const heightInTiles = state.map.grid.tiles.length
+  const widthInTiles = state.map.layers[0].grid.tiles[0].length
+  const heightInTiles = state.map.layers[0].grid.tiles.length
 
   return {
-    showGrid: state.map.grid.visible,
-    grid: state.map.grid,
+    showGrid: state.map.layers[0].grid.visible,
+    grid: state.map.layers[0].grid,
     camera: state.map.camera,
     activeTool: state.map.tool.active,
     brush: state.map.brush,
@@ -638,7 +666,10 @@ function mapStateToProps(state) {
     heightInTiles,
 
     widthInPixels: tileWidth * widthInTiles,
-    heightInPixels: tileHeight * heightInTiles
+    heightInPixels: tileHeight * heightInTiles,
+
+    layers: state.map.layers,
+    currentLayer: state.map.currentLayer
   }
 }
 

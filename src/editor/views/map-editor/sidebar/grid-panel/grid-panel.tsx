@@ -24,7 +24,8 @@ class GridPanel extends React.Component<Props> {
   onWidthChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_WIDTH',
-      value: e.target.value
+      value: e.target.value,
+      layer: 0
     })
 
     this.props.dispatch({
@@ -36,7 +37,8 @@ class GridPanel extends React.Component<Props> {
   onHeightChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_HEIGHT',
-      value: e.target.value
+      value: e.target.value,
+      layer: 0
     })
 
     this.props.dispatch({
@@ -48,14 +50,16 @@ class GridPanel extends React.Component<Props> {
   visibleChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_VISIBILITY',
-      value: e.target.checked
+      value: e.target.checked,
+      layer: 0
     })
   }
 
   divisionsChange(e) {
     this.props.dispatch({
       type: 'GRID_SET_DIVISIONS',
-      value: e.target.value
+      value: e.target.value,
+      layer: 0
     })
   }
 
@@ -123,10 +127,10 @@ class GridPanel extends React.Component<Props> {
 
 function mapStateToProps(state) {
   return {
-    width: state.map.grid.width,
-    height: state.map.grid.height,
-    visible: state.map.grid.visible,
-    divisions: state.map.grid.divisions
+    width: state.map.layers[0].width,
+    height: state.map.layers[0].height,
+    visible: state.map.layers[0].visible,
+    divisions: state.map.layers[0].divisions
   }
 }
 
