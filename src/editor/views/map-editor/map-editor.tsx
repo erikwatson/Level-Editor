@@ -252,7 +252,6 @@ class MapEditor extends React.Component<Props, State> {
         const ySide = relativeY % 1 >= 0.5 ? 1 : -1
 
         if (xSide === -1) {
-          console.log(halfBrush, brushSize)
           // left side
 
           for (let x = -halfBrush; x < brushSize - halfBrush; x++) {
@@ -407,7 +406,6 @@ class MapEditor extends React.Component<Props, State> {
     g.setSmoothing(false)
 
     g.setUpdate(delta => {
-      mouseObj.update()
       const m = mouseObj.getState()
 
       const tileWidth = this.props.tileWidth
@@ -545,6 +543,8 @@ class MapEditor extends React.Component<Props, State> {
           })
         }
       }
+
+      mouseObj.update()
     })
 
     g.setRender(() => {
