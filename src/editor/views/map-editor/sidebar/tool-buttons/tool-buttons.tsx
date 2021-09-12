@@ -8,7 +8,7 @@ import {
   faFill,
   faPaintBrush,
   faEraser,
-  faMousePointer,
+  faArrowsAlt,
   faSlash,
   faEyeDropper
 } from '@fortawesome/free-solid-svg-icons'
@@ -16,12 +16,12 @@ import {
 import './tool-buttons.sass'
 
 const labeledIcons = {
-  pointer: faMousePointer,
   erase: faEraser,
   brush: faPaintBrush,
   fill: faFill,
   line: faSlash,
-  dropper: faEyeDropper
+  dropper: faEyeDropper,
+  move: faArrowsAlt
 }
 
 const ToolButtons = ({ tools, setSelected }) => {

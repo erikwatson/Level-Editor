@@ -9,6 +9,7 @@ import Layout from '../layouts/sidebar-left/sidebar-left'
 import Sidebar from './sidebar/sidebar'
 import propertiesSidebar from '../terrain-editor/properties-sidebar/properties-sidebar'
 import { Dispatch } from 'redux'
+import { faCamera } from '@fortawesome/free-solid-svg-icons'
 
 let g: Game = null
 let ctx = null
@@ -21,7 +22,8 @@ enum ActiveTools {
   POINTER = 'pointer',
   BRUSH = 'brush',
   ERASE = 'erase',
-  FILL = 'fill'
+  FILL = 'fill',
+  MOVE = 'move'
 }
 
 type Brush = {
@@ -116,21 +118,26 @@ class MapEditor extends React.Component<Props, State> {
       const widthInPixels = this.props.widthInPixels
       const heightInPixels = this.props.heightInPixels
 
+      const location = {
+        x: origin.x + this.props.camera.x,
+        y: origin.y + this.props.camera.y
+      }
+
       const tl = {
-        x: origin.x,
-        y: origin.y
+        x: location.x,
+        y: location.y
       }
       const tr = {
-        x: tileWidth * widthInTiles + origin.x,
-        y: origin.y
+        x: tileWidth * widthInTiles + location.x,
+        y: location.y
       }
       const bl = {
-        x: origin.x,
-        y: tileHeight * heightInTiles + origin.y
+        x: location.x,
+        y: tileHeight * heightInTiles + location.y
       }
       const br = {
-        x: tileWidth * widthInTiles + origin.x,
-        y: tileHeight * heightInTiles + origin.y
+        x: tileWidth * widthInTiles + location.x,
+        y: tileHeight * heightInTiles + location.y
       }
 
       const columns = (tr.x - tl.x) / tileWidth
@@ -433,7 +440,13 @@ class MapEditor extends React.Component<Props, State> {
 
       clearHighlights()
 
-      if (this.props.activeTool === 'pointer') {
+      if (this.props.activeTool === 'move') {
+        if (m.left.pressed) {
+          this.props.dispatch({
+            type: 'CAMERA_SET_POS',
+            value: m.position
+          })
+        }
       }
 
       if (this.props.activeTool === 'brush') {
