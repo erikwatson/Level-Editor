@@ -585,18 +585,16 @@ class MapEditor extends React.Component<Props, State> {
         })
       })
 
-      gfx.shadow(() => {
-        gfx.tiles(
-          this.props.camera,
-          this.props.layers[this.props.currentLayer].grid.tiles,
-          this.props.spritesheets,
-          this.props.layers[this.props.currentLayer].grid.scale,
-          {
-            width: this.props.grid.tileSize,
-            height: this.props.grid.tileSize
-          }
-        )
-      })
+      gfx.tiles(
+        this.props.camera,
+        this.props.layers[this.props.currentLayer].grid.tiles,
+        this.props.spritesheets,
+        this.props.layers[this.props.currentLayer].grid.scale,
+        {
+          width: this.props.grid.tileSize,
+          height: this.props.grid.tileSize
+        }
+      )
 
       // highlights on the very top layer
       gfx.tiles(

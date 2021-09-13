@@ -2,8 +2,22 @@
 
 .panel
   .header
-    padding: 16px
     border-bottom: solid 2px $darkest
+    display: grid
+    grid-template-columns: 64px 1fr
+    height: 64px
+
+    .symbol
+      display: flex
+      justify-content: center
+      align-items: center
+      font-size: 24px
+
+    .title
+      display: flex
+      margin-left: 8px
+      justify-content: left
+      align-items: center
 
   .header:hover
     background-color: $primary

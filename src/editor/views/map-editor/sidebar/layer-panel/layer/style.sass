@@ -1,5 +1,49 @@
+@import '../../../../../variables.sass'
+  
 .layer 
-  padding: 24px
+  display: grid
+  grid-template-columns: 50px auto auto
+  height: 50px
+  background-color: $dark
+  color: $light
+  margin-bottom: 8px
+  border-radius: 4px
+
+  &:hover
+    background-color: $dark
+    color: $light
+  
+  .menu
+    color: $light
+    width: 50px
+    height: 50px
+    display: flex
+    justify-content: center
+    align-items: center
+
+  .title
+    display: flex
+    justify-content: left
+    align-items: center
+    padding-left: 8px
+
+  .type
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    padding-right: 24px
+
 
 .selected
-  background-color: #ff0000
+  background-color: $light
+  color: $darker
+
+  &:hover
+    background-color: $light
+    color: $dark
+
+  .menu
+    color: $dark
+
+.last
+  margin-bottom: 0

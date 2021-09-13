@@ -5,17 +5,26 @@ import Panel from '../../../../components/ui/panel/panel'
 import Layer from './layer'
 
 const LayerPanel = props => {
+  let className = ''
+
   return (
     <Panel title='Layers'>
-      {props.layers.map((x, i) => (
-        <Layer
-          {...x}
-          onClick={e => {
-            props.setLayer(x.position)
-          }}
-          className={i === props.currentLayer ? 'selected' : null}
-        />
-      ))}
+      {props.layers.map((x, i) => {
+        const selected = x.position === props.currentLayer ? 'selected' : ''
+        const last = i === props.layers.length - 1 ? 'last' : ''
+
+        console.log(selected, last)
+
+        return (
+          <Layer
+            {...x}
+            onClick={e => {
+              props.setLayer(x.position)
+            }}
+            className={`${selected} ${last}`}
+          />
+        )
+      })}
     </Panel>
   )
 }
