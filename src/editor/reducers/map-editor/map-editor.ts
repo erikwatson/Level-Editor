@@ -290,9 +290,30 @@ const terrain = (state = 1, action) => {
 }
 
 const defaultLayerState: Layer[] = [
-  { title: 'Layer 1', position: 0, grid: defaultGridState, type: 'Terrain' },
-  { title: 'Layer 2', position: 1, grid: defaultGridState, type: 'Terrain' },
-  { title: 'Layer 3', position: 2, grid: defaultGridState, type: 'Terrain' }
+  {
+    title: 'Layer 1',
+    position: 0,
+    grid: defaultGridState,
+    type: 'Terrain',
+    locked: false,
+    visible: true
+  },
+  {
+    title: 'Layer 2',
+    position: 1,
+    grid: defaultGridState,
+    type: 'Terrain',
+    locked: false,
+    visible: true
+  },
+  {
+    title: 'Layer 3',
+    position: 2,
+    grid: defaultGridState,
+    type: 'Terrain',
+    locked: false,
+    visible: true
+  }
 ]
 
 const layers = (state: Layer[] = defaultLayerState, action) => {

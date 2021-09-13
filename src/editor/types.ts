@@ -14,4 +14,6 @@ export type Layer = {
   position: number
   grid: GridState
   type: 'Terrain' | 'Sprite' | 'Parallax'
+  locked: boolean
+  visible: boolean
 }

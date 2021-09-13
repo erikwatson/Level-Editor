@@ -1,5 +1,11 @@
 import * as React from 'react'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import {
+  faBars,
+  faEye,
+  faEyeSlash,
+  faLock,
+  faLockOpen
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './style.sass'
 
@@ -11,6 +17,12 @@ export default props => {
       </div>
       <div className='title'>{props.title}</div>
       <div className='type'>{props.type}</div>
+      <div className='icon'>
+        <FontAwesomeIcon icon={props.visible ? faEye : faEyeSlash} />
+      </div>
+      <div className='icon'>
+        <FontAwesomeIcon icon={props.locked ? faLock : faLockOpen} />
+      </div>
     </div>
   )
 }

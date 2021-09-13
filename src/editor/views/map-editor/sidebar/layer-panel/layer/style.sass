@@ -2,11 +2,12 @@
   
 .layer 
   display: grid
-  grid-template-columns: 50px auto auto
+  grid-template-columns: 50px auto auto 42px 42px
   height: 50px
   background-color: $dark
   color: $light
   margin-bottom: 8px
+  padding-right: 8px
   border-radius: 4px
 
   &:hover
@@ -32,7 +33,13 @@
     display: flex
     justify-content: flex-end
     align-items: center
-    padding-right: 24px
+    padding-right: 8px
+    font-style: italic
+
+  .icon
+    display: flex
+    justify-content: center
+    align-items: center
 
 
 .selected
