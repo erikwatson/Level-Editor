@@ -13,5 +13,5 @@ export type Layer = {
   title: string
   position: number
   grid: GridState
-  type: 'Grid' | 'Sprite' | 'Parallax'
+  type: 'Terrain' | 'Sprite' | 'Parallax'
 }
