@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+import undoable from 'redux-undo'
 import { grid as Grid } from '@erikwatson/bramble'
 import { Grid as GridType } from '@erikwatson/bramble/dist/types'
 import { Layer, GridState } from '../../types'
@@ -355,16 +356,16 @@ const currentLayer = (state = 0, action) => {
 }
 
 const tileEditor = combineReducers({
-  camera,
-  grid,
-  layers,
-  tool,
+  camera: undoable(camera),
+  grid: undoable(grid),
+  layers: undoable(layers),
+  tool: undoable(tool),
   pointer,
   brush,
   erase,
   highlights,
-  terrain,
-  currentLayer
+  terrain: undoable(terrain),
+  currentLayer: undoable(currentLayer)
 })
 
 export default tileEditor

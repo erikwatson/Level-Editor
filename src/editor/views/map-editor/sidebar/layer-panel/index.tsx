@@ -5,15 +5,11 @@ import Panel from '../../../../components/ui/panel/panel'
 import Layer from './layer'
 
 const LayerPanel = props => {
-  let className = ''
-
   return (
     <Panel title='Layers'>
       {props.layers.map((x, i) => {
         const selected = x.position === props.currentLayer ? 'selected' : ''
         const last = i === props.layers.length - 1 ? 'last' : ''
-
-        console.log(selected, last)
 
         return (
           <Layer
@@ -31,7 +27,7 @@ const LayerPanel = props => {
 
 const mapStateToProps = state => {
   return {
-    layers: state.map.layers,
+    layers: state.map.layers.present,
     currentLayer: state.map.currentLayer
   }
 }

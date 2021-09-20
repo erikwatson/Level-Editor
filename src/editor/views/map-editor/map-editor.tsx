@@ -13,6 +13,8 @@ import { Dispatch } from 'redux'
 import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { textChangeRangeIsUnchanged } from 'typescript'
 
+import { ActionCreators } from 'redux-undo'
+
 let g: Game = null
 let ctx = null
 
@@ -65,6 +67,12 @@ class MapEditor extends React.Component<Props, State> {
     this.state = {
       highlights: grid.create({ width: 100, height: 100 })
     }
+
+    window.document.addEventListener('keydown', e => {
+      if (e.key === 'z') {
+        props.dispatch(ActionCreators.undo())
+      }
+    })
   }
 
   componentDidMount() {
@@ -638,23 +646,25 @@ class MapEditor extends React.Component<Props, State> {
 
 function mapStateToProps(state) {
   const tileWidth =
-    state.map.layers[0].grid.tileWidth * state.map.layers[0].grid.scale
+    state.map.layers.present[0].grid.tileWidth *
+    state.map.layers.present[0].grid.scale
   const tileHeight =
-    state.map.layers[0].grid.tileHeight * state.map.layers[0].grid.scale
+    state.map.layers.present[0].grid.tileHeight *
+    state.map.layers.present[0].grid.scale
 
-  const widthInTiles = state.map.layers[0].grid.tiles[0].length
-  const heightInTiles = state.map.layers[0].grid.tiles.length
+  const widthInTiles = state.map.layers.present[0].grid.tiles[0].length
+  const heightInTiles = state.map.layers.present[0].grid.tiles.length
 
   return {
-    showGrid: state.map.layers[0].grid.visible,
-    grid: state.map.layers[0].grid,
-    camera: state.map.camera,
-    activeTool: state.map.tool.active,
+    showGrid: state.map.layers.present[0].grid.visible,
+    grid: state.map.layers.present[0].grid,
+    camera: state.map.camera.present,
+    activeTool: state.map.tool.present.active,
     brush: state.map.brush,
     erase: state.map.erase,
     highlights: state.map.highlights,
     fill: state.map.fill,
-    terrain: state.map.terrain,
+    terrain: state.map.terrain.present,
     spritesheets: state.spritesheets,
 
     tileWidth,
@@ -666,8 +676,8 @@ function mapStateToProps(state) {
     widthInPixels: tileWidth * widthInTiles,
     heightInPixels: tileHeight * heightInTiles,
 
-    layers: state.map.layers,
-    currentLayer: state.map.currentLayer
+    layers: state.map.layers.present,
+    currentLayer: state.map.currentLayer.present
   }
 }
 
