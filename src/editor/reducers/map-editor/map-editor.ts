@@ -66,7 +66,7 @@ const grid = (state: GridState = defaultGridState, action) => {
     case 'GRID_SET_DIVISIONS':
       return { ...state, divisions: parseInt(action.value) }
 
-    case 'GRID_SET_WIDTH':
+    case 'GRID_SET_WIDTH': {
       const widthValue = parseInt(action.value)
 
       if (widthValue > state.width) {
@@ -92,8 +92,9 @@ const grid = (state: GridState = defaultGridState, action) => {
       }
 
       return { ...state, width: widthValue }
+    }
 
-    case 'GRID_SET_HEIGHT':
+    case 'GRID_SET_HEIGHT': {
       const heightValue = parseInt(action.value)
 
       if (heightValue > state.height) {
@@ -108,11 +109,12 @@ const grid = (state: GridState = defaultGridState, action) => {
       }
 
       return { ...state, height: heightValue }
+    }
 
     case 'GRID_SET_TILE_SIZE':
       return { ...state, tileWidth: action.value, tileHeight: action.value }
 
-    case 'GRID_SET_TILE':
+    case 'GRID_SET_TILE': {
       const isWithinBounds =
         action.value.y >= 0 &&
         action.value.x >= 0 &&
@@ -127,19 +129,24 @@ const grid = (state: GridState = defaultGridState, action) => {
       }
 
       return state
+    }
 
-    case 'GRID_FLOOD_FILL':
-      const gridClone = Grid.fill(
-        state.tiles,
-        {
-          x: action.value.x,
-          y: action.value.y
-        },
-        state.tiles[action.value.y][action.value.x],
-        action.value.type
-      )
+    // case 'GRID_FLOOD_FILL': {
+    //   console.log('flood fill', state, action)
+    //   const gridClone = Grid.fill(
+    //     state.tiles,
+    //     {
+    //       x: action.value.x,
+    //       y: action.value.y
+    //     },
+    //     state.tiles[action.value.y][action.value.x],
+    //     action.value.type
+    //   )
 
-      return { ...state, tiles: gridClone }
+    //   console.log(state.tiles, gridClone)
+
+    //   return { ...state, tiles: gridClone }
+    // }
 
     default:
       return state
@@ -164,7 +171,7 @@ const defaultHighlightState: GridState = {
 
 const highlights = (state: GridState = defaultHighlightState, action) => {
   switch (action.type) {
-    case 'HIGHLIGHT_SET_WIDTH':
+    case 'HIGHLIGHT_SET_WIDTH': {
       const widthValue = parseInt(action.value)
 
       if (widthValue > state.width) {
@@ -190,8 +197,9 @@ const highlights = (state: GridState = defaultHighlightState, action) => {
       }
 
       return { ...state, width: widthValue }
+    }
 
-    case 'HIGHLIGHT_SET_HEIGHT':
+    case 'HIGHLIGHT_SET_HEIGHT': {
       const heightValue = parseInt(action.value)
 
       if (heightValue > state.height) {
@@ -205,11 +213,12 @@ const highlights = (state: GridState = defaultHighlightState, action) => {
       }
 
       return { ...state, height: heightValue }
+    }
 
     case 'HIGHLIGHT_SET_TILE_SIZE':
       return { ...state, tileWidth: action.value, tileHeight: action.value }
 
-    case 'HIGHLIGHT_SET_TILE':
+    case 'HIGHLIGHT_SET_TILE': {
       const isWithinBounds =
         action.value.y >= 0 &&
         action.value.x >= 0 &&
@@ -224,8 +233,9 @@ const highlights = (state: GridState = defaultHighlightState, action) => {
       }
 
       return state
+    }
 
-    case 'HIGHLIGHT_CLEAR':
+    case 'HIGHLIGHT_CLEAR': {
       let clearedTiles = Grid.copyTiles(state.tiles)
 
       for (var y = 0; y < clearedTiles.length; y++) {
@@ -235,6 +245,7 @@ const highlights = (state: GridState = defaultHighlightState, action) => {
       }
 
       return { ...state, tiles: clearedTiles }
+    }
 
     default:
       return state
@@ -337,6 +348,28 @@ const layers = (state: Layer[] = defaultLayerState, action) => {
         copy[action.value.y][action.value.x] = action.value.type
 
         return { ...layer, grid: { ...layer.grid, tiles: copy } }
+      })
+    }
+
+    case 'GRID_FLOOD_FILL': {
+      return state.map((layer, index) => {
+        if (index !== action.value.layer) return layer
+
+        return {
+          ...layer,
+          grid: {
+            ...layer.grid,
+            tiles: Grid.fill(
+              layer.grid.tiles,
+              {
+                x: action.value.x,
+                y: action.value.y
+              },
+              layer.grid.tiles[action.value.y][action.value.x],
+              action.value.type
+            )
+          }
+        }
       })
     }
 

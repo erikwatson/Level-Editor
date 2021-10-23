@@ -161,8 +161,9 @@ class ToolPanel extends React.Component<Props> {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
-    tool: state.map.tool.active,
+    tool: state.map.tool.present.active,
     brush: state.map.brush,
     erase: state.map.erase,
     fill: state.map.fill,

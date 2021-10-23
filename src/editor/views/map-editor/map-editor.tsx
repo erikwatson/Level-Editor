@@ -549,6 +549,8 @@ class MapEditor extends React.Component<Props, State> {
       }
 
       if (this.props.activeTool === 'fill') {
+        console.log(this.props.grid)
+
         setFillHighlights(
           { x: mouseOverGridX, y: mouseOverGridY },
           this.props.grid.tiles[mouseOverGridY][mouseOverGridX],
@@ -556,12 +558,15 @@ class MapEditor extends React.Component<Props, State> {
         )
 
         if (m.left.pressed) {
+          console.log('layer', this.props.currentLayer)
+
           this.props.dispatch({
             type: 'GRID_FLOOD_FILL',
             value: {
               x: mouseOverGridX,
               y: mouseOverGridY,
-              type: this.props.terrain
+              type: this.props.terrain,
+              layer: this.props.currentLayer
             }
           })
         }
@@ -655,9 +660,13 @@ function mapStateToProps(state) {
   const widthInTiles = state.map.layers.present[0].grid.tiles[0].length
   const heightInTiles = state.map.layers.present[0].grid.tiles.length
 
+  console.log('map editor', state.map.currentLayer.present)
+
+  const currentLayer = state.map.currentLayer.present
+
   return {
-    showGrid: state.map.layers.present[0].grid.visible,
-    grid: state.map.layers.present[0].grid,
+    showGrid: state.map.layers.present[currentLayer].grid.visible,
+    grid: state.map.layers.present[currentLayer].grid,
     camera: state.map.camera.present,
     activeTool: state.map.tool.present.active,
     brush: state.map.brush,
@@ -677,7 +686,7 @@ function mapStateToProps(state) {
     heightInPixels: tileHeight * heightInTiles,
 
     layers: state.map.layers.present,
-    currentLayer: state.map.currentLayer.present
+    currentLayer
   }
 }
 
