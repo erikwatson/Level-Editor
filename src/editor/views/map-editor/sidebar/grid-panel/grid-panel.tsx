@@ -9,6 +9,8 @@ type Props = {
   width: number
   height: number
   dispatch: Dispatch
+  currentLayer: number
+  visible: boolean
 }
 
 class GridPanel extends React.Component<Props> {
@@ -25,7 +27,7 @@ class GridPanel extends React.Component<Props> {
     this.props.dispatch({
       type: 'GRID_SET_WIDTH',
       value: e.target.value,
-      layer: 0
+      layer: this.props.currentLayer
     })
 
     this.props.dispatch({
@@ -38,7 +40,7 @@ class GridPanel extends React.Component<Props> {
     this.props.dispatch({
       type: 'GRID_SET_HEIGHT',
       value: e.target.value,
-      layer: 0
+      layer: this.props.currentLayer
     })
 
     this.props.dispatch({
@@ -51,7 +53,7 @@ class GridPanel extends React.Component<Props> {
     this.props.dispatch({
       type: 'GRID_SET_VISIBILITY',
       value: e.target.checked,
-      layer: 0
+      layer: this.props.currentLayer
     })
   }
 
@@ -59,7 +61,7 @@ class GridPanel extends React.Component<Props> {
     this.props.dispatch({
       type: 'GRID_SET_DIVISIONS',
       value: e.target.value,
-      layer: 0
+      layer: this.props.currentLayer
     })
   }
 
@@ -72,7 +74,7 @@ class GridPanel extends React.Component<Props> {
               <label>Visible:</label>
               <input
                 type='checkbox'
-                defaultChecked={true}
+                checked={this.props.visible}
                 onChange={this.visibleChange}
               />
             </div>
@@ -126,11 +128,14 @@ class GridPanel extends React.Component<Props> {
 }
 
 function mapStateToProps(state) {
+  const currentLayer = state.map.currentLayer.present
+
   return {
-    width: state.map.layers.present[0].width,
-    height: state.map.layers.present[0].height,
-    visible: state.map.layers.present[0].visible,
-    divisions: state.map.layers.present[0].divisions
+    width: state.map.layers.present[currentLayer].grid.width,
+    height: state.map.layers.present[currentLayer].grid.height,
+    visible: state.map.layers.present[currentLayer].visible,
+    divisions: state.map.layers.present[currentLayer].divisions,
+    currentLayer
   }
 }
 

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 
 import './terrain-editor.sass'
+import { Grid, Game, Terrain, Graphics } from '@erikwatson/bramble/dist/types'
 
 import {
   game,
@@ -11,12 +12,15 @@ import {
   grid,
   graphics
 } from '@erikwatson/bramble'
-import { Graphics } from '@erikwatson/bramble/dist/types'
 
 import Layout from '../layouts/three-column/three-column'
 import Sidebar from './sidebar/sidebar'
 import PropertiesSidebar from './properties-sidebar/properties-sidebar'
-import BrambleView from '../../components/ui/bramble-view/bramble-view'
+
+let bramblePane = null
+let g: Game = null
+let ctx = null
+let mouseObj = null
 
 const allShapes = [
   [
@@ -262,6 +266,7 @@ interface Props {
 
 interface State {
   height: number
+  width: number
 }
 
 class TerrainEditor extends React.Component<Props, State> {
@@ -269,42 +274,68 @@ class TerrainEditor extends React.Component<Props, State> {
     super(props)
 
     this.state = {
-      height: 6250
+      height: 6250,
+      width: 1600
     }
   }
 
-  render() {
-    const translateTiles = to =>
-      allShapes.map(shape =>
-        shape.map(row =>
-          row.map(col => {
-            if (col === 1) {
-              return to
-            }
+  componentDidMount() {
+    let music = []
 
-            return 0
-          })
-        )
-      )
+    if (!g) {
+      g = game.create()
+      g.start()
 
-    const modifiedShapes = translateTiles(1)
-
-    const tileSize = 8
-    const zoom = 4
-    const shapeSize = 3
-
-    const brambleRender = (graphics: Graphics) => {
-      graphics.clear('#232323')
+      ctx = g.canvas.getContext('2d')
     }
 
+    if (!mouseObj) {
+      mouseObj = mouse.create(g.canvas)
+      mouseObj.start()
+    }
+
+    const element: HTMLElement = document.querySelectorAll(
+      '.bramble-pane'
+    )[0] as HTMLElement
+
+    bramblePane = {
+      element,
+      width: element.offsetWidth,
+      height: element.offsetHeight
+    }
+
+    const container = document.querySelectorAll(
+      '.bramble-view'
+    )[0] as HTMLElement
+
+    g.attachTo(container)
+    g.disableContextMenu()
+    g.setSize(this.state.width, this.state.height)
+    g.setSmoothing(false)
+
+    g.setUpdate(delta => {})
+
+    const scale = 6
+
+    g.setRender((gfx: Graphics) => {
+      allShapes.forEach((shape, index) => {
+        gfx.tiles(
+          { x: index * scale * (scale * 4), y: 0 },
+          shape,
+          this.props.spritesheets,
+          scale
+        )
+      })
+    })
+  }
+
+  render() {
     return (
       <Layout>
         <Sidebar showHeader={true} showNav={true} />
-        <BrambleView
-          render={brambleRender}
-          scrollY={true}
-          height={this.state.height}
-        />
+        <div className='bramble-pane'>
+          <div className='bramble-view'></div>
+        </div>
         <PropertiesSidebar />
       </Layout>
     )

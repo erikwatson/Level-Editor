@@ -28,7 +28,7 @@ const LayerPanel = props => {
 const mapStateToProps = state => {
   return {
     layers: state.map.layers.present,
-    currentLayer: state.map.currentLayer
+    currentLayer: state.map.currentLayer.present
   }
 }
 

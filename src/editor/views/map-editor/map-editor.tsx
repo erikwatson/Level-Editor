@@ -14,6 +14,7 @@ import { faCamera } from '@fortawesome/free-solid-svg-icons'
 import { textChangeRangeIsUnchanged } from 'typescript'
 
 import { ActionCreators } from 'redux-undo'
+import { debug } from 'webpack'
 
 let g: Game = null
 let ctx = null
@@ -549,8 +550,6 @@ class MapEditor extends React.Component<Props, State> {
       }
 
       if (this.props.activeTool === 'fill') {
-        console.log(this.props.grid)
-
         setFillHighlights(
           { x: mouseOverGridX, y: mouseOverGridY },
           this.props.grid.tiles[mouseOverGridY][mouseOverGridX],
@@ -558,8 +557,6 @@ class MapEditor extends React.Component<Props, State> {
         )
 
         if (m.left.pressed) {
-          console.log('layer', this.props.currentLayer)
-
           this.props.dispatch({
             type: 'GRID_FLOOD_FILL',
             value: {
@@ -588,11 +585,7 @@ class MapEditor extends React.Component<Props, State> {
               this.props.camera,
               layer.grid.tiles,
               this.props.spritesheets,
-              layer.grid.scale,
-              {
-                width: this.props.grid.tileSize,
-                height: this.props.grid.tileSize
-              }
+              layer.grid.scale
             )
           }
         })
@@ -602,11 +595,7 @@ class MapEditor extends React.Component<Props, State> {
         this.props.camera,
         this.props.layers[this.props.currentLayer].grid.tiles,
         this.props.spritesheets,
-        this.props.layers[this.props.currentLayer].grid.scale,
-        {
-          width: this.props.grid.tileSize,
-          height: this.props.grid.tileSize
-        }
+        this.props.layers[this.props.currentLayer].grid.scale
       )
 
       // highlights on the very top layer
@@ -614,8 +603,7 @@ class MapEditor extends React.Component<Props, State> {
         this.props.camera,
         this.state.highlights.tiles,
         this.props.spritesheets,
-        this.props.grid.scale,
-        { width: this.props.grid.tileSize, height: this.props.grid.tileSize }
+        this.props.grid.scale
       )
       drawOrigin(gfx)
       drawViewportBox(gfx)
@@ -650,22 +638,21 @@ class MapEditor extends React.Component<Props, State> {
 }
 
 function mapStateToProps(state) {
-  const tileWidth =
-    state.map.layers.present[0].grid.tileWidth *
-    state.map.layers.present[0].grid.scale
-  const tileHeight =
-    state.map.layers.present[0].grid.tileHeight *
-    state.map.layers.present[0].grid.scale
-
-  const widthInTiles = state.map.layers.present[0].grid.tiles[0].length
-  const heightInTiles = state.map.layers.present[0].grid.tiles.length
-
-  console.log('map editor', state.map.currentLayer.present)
-
   const currentLayer = state.map.currentLayer.present
+  const tileWidth =
+    state.map.layers.present[currentLayer].grid.tileWidth *
+    state.map.layers.present[currentLayer].grid.scale
+
+  const tileHeight =
+    state.map.layers.present[currentLayer].grid.tileHeight *
+    state.map.layers.present[currentLayer].grid.scale
+
+  const widthInTiles =
+    state.map.layers.present[currentLayer].grid.tiles[0].length
+  const heightInTiles = state.map.layers.present[currentLayer].grid.tiles.length
 
   return {
-    showGrid: state.map.layers.present[currentLayer].grid.visible,
+    showGrid: state.map.layers.present[currentLayer].visible,
     grid: state.map.layers.present[currentLayer].grid,
     camera: state.map.camera.present,
     activeTool: state.map.tool.present.active,

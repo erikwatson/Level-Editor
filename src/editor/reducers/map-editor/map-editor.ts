@@ -58,101 +58,6 @@ const defaultGridState: GridState = {
   visible: defaultGrid.visible
 }
 
-const grid = (state: GridState = defaultGridState, action) => {
-  switch (action.type) {
-    case 'GRID_SET_VISIBILITY':
-      return { ...state, visible: action.value }
-
-    case 'GRID_SET_DIVISIONS':
-      return { ...state, divisions: parseInt(action.value) }
-
-    case 'GRID_SET_WIDTH': {
-      const widthValue = parseInt(action.value)
-
-      if (widthValue > state.width) {
-        let widthExpanded = Grid.copyTiles(state.tiles)
-
-        widthExpanded.forEach(row => {
-          while (row.length < state.width) {
-            row.push(0)
-          }
-        })
-
-        return { ...state, width: widthValue, tiles: widthExpanded }
-      } else if (widthValue < state.width) {
-        let widthShrunk = Grid.copyTiles(state.tiles)
-
-        widthShrunk.forEach(row => {
-          while (row.length >= state.width) {
-            row.pop()
-          }
-        })
-
-        return { ...state, width: widthValue, tiles: widthShrunk }
-      }
-
-      return { ...state, width: widthValue }
-    }
-
-    case 'GRID_SET_HEIGHT': {
-      const heightValue = parseInt(action.value)
-
-      if (heightValue > state.height) {
-        let heightExpanded = Grid.copyTiles(state.tiles)
-
-        heightExpanded.push(Array(state.width).fill(0))
-
-        return { ...state, height: heightValue, tiles: heightExpanded }
-      } else if (heightValue < state.height) {
-        let heightShrunk = Grid.copyTiles(state.tiles).slice(0, heightValue)
-        return { ...state, height: heightValue, tiles: heightShrunk }
-      }
-
-      return { ...state, height: heightValue }
-    }
-
-    case 'GRID_SET_TILE_SIZE':
-      return { ...state, tileWidth: action.value, tileHeight: action.value }
-
-    case 'GRID_SET_TILE': {
-      const isWithinBounds =
-        action.value.y >= 0 &&
-        action.value.x >= 0 &&
-        action.value.x < state.width &&
-        action.value.y < state.height
-
-      if (isWithinBounds) {
-        let copy = Grid.copyTiles(state.tiles)
-        copy[action.value.y][action.value.x] = action.value.type
-
-        return { ...state, tiles: copy }
-      }
-
-      return state
-    }
-
-    // case 'GRID_FLOOD_FILL': {
-    //   console.log('flood fill', state, action)
-    //   const gridClone = Grid.fill(
-    //     state.tiles,
-    //     {
-    //       x: action.value.x,
-    //       y: action.value.y
-    //     },
-    //     state.tiles[action.value.y][action.value.x],
-    //     action.value.type
-    //   )
-
-    //   console.log(state.tiles, gridClone)
-
-    //   return { ...state, tiles: gridClone }
-    // }
-
-    default:
-      return state
-  }
-}
-
 const defaultHighlightGrid = Grid.create(
   { width: 100, height: 100 },
   { scale: 4 }
@@ -373,6 +278,130 @@ const layers = (state: Layer[] = defaultLayerState, action) => {
       })
     }
 
+    // return state.map((layer, index) => {})
+    case 'GRID_SET_VISIBILITY': {
+      return state.map((layer, index) => {
+        if (index !== action.layer) return layer
+        return { ...layer, visible: action.value }
+      })
+    }
+
+    case 'GRID_SET_DIVISIONS': {
+      return state.map((layer, index) => {
+        if (index !== action.layer) return layer
+        return {
+          ...layer,
+          grid: { ...layer.grid, divisions: parseInt(action.value) }
+        }
+      })
+    }
+
+    case 'GRID_SET_WIDTH': {
+      return state.map((layer, index) => {
+        if (index !== action.layer) return layer
+        const widthValue = parseInt(action.value)
+
+        if (widthValue > layer.grid.width) {
+          let widthExpanded = Grid.copyTiles(layer.grid.tiles)
+
+          widthExpanded.forEach(row => {
+            while (row.length < layer.grid.width) {
+              row.push(0)
+            }
+          })
+
+          return {
+            ...layer,
+            grid: { ...layer.grid, width: widthValue, tiles: widthExpanded }
+          }
+        } else if (widthValue < layer.grid.width) {
+          let widthShrunk = Grid.copyTiles(layer.grid.tiles)
+
+          widthShrunk.forEach(row => {
+            while (row.length >= layer.grid.width) {
+              row.pop()
+            }
+          })
+
+          return {
+            ...layer,
+            grid: { ...layer.grid, width: widthValue, tiles: widthShrunk }
+          }
+        }
+
+        return { ...layer, grid: { ...layer, width: widthValue } }
+      })
+    }
+
+    case 'GRID_SET_HEIGHT': {
+      return state.map((layer, index) => {
+        if (index !== action.layer) return layer
+        const heightValue = parseInt(action.value)
+
+        if (heightValue > layer.grid.height) {
+          let heightExpanded = Grid.copyTiles(layer.grid.tiles)
+
+          heightExpanded.push(Array(layer.grid.width).fill(0))
+
+          return {
+            ...layer,
+            grid: { ...layer.grid, height: heightValue, tiles: heightExpanded }
+          }
+        } else if (heightValue < layer.grid.height) {
+          let heightShrunk = Grid.copyTiles(layer.grid.tiles).slice(
+            0,
+            heightValue
+          )
+          return {
+            ...layer,
+            grid: { ...layer.grid, height: heightValue, tiles: heightShrunk }
+          }
+        }
+
+        return { ...layer, grid: { ...layer.grid, height: heightValue } }
+      })
+    }
+
+    /*
+
+    case 'GRID_SET_HEIGHT': {
+      const heightValue = parseInt(action.value)
+
+      if (heightValue > state.height) {
+        let heightExpanded = Grid.copyTiles(state.tiles)
+
+        heightExpanded.push(Array(state.width).fill(0))
+
+        return { ...state, height: heightValue, tiles: heightExpanded }
+      } else if (heightValue < state.height) {
+        let heightShrunk = Grid.copyTiles(state.tiles).slice(0, heightValue)
+        return { ...state, height: heightValue, tiles: heightShrunk }
+      }
+
+      return { ...state, height: heightValue }
+    }
+
+    case 'GRID_SET_TILE_SIZE':
+      return { ...state, tileWidth: action.value, tileHeight: action.value }
+
+    case 'GRID_SET_TILE': {
+      const isWithinBounds =
+        action.value.y >= 0 &&
+        action.value.x >= 0 &&
+        action.value.x < state.width &&
+        action.value.y < state.height
+
+      if (isWithinBounds) {
+        let copy = Grid.copyTiles(state.tiles)
+        copy[action.value.y][action.value.x] = action.value.type
+
+        return { ...state, tiles: copy }
+      }
+
+      return state
+    }
+    */
+
     default:
       return state
   }
@@ -390,7 +419,6 @@ const currentLayer = (state = 0, action) => {
 
 const tileEditor = combineReducers({
   camera: undoable(camera),
-  grid: undoable(grid),
   layers: undoable(layers),
   tool: undoable(tool),
   pointer,
