@@ -1,3 +1,5 @@
+**Warning:** Heavily work in progress, not _yet_ intended for use by the wider public. 
+
 # Game Editor
 
 A general purpose editor for [Bramble](https://github.com/erikwatson/Bramble) Games.
