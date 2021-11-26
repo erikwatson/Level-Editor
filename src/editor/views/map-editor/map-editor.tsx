@@ -587,6 +587,12 @@ class MapEditor extends React.Component<Props, State> {
               this.props.spritesheets,
               layer.grid.scale
             )
+            gfx.tiles(
+              this.props.camera,
+              layer.grid.tiles,
+              this.props.spritesheets,
+              layer.grid.scale
+            )
           }
         })
       })
