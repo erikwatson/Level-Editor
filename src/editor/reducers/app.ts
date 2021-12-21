@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import terrain from './terrain-editor/terrain-editor'
 import map from './map-editor/map-editor'
 
-const view = (state = 'map', action) => {
+const view = (state = 'particle', action) => {
   switch (action.type) {
     case 'APP_SET_VIEW':
       return action.value

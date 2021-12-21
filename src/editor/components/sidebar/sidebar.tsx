@@ -2,7 +2,6 @@ import * as React from 'react'
 import { ReactNode } from 'react'
 import { connect } from 'react-redux'
 import PanelList from '../ui/panel-list/panel-list'
-import Panel from '../ui/panel/panel'
 
 import './sidebar.sass'
 
@@ -46,6 +45,12 @@ const SideBar = (props: Props) => {
             props.setTitle('terrain')
           }}>
           <a>Terrain</a>
+        </li>
+        <li
+          onClick={() => {
+            props.setTitle('particle')
+          }}>
+          <a>Particle</a>
         </li>
       </ul>
     </div>

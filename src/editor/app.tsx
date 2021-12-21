@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import MapEditorView from './views/map-editor/map-editor'
 import TerrainEditorView from './views/terrain-editor/terrain-editor'
 import SplashView from './views/welcome/welcome'
+import ParticleView from './views/particle-editor'
 
 import { assets } from '@erikwatson/bramble'
 
@@ -20,6 +21,9 @@ function getView(name) {
 
     case 'splash':
       return <SplashView />
+
+    case 'particle':
+      return <ParticleView />
 
     default:
       console.error(`No View named: ${name}`)
