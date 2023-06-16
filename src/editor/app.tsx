@@ -10,7 +10,7 @@ import { assets } from '@erikwatson/bramble'
 
 import './app.sass'
 
-function getView(name) {
+function getView(name: string) {
   switch (name) {
     case 'map':
       return <MapEditorView />
@@ -62,4 +62,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App as any)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

@@ -18,6 +18,7 @@ const LayerPanel = props => {
               props.setLayer(x.position)
             }}
             className={`${selected} ${last}`}
+            key={i}
           />
         )
       })}

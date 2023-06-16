@@ -30,7 +30,7 @@ const ToolButtons = ({ tools, setSelected }) => {
     icon: labeledIcons[icon]
   }))
 
-  const iconList = icons.map(icon => {
+  const iconList = icons.map((icon, key) => {
     const isSelected = icon.label === tools.active
     const onClick = e => {
       setSelected(icon.label)
@@ -40,6 +40,7 @@ const ToolButtons = ({ tools, setSelected }) => {
       tip: `${icon.label}`,
       icon: icon.icon,
       selected: isSelected,
+      key,
       onClick
     }
 

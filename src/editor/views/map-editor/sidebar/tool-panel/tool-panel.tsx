@@ -55,11 +55,11 @@ class ToolPanel extends React.Component<Props> {
             <select
               onChange={e => {
                 this.props.setTerrain(parseInt(e.target.value))
-              }}>
-              {this.props.spritesheets.map(x => (
-                <option
-                  selected={this.props.terrain === x.type}
-                  value={`${x.type}`}>
+              }}
+              value={this.props.terrain}
+            >
+              {this.props.spritesheets.map((x, key) => (
+                <option value={`${x.type}`} key={key}>
                   {x.name}
                 </option>
               ))}
@@ -97,11 +97,14 @@ class ToolPanel extends React.Component<Props> {
             <select
               onChange={e => {
                 this.props.setTerrain(parseInt(e.target.value))
-              }}>
-              {this.props.spritesheets.map(x => (
+              }}
+            >
+              {this.props.spritesheets.map((x, key) => (
                 <option
                   selected={this.props.terrain === x.type}
-                  value={`${x.type}`}>
+                  value={`${x.type}`}
+                  key={key}
+                >
                   {x.name}
                 </option>
               ))}
